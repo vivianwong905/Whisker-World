@@ -6,6 +6,9 @@ async function seed() {
   try {
     // Clear the database
     await prisma.product.deleteMany();
+    await prisma.user.deleteMany();
+    await prisma.cartItem.deleteMany();
+    await prisma.cart.deleteMany();
 
     // Add 5 products
     await Promise.all(
@@ -20,21 +23,21 @@ async function seed() {
         })
       )
     );
-// cart does not have userID - remove line 28-35, make a new promise
-// that creates 3-4 users 
- 
+
+    //create cart with users and cart items
     await Promise.all(
       [...Array(5)].map((_, i ) =>
         prisma.cart.create({
           data: {
-            // user: {
-            //   create: {
-            //     username: faker.internet.userName(),
-            //     password: faker.internet.password(),
-            //     name: faker.person.fullName(),
-            //     admin: i % 2 === 0,
-            //   }
-            // },
+            user: {
+              create: {
+                username: faker.internet.userName(),
+                password: faker.internet.password(),
+                name: faker.person.fullName(),
+                admin: i % 2 !== 0,
+              }
+            },
+            userId: (i%5) +1,
             cartItems: {
               create: [
                 {quantity: 5, productId: 1},
@@ -46,25 +49,6 @@ async function seed() {
         })
       )
     );
-
-    await prisma.user.create({
-          data: {
-            username: 'test1',
-            password: '124545',
-            name: 'tony',
-            admin: false,
-            cartId: 6
-          },
-        })
-  await prisma.user.create({
-          data: {
-            username: 'test2',
-            password: '158411',
-            name: 'admin2',
-            admin: true,
-            cartId: 7
-          },
-        })
 
     console.log("Database is seeded.");
   } catch (err) {
