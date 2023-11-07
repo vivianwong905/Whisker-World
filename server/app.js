@@ -22,6 +22,12 @@ app.get('/', (req, res, next) => {
 
 // TODO: Add your routers here
 
+const apiRouter = require("./api");
+app.use('/api', apiRouter);
+
+const authRouter = require("./auth");
+app.use('/auth', authRouter);
+
 // Error handling middleware
 app.use((error, req, res, next) => {
     console.error('SERVER ERROR: ', error);
