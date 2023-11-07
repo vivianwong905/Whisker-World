@@ -26,7 +26,7 @@ async function seed() {
 
     //create cart with users and cart items
     await Promise.all(
-      [...Array(5)].map((_, i ) =>
+      [...Array(5)].map((_, i) =>
         prisma.cart.create({
           data: {
             user: {
@@ -37,12 +37,12 @@ async function seed() {
                 admin: i % 2 !== 0,
               }
             },
-            userId: (i%5) +1,
+            userId: (i % 5) + 1,
             cartItems: {
               create: [
-                {quantity: 5, productId: 1},
-                {quantity: 4, productId: 2},
-                {quantity: 3, productId: 3}
+                { quantity: 5, productId: 1 },
+                { quantity: 4, productId: 2 },
+                { quantity: 3, productId: 3 }
               ]
             }
           },
