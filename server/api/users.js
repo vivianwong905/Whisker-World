@@ -26,7 +26,7 @@ usersRouter.get("/me/cart", async (req, res, next) => {
 usersRouter.put("/me/cart/:id", async (req, res, next) => {
     try {
         const cart = await prisma.cart.update({
-            where: { id: user.id },
+            where: { id: req.user.cart.id },
             data:{
                 user: req.user.id,
                 cartItems: {
