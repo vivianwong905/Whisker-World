@@ -37,7 +37,23 @@ async function seed() {
                 admin: i % 2 !== 0,
               }
             },
-            userId: (i % 5) + 1,
+            cartItems: {
+              create: [
+                { quantity: 5, productId: 1 },
+                { quantity: 4, productId: 2 },
+                { quantity: 3, productId: 3 }
+              ]
+            }
+          },
+        })
+      )
+    );
+
+     //create cart without users so we can use it for guest checkout
+     await Promise.all(
+      [...Array(5)].map((_, i) =>
+        prisma.cart.create({
+          data: {
             cartItems: {
               create: [
                 { quantity: 5, productId: 1 },

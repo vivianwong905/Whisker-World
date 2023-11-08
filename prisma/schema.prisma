@@ -23,7 +23,6 @@ model User {
 model Cart {
   id        Int        @id @default(autoincrement())
   user      User?
-  userId    Int?
   cartItems CartItem[]
 }
 
