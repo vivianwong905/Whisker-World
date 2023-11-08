@@ -3,6 +3,7 @@ const prisma = require("../db/client");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+
 const SALT_ROUNDS = 5;
 
 // Register a new user account
@@ -66,7 +67,6 @@ authRouter.post("/register", async (req, res, next) => {
 });
 
 // Login to an existing user account
-
 authRouter.post("/login", async (req, res, next) => {
     try {
         const { username, password } = req.body;
@@ -101,7 +101,7 @@ authRouter.post("/login", async (req, res, next) => {
                 }, process.env.JWT_SECRET, {
                     expiresIn: '1w'
                 });
-                
+
                 //delete user password before sending to the frontend
                 delete user.password
 
@@ -131,6 +131,30 @@ authRouter.get("/me", async (req, res, next) => {
         res.send(user);
     } catch (error) {
         next(error);
+    }
+});
+
+// Admin get all users
+authRouter.get('/', async (req, res, next) => {
+    try {
+        const admin = await prisma.user.findUnique({
+            where: { id: req.user.id}
+        })
+        if(admin === req.user.admin){
+            const users = await prisma.user.findMany();
+            
+            users.forEach(user => delete user.password);
+    
+            res.send(users);
+        } else{
+            res.status(401);
+            next({
+              name: "MissingAdminError",
+              message: "You must be an admin to preform this action"
+            });
+        }
+    } catch ({ name, message }) {
+        next({ name, message });
     }
 });
 
