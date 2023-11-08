@@ -11,11 +11,11 @@ const jwt = require('jsonwebtoken');
 jest.mock('jsonwebtoken');
 
 describe('/auth', () => {
-//     beforeEach(() => {
-//         jwt.sign.mockReset();
-//         bcrypt.hash.mockReset();
-//         bcrypt.compare.mockReset();
-//     });
+    beforeEach(() => {
+        jwt.sign.mockReset();
+        bcrypt.hash.mockReset();
+        bcrypt.compare.mockReset();
+    });
 //     describe('GET /api/users', () => {
 //         it('returns list of all users', async () => {
 //             const users = [
@@ -48,9 +48,9 @@ describe('/auth', () => {
             const hashedPassword = "somehashedpassword";
 
             bcrypt.hash.mockResolvedValue(hashedPassword)
-            prismaMock.users.findUnique.mockResolvedValue({id: newUser.id})
+            prismaMock.user.findUnique.mockResolvedValue({id: newUser.id})
 
-            prismaMock.users.create.mockResolvedValue(createdUser);
+            prismaMock.user.create.mockResolvedValue(createdUser);
             jwt.sign.mockReturnValue(token)
 
             const response = await request(app).post('/auth/register').send(createdUser);
@@ -62,11 +62,11 @@ describe('/auth', () => {
             expect(response.body.token).toEqual(token);
 
             // NO password was sent in the reponse
-            expect(response.body.user.password).toBeUndefined();
+            expect(response.body.password).toBeUndefined();
 
             expect(bcrypt.hash).toHaveBeenCalledTimes(1);
 
-            expect(prismaMock.users.create).toHaveBeenCalledTimes(1);
+            expect(prismaMock.user.create).toHaveBeenCalledTimes(1);
 
         })
         it('does not create a user if user with that email already exists', async () => {
@@ -85,13 +85,13 @@ describe('/auth', () => {
             expect(response.status).toBe(403);
             expect(response.body.name).toBe('UserExistsError');
 
-            expect(prismaMock.users.findUnique).toHaveBeenCalledTimes(1);
-            expect(prismaMock.users.findUnique).toHaveBeenCalledWith({
+            expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
+            expect(prismaMock.user.findUnique).toHaveBeenCalledWith({
                 where: { username: newUser.username }
             })
 
             // ensure none of the other register code has run
-            expect(prismaMock.users.create).toHaveBeenCalledTimes(0);
+            expect(prismaMock.user.create).toHaveBeenCalledTimes(0);
             expect(jwt.sign).toHaveBeenCalledTimes(0);
         });
 
@@ -141,18 +141,18 @@ describe('/auth', () => {
             jwt.sign.mockReturnValue(token)
             // test that the user and token are returned
             const response = await request(app).post('/auth/login').send(loggedInUser);
-
-            expect(response.body.user.username).toEqual(loggedInUser.username)
+            console.log(response.body)
+            expect(response.body.username).toEqual(loggedInUser.username)
 
             // token was sent in the response
             expect(response.body.token).toEqual(token);
 
             // NO password was sent in the reponse
-            expect(response.body.user.password).toBeUndefined();
+            expect(response.body.password).toBeUndefined();
 
             expect(bcrypt.compare).toHaveBeenCalledTimes(1);
 
-            expect(prismaMock.users.findUnique).toHaveBeenCalledTimes(1);
+            expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
 
         });
 
@@ -166,7 +166,7 @@ describe('/auth', () => {
             expect(response.status).toEqual(500);
             expect(response.body.name).toEqual("MissingCredentialsError");
 
-            expect(prismaMock.users.findUnique).toHaveBeenCalledTimes(0);
+            expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(0);
 
             expect(jwt.sign).toHaveBeenCalledTimes(0);
         });
@@ -181,7 +181,7 @@ describe('/auth', () => {
             expect(response.status).toEqual(500);
             expect(response.body.name).toEqual("MissingCredentialsError");
 
-            expect(prismaMock.users.findUnique).toHaveBeenCalledTimes(0);
+            expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(0);
 
             expect(jwt.sign).toHaveBeenCalledTimes(0);
         });
