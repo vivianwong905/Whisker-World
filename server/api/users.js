@@ -22,4 +22,29 @@ usersRouter.get("/me/cart", async (req, res, next) => {
     }
 });
 
+//either we need to use this or the cart.js file
+usersRouter.put("/me/cart/:id", async (req, res, next) => {
+    try {
+        const cart = await prisma.cart.update({
+            where: { id: req.user.cart.id },
+            data:{
+                user: req.user.id,
+                cartItems: {
+                    create: [
+                      { quantity: 5, productId: 1 },
+                      { quantity: 4, productId: 2 },
+                      { quantity: 3, productId: 3 }
+                    ]
+                  },
+                  include: {cartItems: true}
+            }
+        });
+        res.send(cart);
+    } catch (error) {
+        next(error);
+    }
+} );
+
+
+
 module.exports = usersRouter;

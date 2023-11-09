@@ -17,9 +17,8 @@ productsRouter.get("/", async (req, res, next) => {
 productsRouter.get("/:id", async (req, res, next) => {
     try {
         const product = await prisma.product.findUnique({
-            where: { id: +req.params.id },
+            where: { id: Number(req.params.id) },
         });
-
 
         res.send(product);
     } catch (error) {
@@ -43,10 +42,9 @@ productsRouter.post("/", async (req, res, next) => {
 productsRouter.put("/:id", async (req, res, next) => {
     try {
         const product = await prisma.product.update({
-            where: { id: +req.params.id },
+            where: { id: Number(req.params.id) },
             data: req.body,
         });
-
 
         res.send(product);
     } catch (error) {
@@ -58,9 +56,8 @@ productsRouter.put("/:id", async (req, res, next) => {
 productsRouter.delete("/:id", async (req, res, next) => {
     try {
         const product = await prisma.product.delete({
-            where: { id: +req.params.id },
+            where: { id: Number(req.params.id) },
         });
-
 
         res.send(product);
     } catch (error) {
