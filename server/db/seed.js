@@ -11,7 +11,7 @@ async function seed() {
     await prisma.cart.deleteMany();
 
     // Add 5 products
-    await Promise.all(
+   const products = await Promise.all(
       [...Array(5)].map(() =>
         prisma.product.create({
           data: {
@@ -39,9 +39,9 @@ async function seed() {
             },
             cartItems: {
               create: [
-                { quantity: 5, productId: 1 },
-                { quantity: 4, productId: 2 },
-                { quantity: 3, productId: 3 }
+                { quantity: 5, product: { connect: { id: products[0].id } } },
+                { quantity: 4, product: { connect: { id: products[1].id } } },
+                { quantity: 3, product: { connect: { id: products[2].id } } }
               ]
             }
           },
@@ -49,16 +49,16 @@ async function seed() {
       )
     );
 
-     //create cart without users so we can use it for guest checkout
-     await Promise.all(
+    //create cart without users so we can use it for guest checkout
+    await Promise.all(
       [...Array(5)].map((_, i) =>
         prisma.cart.create({
           data: {
             cartItems: {
               create: [
-                { quantity: 5, productId: 1 },
-                { quantity: 4, productId: 2 },
-                { quantity: 3, productId: 3 }
+                { quantity: 5, product: { connect: { id: products[0].id } } },
+                { quantity: 4, product: { connect: { id: products[1].id } } },
+                { quantity: 3, product: { connect: { id: products[2].id } } }
               ]
             }
           },
