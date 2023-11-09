@@ -2,6 +2,7 @@ const authRouter = require("express").Router();
 const prisma = require("../db/client");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { requireAdmin } = require("./middleware");
 
 
 const SALT_ROUNDS = 5;
@@ -135,24 +136,16 @@ authRouter.get("/me", async (req, res, next) => {
 });
 
 // Admin get all users
-authRouter.get('/', async (req, res, next) => {
+authRouter.get('/', requireAdmin, async (req, res, next) => {
     try {
-        const admin = await prisma.user.findUnique({
-            where: { id: req.user.id}
-        })
-        if(admin === req.user.admin){
+       
             const users = await prisma.user.findMany();
             
             users.forEach(user => delete user.password);
     
             res.send(users);
-        } else{
-            res.status(401);
-            next({
-              name: "MissingAdminError",
-              message: "You must be an admin to preform this action"
-            });
-        }
+        
+        
     } catch ({ name, message }) {
         next({ name, message });
     }
