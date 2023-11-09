@@ -1,6 +1,7 @@
 //need to add admin privileges to updating routes
 
 const productsRouter = require("express").Router();
+const { requireAdmin } = require("../auth/middleware");
 const prisma = require("../db/client");
 
 // Get all products
@@ -27,7 +28,7 @@ productsRouter.get("/:id", async (req, res, next) => {
 });
 
 // Create a new product (need to be an admin)
-productsRouter.post("/", async (req, res, next) => {
+productsRouter.post("/", requireAdmin, async (req, res, next) => {
     try {
         const product = await prisma.product.create({
             data: { ...req.body },

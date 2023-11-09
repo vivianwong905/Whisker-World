@@ -1,4 +1,5 @@
 const usersRouter = require("express").Router();
+const { requireUser } = require("../auth/middleware");
 const prisma = require("../db/client");
 
 // Deny access if user is not logged in
@@ -11,10 +12,10 @@ usersRouter.use((req, res, next) => {
 
 
 // Get all users items in cart
-usersRouter.get("/me/cart", async (req, res, next) => {
+usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
     try {
         const cart = await prisma.cart.findUnique({
-            where: { id: user.id }
+            where: { id: req.user.id }, include:{cartItems:{include: {product: true}}}
         });
         res.send(cart);
     } catch (error) {

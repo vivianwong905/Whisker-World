@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
-
+const { verifyAuthToken }= require('./auth/middleware');
 // Logging middleware
 app.use(morgan("dev"));
 
@@ -11,6 +11,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, '../dist')))
+
+//token authentication
+app.use(verifyAuthToken)
 
 app.get("/test", (req, res, next) => {
   res.send("Test route");
