@@ -2,7 +2,7 @@ const authRouter = require("express").Router();
 const prisma = require("../db/client");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { requireAdmin } = require("./middleware");
+const { requireAdmin, requireUser } = require("./middleware");
 
 
 const SALT_ROUNDS = 5;
@@ -119,7 +119,7 @@ authRouter.post("/login", async (req, res, next) => {
 });
 
 // Get the currently logged in user
-authRouter.get("/me", async (req, res, next) => {
+authRouter.get("/me", requireUser, async (req, res, next) => {
     if (!req.user) {
         return res.send({});
     }
@@ -128,7 +128,9 @@ authRouter.get("/me", async (req, res, next) => {
         const user = await prisma.user.findUnique({
             where: { id: req.user.id },
         });
-
+    //delete user password before sending to the frontend
+        delete user.password
+        
         res.send(user);
     } catch (error) {
         next(error);
