@@ -28,7 +28,7 @@ productsRouter.get("/:id", async (req, res, next) => {
 });
 
 // Create a new product (need to be an admin)
-productsRouter.post("/", requireAdmin, requireUser, async (req, res, next) => {
+productsRouter.post("/", [requireUser, requireAdmin], async (req, res, next) => {
     try {
         const product = await prisma.product.create({
             data: { ...req.body },
@@ -52,9 +52,8 @@ productsRouter.put("/:id", async (req, res, next) => {
         next(error);
     }
 });
-
 // Delete a product by id (need to be an admin)
-productsRouter.delete("/:id", requireAdmin, requireUser, async (req, res, next) => {
+productsRouter.delete("/:id", [requireUser, requireAdmin], async (req, res, next) => {
     try {
         const product = await prisma.product.delete({
             where: { id: Number(req.params.id) },

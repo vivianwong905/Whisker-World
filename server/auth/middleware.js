@@ -9,21 +9,22 @@ function requireUser(req, res, next) {
         name: "MissingUserError",
         message: "You must be logged in to preform this action"
       });
-    }
-  
+    } else {
     next();
+    }
   }
 
   function requireAdmin(req, res, next) {
-    if (!req.user.admin) {
+  if (!req.user.admin) {
       res.status(403);
       next({
         name: "MissingAdminError",
         message: "You must be an admin to preform this action"
       });
     }
-  
+    else { 
     next();
+    }
   }
   
   const verifyAuthToken = async (req, res, next) => {
