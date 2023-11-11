@@ -23,6 +23,22 @@ usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
     }
 });
 
+// post - add an product to my cart
+usersRouter.post("/me/cart", requireUser, async (req, res, next) => {
+    try {
+        const cart = await prisma.cartItem.create({
+           data: {
+                quantity,
+                productId,
+                cartId: user.cart.id
+            }
+        });
+        res.send(cart);
+    } catch (error) {
+        next(error);
+    }
+});
+
 //either we need to use this or the cart.js file
 usersRouter.put("/me/cart/:id", async (req, res, next) => {
     try {
