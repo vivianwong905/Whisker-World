@@ -1,5 +1,6 @@
 const prisma = require("./client");
 const { faker } = require("@faker-js/faker");
+const catProducts = require("./catProducts");
 
 async function seed() {
   console.log("Seeding the database.");
