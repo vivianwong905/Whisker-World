@@ -735,4 +735,4 @@ const catProducts =[
     
 ]
 
-module.exports(catProducts)
+module.exports= catProducts

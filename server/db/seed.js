@@ -11,19 +11,30 @@ async function seed() {
     await prisma.cartItem.deleteMany();
     await prisma.cart.deleteMany();
 
-    // Add 5 products
-   const products = await Promise.all(
-      [...Array(5)].map(() =>
+    const catProduct = await Promise.all(
+      catProducts.map(() =>
         prisma.product.create({
           data: {
-            name: faker.commerce.product(),
-            detail: faker.lorem.sentences(),
-            price: faker.commerce.price(),
-            imageUrl: faker.image.url(),
-          },
+            name: catProducts.name,
+            detail: catProducts.detail,
+            price: catProducts.price,
+            imageUrl: catProducts.imageUrl
+          }
         })
-      )
-    );
+      ));
+    // Add 5 products
+    //  const products = await Promise.all(
+    //     [...Array(5)].map(() =>
+    //       prisma.product.create({
+    //         data: {
+    //           name: faker.commerce.product(),
+    //           detail: faker.lorem.sentences(),
+    //           price: faker.commerce.price(),
+    //           imageUrl: faker.image.url(),
+    //         },
+    //       })
+    //     )
+    //   );
 
     //create cart with users and cart items
     await Promise.all(
@@ -40,9 +51,9 @@ async function seed() {
             },
             cartItems: {
               create: [
-                { quantity: 5, product: { connect: { id: products[0].id } } },
-                { quantity: 4, product: { connect: { id: products[1].id } } },
-                { quantity: 3, product: { connect: { id: products[2].id } } }
+                { quantity: 5, product: { connect: { id: catProduct[0].id } } },
+                { quantity: 4, product: { connect: { id: catProduct[1].id } } },
+                { quantity: 3, product: { connect: { id: catProduct[2].id } } }
               ]
             }
           },
@@ -57,9 +68,9 @@ async function seed() {
           data: {
             cartItems: {
               create: [
-                { quantity: 5, product: { connect: { id: products[0].id } } },
-                { quantity: 4, product: { connect: { id: products[1].id } } },
-                { quantity: 3, product: { connect: { id: products[2].id } } }
+                { quantity: 5, product: { connect: { id: catProduct[0].id } } },
+                { quantity: 4, product: { connect: { id: catProduct[1].id } } },
+                { quantity: 3, product: { connect: { id: catProduct[2].id } } }
               ]
             }
           },
