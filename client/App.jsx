@@ -5,12 +5,13 @@ import Cart from './components/cart';
 import Products from './components/products';
 import Admin from './components/admin';
 import Checkout from './components/checkout';
-
+import NavBar from './components/Navbar';
 
 
 function App() {
   return (
     <>
+      <NavBar />
       <div id="container">
         <div id="navbar">
           <Link to="/auth/register">Login or register</Link>
