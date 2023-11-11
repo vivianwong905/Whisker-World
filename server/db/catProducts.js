@@ -826,7 +826,7 @@ const catProducts =[
             "name":"Catnip Fish Toy",
             "detail":"Blub blub goes the fishy your cat will love the catnip inside",
             "price":5,
-            "imageUrl":"https://image.chewy.com/is/image/catalog/278162_MAIN._AC_SL1200_V1615426055_.jpg"
+            "imageUrl":"https://pawbye.com/cdn/shop/products/H1c83407f8ba5431f9a039d310672ec40V.webp?v=1674227256"
         },
         {
             "name":"Cat Toy Balls With Bell",
@@ -946,7 +946,7 @@ const catProducts =[
             "name":"Deluxe Catnip Fish Toy",
             "detail":"Blub blub goes the fishy your cat will love the catnip inside",
             "price":10,
-            "imageUrl":"https://image.chewy.com/is/image/catalog/278162_MAIN._AC_SL1200_V1615426055_.jpg"
+            "imageUrl":"https://pawbye.com/cdn/shop/products/H1c83407f8ba5431f9a039d310672ec40V.webp?v=1674227256"
         },
         {
             "name":"Deluxe Cat Toy Balls With Bell",
@@ -1066,7 +1066,7 @@ const catProducts =[
             "name":"Super Deluxe Catnip Fish Toy",
             "detail":"Blub blub goes the fishy your cat will love the catnip inside",
             "price":30,
-            "imageUrl":"https://image.chewy.com/is/image/catalog/278162_MAIN._AC_SL1200_V1615426055_.jpg"
+            "imageUrl":"https://pawbye.com/cdn/shop/products/H1c83407f8ba5431f9a039d310672ec40V.webp?v=1674227256"
         },
         {
             "name":"Super Deluxe Cat Toy Balls With Bell",
