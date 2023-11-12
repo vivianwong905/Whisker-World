@@ -24,7 +24,7 @@ usersRouter.post("/me/cart", requireUser, async (req, res, next) => {
                 productId : productId,
                 cartId: user.cart.id
             },
-            include: { product: true }
+            include: { product: true, cart: true }
         });
         res.send(cart);
     } catch (error) {
@@ -67,7 +67,7 @@ usersRouter.delete("/me/cart/:id", requireUser, async (req, res, next) => {
                 productId: productId,
                 cartId: user.cart.id
             },
-            include: { product: true }
+            include: { product: true, cart: true}
         });
         res.send(cart);
     } catch (error) {
