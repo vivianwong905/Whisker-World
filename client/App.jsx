@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 
 
 function App() {
-  const token = useSelector(state => state.token);
+  const token = useSelector(state => state.auth.token);
   console.log("The Token is :", token)
   return (
     <>

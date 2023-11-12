@@ -1,5 +1,5 @@
 import React from 'react';
-import { setToken } from '../redux/tokenSlice';
+import { logout } from '../redux/authSlice';
 import { useSelector, useDispatch } from 'react-redux'
 
 //import Link as RouterLink for mui 
@@ -19,9 +19,11 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 // import use slectro to get token and do token && login and account 
 const NavBar = () => {
-  const token = useSelector(state => state.token);
+  const{ token,user} = useSelector(state => state.auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -56,7 +58,7 @@ const NavBar = () => {
             (<Button 
               color="inherit"
               onClick={() => {
-              dispatch(setToken({ token: null }))
+              dispatch(logout())
               navigate('/')
             }}
             >Logout</Button>) :
@@ -78,8 +80,7 @@ const NavBar = () => {
           >
             <MenuItem onClick={handleClose} component={RouterLink} to="/">Products</MenuItem>
             <MenuItem onClick={handleClose} component={RouterLink} to="/cart"><ShoppingCartIcon/>Cart</MenuItem>
-            {token && <MenuItem onClick={handleClose} component={RouterLink} to="/checkout">Checkout</MenuItem>}
-            {/* {IsAdmin?(<MenuItem onClick={handleClose} component={RouterLink} to="/admin">Admin</MenuItem>): ()} */}
+            {user?.admin && <MenuItem onClick={handleClose} component={RouterLink} to="/admin">Admin</MenuItem>}
           </Menu>
         </Toolbar>
       </AppBar>
