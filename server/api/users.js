@@ -89,7 +89,9 @@ usersRouter.delete("/me/cart/items/:id", requireUser, async (req, res, next) => 
     try {
         const { quantity } = req.body;
         const { id } = req.params;
-        //TODO: same as patch auth check
+        //TODO:  check that this users has permisson to delete this cart item look up cart item by id
+        //and confirm this cartitem is in a cart that belongs to this user
+        //prisma find cartITem that is attached to this users cart 
         const cartItem = await prisma.cartItem.delete({
             where: { id: Number(id) },
             data: {
