@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { setToken } from '../redux/tokenSlice';
+import { useSelector, useDispatch } from 'react-redux'
 
 //import Link as RouterLink for mui 
 import { Link as RouterLink } from 'react-router-dom'
@@ -18,7 +19,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 // import use slectro to get token and do token && login and account 
 const NavBar = () => {
-
+  const token = useSelector(state => state.token);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -51,7 +52,15 @@ const NavBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, padding: 1, fontSize:40, justifyContent:"center", verticalAlign: "center"}}>
            <img id="cat-logo" src={catIcon}/> Whisker World
           </Typography>
-          <Button color="inherit" component={RouterLink} to="/auth/register">Login or Register</Button>
+          {token ?
+            (<Button 
+              color="inherit"
+              onClick={() => {
+              dispatch(setToken({ token: null }))
+              navigate('/')
+            }}
+            >Logout</Button>) :
+          (<Button color="inherit" component={RouterLink} to="/auth/register">Login or Register</Button>)}
           <Menu
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
@@ -69,6 +78,8 @@ const NavBar = () => {
           >
             <MenuItem onClick={handleClose} component={RouterLink} to="/">Products</MenuItem>
             <MenuItem onClick={handleClose} component={RouterLink} to="/cart"><ShoppingCartIcon/>Cart</MenuItem>
+            {token && <MenuItem onClick={handleClose} component={RouterLink} to="/checkout">Checkout</MenuItem>}
+            {/* {IsAdmin?(<MenuItem onClick={handleClose} component={RouterLink} to="/admin">Admin</MenuItem>): ()} */}
           </Menu>
         </Toolbar>
       </AppBar>
