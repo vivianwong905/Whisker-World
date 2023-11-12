@@ -5,8 +5,10 @@ import Cart from './components/cart';
 import Products from './components/products';
 import Admin from './components/admin';
 import Checkout from './components/checkout';
+import NavBar from './components/Navbar';
 
 import { useSelector } from 'react-redux'
+
 
 
 function App() {
@@ -14,14 +16,9 @@ function App() {
   console.log("The Token is :", token)
   return (
     <>
+      <NavBar />
       <div id="container">
         <div id="navbar">
-          <Link to="/auth/register">Login or register</Link>
-          <br />
-          <Link to="/Cart">Cart</Link>
-          <br />
-          <Link to="/">Products</Link>
-          <br />
           <Link to="/auth">Admin</Link>
           <br />
           <Link to="/checkout">Checkout</Link>
