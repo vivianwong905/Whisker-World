@@ -2,15 +2,6 @@ const usersRouter = require("express").Router();
 const { requireUser } = require("../auth/middleware");
 const prisma = require("../db/client");
 
-// Deny access if user is not logged in
-usersRouter.use((req, res, next) => {
-    if (!req.user) {
-        return res.status(401).send("You must be logged in to do that.");
-    }
-    next();
-});
-
-
 // Get all users items in cart
 usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
     try {
@@ -40,18 +31,20 @@ usersRouter.post("/me/cart", requireUser, async (req, res, next) => {
 });
 
 // update cart 
-usersRouter.put("/me/cart/:id", async (req, res, next) => {
+usersRouter.put("/me/cart/:id", requireUser, async (req, res, next) => {
     try {
+        const {quantity, productId} = req.body
         const cart = await prisma.cart.update({
             where: { id: req.user.cart.id },
             data:{
                 user: req.user.id,
                 cartItems: {
                     create: [
-                      { quantity: 5, productId: 1 },
-                      { quantity: 4, productId: 2 },
-                      { quantity: 3, productId: 3 }
-                    ]
+                      { quantity: quantity, productId: productId },
+                      { quantity: quantity, productId: productId },
+                      { quantity: quantity, productId: productId }
+                    ],
+                    include: {product: true}
                   },
                   include: {cartItems: true}
             }
