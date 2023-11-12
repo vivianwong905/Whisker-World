@@ -79,7 +79,7 @@ const NavBar = () => {
             <MenuItem onClick={handleClose} component={RouterLink} to="/">Products</MenuItem>
             <MenuItem onClick={handleClose} component={RouterLink} to="/cart"><ShoppingCartIcon/>Cart</MenuItem>
             {token && <MenuItem onClick={handleClose} component={RouterLink} to="/checkout">Checkout</MenuItem>}
-            {IsAdmin?(<MenuItem onClick={handleClose} component={RouterLink} to="/admin">Admin</MenuItem>): ()}
+            {/* {IsAdmin?(<MenuItem onClick={handleClose} component={RouterLink} to="/admin">Admin</MenuItem>): ()} */}
           </Menu>
         </Toolbar>
       </AppBar>
