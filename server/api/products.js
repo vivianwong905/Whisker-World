@@ -40,7 +40,7 @@ productsRouter.post("/", [requireUser, requireAdmin], async (req, res, next) => 
 });
 
 // Update a product (need to be an admin)
-productsRouter.put("/:id", async (req, res, next) => {
+productsRouter.put("/:id",[requireUser, requireAdmin], async (req, res, next) => {
     try {
         const product = await prisma.product.update({
             where: { id: Number(req.params.id) },
