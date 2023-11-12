@@ -1,5 +1,6 @@
 const prisma = require("./client");
 const { faker } = require("@faker-js/faker");
+const catProducts = require("./catProducts");
 
 async function seed() {
   console.log("Seeding the database.");
@@ -10,19 +11,17 @@ async function seed() {
     await prisma.cartItem.deleteMany();
     await prisma.cart.deleteMany();
 
-    // Add 5 products
-   const products = await Promise.all(
-      [...Array(5)].map(() =>
+    const catProduct = await Promise.all(
+      catProducts.map(catProd =>
         prisma.product.create({
           data: {
-            name: faker.commerce.product(),
-            detail: faker.lorem.sentences(),
-            price: faker.commerce.price(),
-            imageUrl: faker.image.url(),
-          },
+            name: catProd.name,
+            detail: catProd.detail,
+            price: catProd.price,
+            imageUrl: catProd.imageUrl
+          }
         })
-      )
-    );
+      ));
 
     //create cart with users and cart items
     await Promise.all(
@@ -39,9 +38,9 @@ async function seed() {
             },
             cartItems: {
               create: [
-                { quantity: 5, product: { connect: { id: products[0].id } } },
-                { quantity: 4, product: { connect: { id: products[1].id } } },
-                { quantity: 3, product: { connect: { id: products[2].id } } }
+                { quantity: 5, product: { connect: { id: catProduct[0].id } } },
+                { quantity: 4, product: { connect: { id: catProduct[1].id } } },
+                { quantity: 3, product: { connect: { id: catProduct[2].id } } }
               ]
             }
           },
@@ -56,9 +55,9 @@ async function seed() {
           data: {
             cartItems: {
               create: [
-                { quantity: 5, product: { connect: { id: products[0].id } } },
-                { quantity: 4, product: { connect: { id: products[1].id } } },
-                { quantity: 3, product: { connect: { id: products[2].id } } }
+                { quantity: 5, product: { connect: { id: catProduct[27].id } } },
+                { quantity: 4, product: { connect: { id: catProduct[37].id } } },
+                { quantity: 3, product: { connect: { id: catProduct[50].id } } }
               ]
             }
           },

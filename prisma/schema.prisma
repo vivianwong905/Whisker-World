@@ -17,7 +17,7 @@ model User {
   name     String  @db.VarChar(255)
   admin    Boolean @default(false)
   cartId   Int     @unique
-  cart     Cart    @relation(fields: [cartId], references: [id])
+  cart     Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
 }
 
 model Cart {
@@ -30,9 +30,9 @@ model CartItem {
   id        Int     @id @default(autoincrement())
   quantity  Int
   productId Int
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   cartId    Int
-  cart      Cart    @relation(fields: [cartId], references: [id])
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
 }
 
 model Product {

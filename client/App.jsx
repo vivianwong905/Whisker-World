@@ -7,8 +7,13 @@ import Admin from './components/admin';
 import Checkout from './components/checkout';
 import NavBar from './components/Navbar';
 
+import { useSelector } from 'react-redux'
+
+
 
 function App() {
+  const token = useSelector(state => state.token);
+  console.log("The Token is :", token)
   return (
     <>
       <NavBar />

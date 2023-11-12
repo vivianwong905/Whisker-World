@@ -39,7 +39,7 @@ usersRouter.post("/me/cart", requireUser, async (req, res, next) => {
     }
 });
 
-//either we need to use this or the cart.js file
+// update cart 
 usersRouter.put("/me/cart/:id", async (req, res, next) => {
     try {
         const cart = await prisma.cart.update({
