@@ -6,7 +6,7 @@ const prisma = require("../db/client");
 usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
     try {
         const cart = await prisma.cart.findUnique({
-            where: { id: req.user.id }, include:{cartItems:{include: {product: true}}}
+            where: { id: req.user.id }, include: { cartItems: { include: { product: true } } }
         });
         res.send(cart);
     } catch (error) {
@@ -18,7 +18,7 @@ usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
 usersRouter.post("/me/cart", requireUser, async (req, res, next) => {
     try {
         const cart = await prisma.cartItem.create({
-           data: {
+            data: {
                 quantity,
                 productId,
                 cartId: user.cart.id
@@ -33,28 +33,44 @@ usersRouter.post("/me/cart", requireUser, async (req, res, next) => {
 // update cart 
 usersRouter.put("/me/cart/:id", requireUser, async (req, res, next) => {
     try {
-        const {quantity, productId} = req.body
+        const { quantity, productId } = req.body
         const cart = await prisma.cart.update({
             where: { id: req.user.cart.id },
-            data:{
+            data: {
                 user: req.user.id,
                 cartItems: {
-                    create: [
-                      { quantity: quantity, productId: productId },
-                      { quantity: quantity, productId: productId },
-                      { quantity: quantity, productId: productId }
-                    ],
-                    include: {product: true}
-                  },
-                  include: {cartItems: true}
+                    create: {
+                        quantity: quantity,
+                        productId: productId
+                    },
+                    include: { product: true }
+                },
+                include: { cartItems: true }
             }
         });
         res.send(cart);
     } catch (error) {
         next(error);
     }
-} );
+});
 
-
+// Delete an item from the cart
+usersRouter.delete("/me/cart/:id", requireUser, async (req, res, next) => {
+    try {
+        const { quantity, productId } = req.body
+        const cart = await prisma.cartItem.delete({
+            where: { id: req.user.cart.id },
+            data: {
+                quantity: quantity,
+                productId: productId,
+                cartId: user.cart.id
+            },
+            include: { product: true }
+        });
+        res.send(cart);
+    } catch (error) {
+        next(error);
+    }
+});
 
 module.exports = usersRouter;
