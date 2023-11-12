@@ -17,12 +17,14 @@ usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
 // post - add an product to my cart
 usersRouter.post("/me/cart", requireUser, async (req, res, next) => {
     try {
+        const {quantity, productId} = req.body
         const cart = await prisma.cartItem.create({
             data: {
-                quantity,
-                productId,
+                quantity : quantity,
+                productId : productId,
                 cartId: user.cart.id
-            }
+            },
+            include: { product: true, cart: true }
         });
         res.send(cart);
     } catch (error) {
@@ -65,7 +67,7 @@ usersRouter.delete("/me/cart/:id", requireUser, async (req, res, next) => {
                 productId: productId,
                 cartId: user.cart.id
             },
-            include: { product: true }
+            include: { product: true, cart: true}
         });
         res.send(cart);
     } catch (error) {
