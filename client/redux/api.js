@@ -21,11 +21,11 @@ const api = createApi({
     endpoints: (builder) => ({
         //cat product-
         //get all the cat products
-        getProducts: builder.query({
+        getCatProducts: builder.query({
             query: () => "/api/",
         }),
         //get single cat product query
-        getSingleProduct: builder.query({
+        getSingleCatProduct: builder.query({
             query: (productId) => "/api/products/" + productId,
         }),
 
@@ -80,5 +80,6 @@ const api = createApi({
 export default api;
 
 export const {
-  
+  useGetCatProductsQuery,
+  useGetSingleCatProductQuery,
 } = api;
