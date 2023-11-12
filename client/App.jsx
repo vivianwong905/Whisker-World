@@ -14,12 +14,6 @@ function App() {
       <NavBar />
       <div id="container">
         <div id="navbar">
-          <Link to="/auth/register">Login or register</Link>
-          <br />
-          <Link to="/Cart">Cart</Link>
-          <br />
-          <Link to="/">Products</Link>
-          <br />
           <Link to="/auth">Admin</Link>
           <br />
           <Link to="/checkout">Checkout</Link>

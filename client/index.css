@@ -1,5 +1,7 @@
 /* Put your CSS in here! */
 
 #cat-logo{
-    height: 1em;
+    height: 1.4em;
+    align-content: center;
+    justify-content: center;
 }

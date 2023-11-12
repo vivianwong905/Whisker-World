@@ -48,7 +48,7 @@ const NavBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, padding: 1, fontSize:40 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, padding: 1, fontSize:40, justifyContent:"center", verticalAlign: "center"}}>
            <img id="cat-logo" src={catIcon}/> Whisker World
           </Typography>
           <Button color="inherit" component={RouterLink} to="/auth/register">Login or Register</Button>
