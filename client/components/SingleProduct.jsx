@@ -12,8 +12,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-
-
 const SingleProduct = () => {
 
   const params = useParams();
@@ -33,22 +31,21 @@ const SingleProduct = () => {
 console.error(error)
   return (
     <Box sx={{ margin: 5 }}>
-      {error && !data && (<p>Failed to load Cat Product.</p>)}
+      {error && !data && (<p>Failed to load cat product.</p>)}
       <Grid container justifyContent="center">
         <Grid item >
           <Card sx={{ maxWidth: 370 }}>
             {/* <CardMedia
                         component="img"
-                        alt={data.book.title}
+                        alt={data.product.name}
                         height="500"
-                        image={data.book.coverimage}
+                        image={data.product.imageUrl}
                     />
 
                     <CardContent>
-                        <Typography variant="h3">{data.book.title}</Typography>
-                        <Typography><b>Author:</b> {data.book.author}</Typography>
-                        <Typography><b>Description:</b> {data.book.description}</Typography>
-                        <Typography><b>Available:</b>{data.book.available ? "true" : "false"}</Typography>
+                        <Typography variant="h3">{data.product.name}</Typography>
+                        <Typography><b>Description:</b> {data.product.detail}</Typography>
+                        <Typography><b>Price:</b>{data.product.price}</Typography>
                     </CardContent> */}
             <CardActions>
               <Button onClick={() => navigate("/")} > Back </Button>
