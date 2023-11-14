@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useGetCatProductsQuery } from "../redux/api";
-
+import React from "react";
 import { Button,Box,Card,CardActions,CardContent,CardMedia,Typography,Grid } from "@mui/material";
 
 const Products = () => {
