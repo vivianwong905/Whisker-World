@@ -2,7 +2,7 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import Login_register from './components/login_register';
 import Cart from './components/cart';
-import Products from './components/products';
+import Products from './components/Products';
 import Admin from './components/admin';
 import Checkout from './components/checkout';
 import NavBar from './components/Navbar';
