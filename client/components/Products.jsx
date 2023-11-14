@@ -1,34 +1,51 @@
-import { useGetCatProductsQuery } from '../redux/api'
-
-import React from 'react';
 import { useNavigate } from "react-router-dom";
+import { useGetCatProductsQuery } from "../redux/api";
 
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-
+import { Button,Box,Card,CardActions,CardContent,CardMedia,Typography,Grid } from "@mui/material";
 
 const Products = () => {
   const navigate = useNavigate();
-  const { data, isLoading, error } = useGetCatProductsQuery();
 
-  console.log("all the product", data)
+  const { data: products, isLoading, error } = useGetCatProductsQuery();
+  console.log("all the product", products)
+  if (isLoading) {
+    return <Typography>Loading...</Typography>;
+  }
+  if (error) {
+    return <Typography>Error: {error.message}</Typography>;
+    }
+   
   return (
-    <>
-      <div className="products">
-        <h1>this is the Products component</h1>
-    
-      </div>
-      <Box>
-        <Card>
-        <CardActions>
-          <Button onClick={() => navigate("/" + data.id)} >Cat Product Info</Button>
-        </CardActions>
-      </Card>
-    </Box >
-    </>
-  );
-};
+    <Box>
+      <Typography variant="h3">Cat Products</Typography>
+      {error && !products && (<p> Failed to load products from api</p>)}
+      <Grid container spacing={2}>
+        {products  ?(
+          products.map((product) => {
+            return (
+              <Grid item key={product.name}>
+                <Card sx={{ maxWidth: 400, margin: 2 }} >
+                  <CardMedia
+                    component="img"
+                    alt={product.nam}
+                    height="500"
+                    image={product.imageUrl}
+                  />
+                  <CardContent>
+                    <Typography variant="h3">{product.name}</Typography>
+                    <Typography><b>Price: </b>{product.price}</Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button onClick={() => navigate("/" + product.id)} >Cat Product Info</Button>
+                  </CardActions>
+                </Card>
+               </Grid>
+            )
+          })): !error && <p>Loading...</p>}
+        
+      </Grid>
+    </Box>
+  )
+}
 
 export default Products;
