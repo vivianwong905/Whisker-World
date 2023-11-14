@@ -5,7 +5,7 @@ const api = createApi({
 
     baseQuery: fetchBaseQuery({
         //base url for API calls ... need to change this when deployed
-        baseUrl: "http://localhost:8080/",
+        baseUrl: "/",
         // set the Content-Type header to the application/json
         prepareHeaders: (headers, { getState }) => {
             const token = getState().token
@@ -22,7 +22,7 @@ const api = createApi({
         //cat product-
         //get all the cat products
         getCatProducts: builder.query({
-            query: () => "/api/",
+            query: () => "/api/products/",
         }),
         //get single cat product query
         getSingleCatProduct: builder.query({
