@@ -3,9 +3,9 @@ import { useGetCatProductsQuery } from "../redux/api";
 
 import { Button,Box,Card,CardActions,CardContent,CardMedia,Typography,Grid } from "@mui/material";
 
-
 const Products = () => {
   const navigate = useNavigate();
+
   const { data: products, isLoading, error } = useGetCatProductsQuery();
   console.log("all the product", products)
   if (isLoading) {
@@ -14,8 +14,7 @@ const Products = () => {
   if (error) {
     return <Typography>Error: {error.message}</Typography>;
     }
-     
-  
+   
   return (
     <Box>
       <Typography variant="h3">Cat Products</Typography>
@@ -48,4 +47,5 @@ const Products = () => {
     </Box>
   )
 }
+
 export default Products;
