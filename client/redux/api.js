@@ -61,11 +61,28 @@ const api = createApi({
         //auth folder:
         //TODO: the /auth/register mutation
 
-        register: builder.mutation({}),
+            register: builder.mutation({
+            query: (user) => ({
+                url: '/auth/register',
+                method: "POST",
+                body: user 
+            }),
+    
+            transformResponse: (response) => response.data, //we call .data here so we don't have to do it later
+            transformErrorResponse: (response) => response.error, 
+        }),
 
         //TODO: the /auth/login mutation 
         
-        login: builder.mutation({}),
+            login: builder.mutation({
+            query: (user) => ({
+                url: '/auth/login',
+                method: "POST",
+                body: user
+            }),
+            transformResponse: (response) => response.data,
+            transformErrorResponse: (response) => response.error,
+        }), 
 
         //TODO: curently logged in user query /auth/me
 
@@ -82,4 +99,6 @@ export default api;
 export const {
   useGetCatProductsQuery,
   useGetSingleCatProductQuery,
+  useRegisterMutation,
+  useLoginMutation,
 } = api;
