@@ -62,6 +62,18 @@ usersRouter.patch("/me/cart/items/:id", requireUser, async (req, res, next) => {
         //TODO : check that this users has permisson to update this cart item look up cart item by id
         //and confirm this cartitem is in a cart that belongs to this user
         //prisma find cartITem that is attached to this users cart 
+        const cartItemToUpdate = await prisma.cartItem.findUnique({
+            where:{
+                id: Number(id)
+            },
+            include:{
+                cart:{
+                    include:{
+                        cart
+                    }
+                }
+            }
+        })
         const cartItem = await prisma.cartItem.update({
             where: { id: Number(id) },
             data: {
