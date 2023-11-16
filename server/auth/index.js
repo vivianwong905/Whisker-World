@@ -10,10 +10,9 @@ const SALT_ROUNDS = 5;
 // Register a new user account
 authRouter.post("/register", async (req, res, next) => {
     try {
-        const { username, password, name, admin, cart } = req.body;
+        const {username, password, name} = req.body;
         // Encrypt the password before saving it to the database
         const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-
         const _user = await prisma.user.findUnique({
             where: {
                 username: username
@@ -27,16 +26,19 @@ authRouter.post("/register", async (req, res, next) => {
                 message: 'A user by that username already exists'
             });
         } else {
+            // todo: come back later, what to do with an existing cart (tier3) then you log in
+            // attached logged out cart to new registered user
 
+            //line const cart is creating an empty cart with the const user on connected: cart.id
+            const cart = await prisma.cart.create();
             const user = await prisma.user.create({
                 data: {
                     username: username,
                     password: hashedPassword,
                     name: name,
-                    admin: admin,
                     cart: {
-                        create: {
-                            cart: cart,
+                        connect: {
+                            id: cart.id,
                         }
                     }
                 },
@@ -89,12 +91,14 @@ authRouter.post("/login", async (req, res, next) => {
                 });
             } else {
                 const hashedPassword = user.password;
-                //compare plain text password and hasedpassword
+                //compare plain text password and hashedpassword
                 const validPassword = await bcrypt.compare(
                     password,
                     hashedPassword
                 );
-
+                if (!validPassword) {
+                    return;
+                } else {
                 // Create a token with the user id
                 const token = jwt.sign({
                     id: user.id,
@@ -111,6 +115,11 @@ authRouter.post("/login", async (req, res, next) => {
                     message: "you're logged in!",
                     token
                 });
+
+                }
+                
+
+
             }
         }
     } catch (error) {

@@ -12,6 +12,7 @@ const Login_register = () => {
 
     const [type, setType] = useState("login");
 
+    const [fullName, setFullName] =useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
@@ -20,11 +21,11 @@ const Login_register = () => {
         event.preventDefault();
 
         if (type === "register") {
-            register({user: {username, password}});
+            register({name:fullName, username, password});
         }
 
         if (type === "login") {
-            login({user: {username, password}});
+            login({username, password});
         }
 
     }
@@ -37,8 +38,14 @@ const Login_register = () => {
                         variant="h5"
                         sx={{textAlign: "center"}}
                     >
-                        {type === "login" ? "Log In" : "Register"}
+                    {type === "login" ? "Log In" : "Register"}
                     </Typography>
+                    {type === "register" && <TextField
+                        label="Name"
+                        onChange={e => setFullName(e.target.value)}
+                        value={fullName}
+                        sx={{margin: "8px 0"}}
+                    /> }
                     <TextField
                         label="Username"
                         onChange={e => setUsername(e.target.value)}
@@ -52,6 +59,7 @@ const Login_register = () => {
                         sx={{margin: "8px 0"}}
                         type="password"
                     />
+
                     {type === "register" && <TextField
                         label="Re-Enter Password"
                         onChange={e => setRepeatPassword(e.target.value)}
