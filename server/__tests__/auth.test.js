@@ -17,7 +17,7 @@ describe('/auth', () => {
         bcrypt.compare.mockReset();
     });
     describe('GET /auth', () => {
-        it('returns list of all users', async () => {
+        it('returns list of all users', async () => { //needs to be an admin 
             const users = [
                 { id: 1, username: 'catscatscats', name: 'Cat Doe', password: 'password'  },
                 { id: 2, username: 'dogsdogsdogs', name: 'Spike Doe', password: 'password' }
@@ -33,7 +33,7 @@ describe('/auth', () => {
         });
     });
 
-    describe('GET /auth/me', () => {
+    describe('GET /auth/me', () => { // needs to be logged in
         it('returns the currently logged in user', async () => {
             const loggedInUser = {
                 username: "candyPumpkin",
