@@ -1,6 +1,9 @@
 const prisma = require("./client");
 const { faker } = require("@faker-js/faker");
 const catProducts = require("./catProducts");
+const bcrypt = require("bcrypt");
+
+const SALT_ROUNDS = 5;
 
 async function seed() {
   console.log("Seeding the database.");
@@ -25,13 +28,15 @@ async function seed() {
 
     //create cart with users and cart items
     await Promise.all(
-      [...Array(5)].map((_, i) =>
-        prisma.cart.create({
+      [...Array(5)].map(async (_, i) => {
+      const hashedPassword = await bcrypt.hash(faker.internet.password(), SALT_ROUNDS);
+  
+        return prisma.cart.create({
           data: {
             user: {
               create: {
                 username: faker.internet.userName(),
-                password: faker.internet.password(),
+                password: hashedPassword,
                 name: faker.person.fullName(),
                 admin: i % 2 !== 0,
               }
@@ -45,6 +50,7 @@ async function seed() {
             }
           },
         })
+      }
       )
     );
 
