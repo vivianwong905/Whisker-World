@@ -17,23 +17,24 @@ const Products = () => {
    
   return (
     <Box>
-      <Typography variant="h3">Cat Products</Typography>
+      <Typography variant="h3" sx={{marginLeft:14}} >Cat Products</Typography>
       {error && !products && (<p> Failed to load products from api</p>)}
-      <Grid container spacing={2}>
+      <Grid container spacing={4} sx={{marginLeft:10}}>
         {products  ?(
           products.map((product) => {
             return (
-              <Grid item key={product.name}>
-                <Card sx={{ maxWidth: 400, margin: 2 }} >
+              <Grid item key={product.name} >
+                <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450}} >
                   <CardMedia
                     component="img"
-                    alt={product.nam}
-                    height="500"
+                    alt={product.name}
+                    height="250"
                     image={product.imageUrl}
+                    sx={{ objectFit: "contain"}}
                   />
                   <CardContent>
-                    <Typography variant="h3">{product.name}</Typography>
-                    <Typography><b>Price: </b>{product.price}</Typography>
+                    <Typography variant="h4" sx={{textAlign: "center"}}>{product.name}</Typography>
+                    <Typography sx={{textAlign: "center"}}><b>Price:</b>${product.price}</Typography>
                   </CardContent>
                   <CardActions>
                     <Button onClick={() => navigate("/" + product.id)} >Cat Product Info</Button>
