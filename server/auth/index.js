@@ -80,7 +80,6 @@ authRouter.post("/login", async (req, res, next) => {
                 message: "Please supply both a username and password"
             });
         } else {
-            // Find the user by username or code
             const user = await prisma.user.findUnique({
                 where: { username: username },
             });
