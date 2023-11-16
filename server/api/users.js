@@ -59,37 +59,36 @@ usersRouter.patch("/me/cart/items/:id", requireUser, async (req, res, next) => {
     try {
         const { quantity } = req.body;
         const { id } = req.params;
-        //TODO : check that this users has permisson to update this cart item look up cart item by id
-        //and confirm this cartitem is in a cart that belongs to this user
-        //prisma find cartITem that is attached to this users cart 
+        //auth check to see if you are the user that owns the cart that the cart item is in
         const cartItemToUpdate = await prisma.cartItem.findUnique({
-            where:{
+            where: {
                 id: Number(id)
-            },
-            include:{
-                cart:{
-                    include:{
-                        cart
-                    }
-                }
             }
-        })
-        const cartItem = await prisma.cartItem.update({
-            where: { id: Number(id) },
-            data: {
-                quantity: quantity
-            },
-            include: {
-                cart: {
-                    include: {
-                        cartItems: {
-                            include: { product: true }
+        });
+
+        if (cartItemToUpdate.cartId === req.user.cartId) {
+            const cartItem = await prisma.cartItem.update({
+                where: { id: Number(id) },
+                data: {
+                    quantity: quantity
+                },
+                include: {
+                    cart: {
+                        include: {
+                            cartItems: {
+                                include: { product: true }
+                            }
                         }
                     }
                 }
-            }
-        });
-        res.send(cartItem.cart); //or cartitem down the line
+            });
+            res.send(cartItem.cart);//or cartitem down the line
+        } else {
+            next({
+                name: 'UnauthorizedUserError',
+                message: 'You cannot update a cart that is not yours'
+            })
+        }
     } catch (error) {
         console.error(error)
         next(error);
@@ -101,25 +100,32 @@ usersRouter.delete("/me/cart/items/:id", requireUser, async (req, res, next) => 
     try {
         const { quantity } = req.body;
         const { id } = req.params;
-        //TODO:  check that this users has permisson to delete this cart item look up cart item by id
-        //and confirm this cartitem is in a cart that belongs to this user
-        //prisma find cartITem that is attached to this users cart 
-        const cartItem = await prisma.cartItem.delete({
-            where: { id: Number(id) },
-            data: {
-                quantity: quantity
-            },
-            include: {
-                cart: {
-                    include: {
-                        cartItems: {
-                            include: { product: true }
+        const cartItemToDelete = await prisma.cartItem.findUnique({
+            where: {
+                id: Number(id)
+            }
+        });
+
+        if (cartItemToDelete.cartId === req.user.cartId) {
+            const cartItem = await prisma.cartItem.delete({
+                where: { id: Number(id) },
+                include: {
+                    cart: {
+                        include: {
+                            cartItems: {
+                                include: { product: true }
+                            }
                         }
                     }
                 }
-            }
-        });
-        res.send(cartItem.cart); //or cartitem down the line
+            });
+            res.send(cartItem.cart); //or cartitem down the line
+        } else {
+            next({
+                name: 'UnauthorizedUserError',
+                message: 'You cannot update a cart that is not yours'
+            })
+        }
     } catch (error) {
         next(error);
     }
