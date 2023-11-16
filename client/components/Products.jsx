@@ -7,7 +7,7 @@ const Products = () => {
   const navigate = useNavigate();
 
   const { data: products, isLoading, error } = useGetCatProductsQuery();
-  console.log("all the product", products)
+
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }

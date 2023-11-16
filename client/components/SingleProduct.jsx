@@ -21,8 +21,6 @@ const SingleProduct = () => {
 
   const { data: product, isLoading, error } = useGetSingleCatProductQuery(catProductId);
 
-  console.log("cat product",  product)
-
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
