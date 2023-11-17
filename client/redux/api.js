@@ -68,8 +68,6 @@ const api = createApi({
                 body: user 
             }),
     
-            transformResponse: (response) => response.data, //we call .data here so we don't have to do it later
-            transformErrorResponse: (response) => response.error, 
         }),
 
         //TODO: the /auth/login mutation 
@@ -80,8 +78,7 @@ const api = createApi({
                 method: "POST",
                 body: user
             }),
-            transformResponse: (response) => response.data,
-            transformErrorResponse: (response) => response.error,
+      
         }), 
 
         //TODO: curently logged in user query /auth/me
