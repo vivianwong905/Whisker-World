@@ -11,6 +11,13 @@ const SALT_ROUNDS = 5;
 authRouter.post("/register", async (req, res, next) => {
     try {
         const {username, password, name} = req.body;
+        if(!username || !password){
+            next({
+                name: "MissingCredentialsError",
+                message: "Please supply both a username and password"
+            });
+            return;
+        }
         // Encrypt the password before saving it to the database
         const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
         const _user = await prisma.user.findUnique({
@@ -28,7 +35,7 @@ authRouter.post("/register", async (req, res, next) => {
         } else {
             // todo: come back later, what to do with an existing cart (tier3) then you log in
             // attached logged out cart to new registered user
-
+            
             //line const cart is creating an empty cart with the const user on connected: cart.id
             const cart = await prisma.cart.create();
             const user = await prisma.user.create({
@@ -49,6 +56,7 @@ authRouter.post("/register", async (req, res, next) => {
                     name: 'UserCreationError',
                     message: 'There was a problem registering. Please try again.',
                 });
+                return;
             } else {
                 delete user.password;
 

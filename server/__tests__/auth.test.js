@@ -12,9 +12,12 @@ jest.mock('jsonwebtoken');
 
 describe('/auth', () => {
     beforeEach(() => {
+        jest.resetAllMocks();
         jwt.sign.mockReset();
+        jwt.verify.mockReset();
         bcrypt.hash.mockReset();
         bcrypt.compare.mockReset();
+    
     });
     describe('GET /auth', () => {
         it('returns list of all users', async () => { //needs to be an admin 
@@ -30,7 +33,7 @@ describe('/auth', () => {
             prismaMock.user.findMany.mockResolvedValue(users);
 
             const response = await request(app).get('/auth').set('Authorization', 'Bearer '+ token);
-            console.log(response.body)
+       
             expect(response.body).toEqual(users);
             expect(response.body[0]).toEqual(users[0]);
             expect(response.body[1]).toEqual(users[1]);
@@ -87,8 +90,7 @@ describe('/auth', () => {
             jwt.sign.mockReturnValue(token)
 
             const response = await request(app).post('/auth/register').send(newUser);
-            console.log(response.body)
-
+   
             expect(response.status).toBe(201)
 
             expect(response.body.user.username).toEqual(createdUser.username)
@@ -131,26 +133,15 @@ describe('/auth', () => {
             expect(jwt.sign).toHaveBeenCalledTimes(0);
         });
 
-        it('does not create a user if the email is missing', async () => {
+        it('does not create a user if the username is missing', async () => {
             const newUser = {
                 password: 'testpassword',
-                cart:{
-                    connect:{
-                        id: 2
-                    }
-                }
             }
-
-            const cart= {
-                id: 2,
-                user: newUser
-            }
-            prismaMock.cart.create.mockResolvedValue(cart);
 
             const response = await request(app).post('/auth/register').send(newUser);
-            console.log(response.body)
+        
             expect(response.status).toEqual(500);
-            expect(response.body.name).toEqual('UserCreationError');
+            expect(response.body.name).toEqual('MissingCredentialsError');
 
             expect(prismaMock.user.create).toHaveBeenCalledTimes(0);
             expect(bcrypt.hash).toHaveBeenCalledTimes(0);
@@ -159,24 +150,13 @@ describe('/auth', () => {
 
         it('does not create a user if the password is missing', async () => {
             const newUser = {
-                username: "testemail@test.com",
-                cart:{
-                    connect:{
-                        id: 2
-                    }
-                }
+                username: "testemail@test.com",  
             }
-
-            const cart= {
-                id: 2,
-                user: newUser
-            }
-            prismaMock.cart.create.mockResolvedValue(cart);
 
             const response = await request(app).post('/auth/register').send(newUser);
-            console.log(response.body)
+       
             expect(response.status).toEqual(500);
-            expect(response.body.name).toEqual('UserCreationError');
+            expect(response.body.name).toEqual('MissingCredentialsError');
 
             expect(prismaMock.user.create).toHaveBeenCalledTimes(0);
             expect(bcrypt.hash).toHaveBeenCalledTimes(0);
@@ -256,7 +236,6 @@ describe('/auth', () => {
             // mock prisma.user.findUnique returns a user
             prismaMock.user.findUnique.mockResolvedValue(incorrectPassword);
         
-
             // mock that bcrypt.compare failed
             bcrypt.compare.mockResolvedValue(false)
 
@@ -265,8 +244,6 @@ describe('/auth', () => {
             expect(response.body.name).toEqual('IncorrectCredentialsError');
         })
     });
-
-    
 
 });
 
