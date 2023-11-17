@@ -85,8 +85,8 @@ authRouter.post("/login", async (req, res, next) => {
             });
             if (!user) {
                 next({
-                    name: 'IncorrectCredentialsError',
-                    message: 'Username or password is incorrect'
+                    name: 'UserDoesNotExist',
+                    message: 'No User by that Username exists'
                 });
             } else {
                 const hashedPassword = user.password;
@@ -96,6 +96,10 @@ authRouter.post("/login", async (req, res, next) => {
                     hashedPassword
                 );
                 if (!validPassword) {
+                    next({
+                        name: 'IncorrectCredentialsError',
+                        message: 'Username or password is incorrect'
+                    });
                     return;
                 } else {
                 // Create a token with the user id
@@ -116,9 +120,7 @@ authRouter.post("/login", async (req, res, next) => {
                 });
 
                 }
-                
-
-
+            
             }
         }
     } catch (error) {
@@ -146,7 +148,7 @@ authRouter.get("/me", requireUser, async (req, res, next) => {
 });
 
 // Admin get all users
-authRouter.get('/', requireAdmin, async (req, res, next) => {
+authRouter.get('/', [requireUser, requireAdmin], async (req, res, next) => {
     try {
        
             const users = await prisma.user.findMany();
