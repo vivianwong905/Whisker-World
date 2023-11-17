@@ -133,8 +133,19 @@ describe('/auth', () => {
 
         it('does not create a user if the email is missing', async () => {
             const newUser = {
-                password: 'testpassword'
+                password: 'testpassword',
+                cart:{
+                    connect:{
+                        id: 2
+                    }
+                }
             }
+
+            const cart= {
+                id: 2,
+                user: newUser
+            }
+            prismaMock.cart.create.mockResolvedValue(cart);
 
             const response = await request(app).post('/auth/register').send(newUser);
             console.log(response.body)
@@ -148,8 +159,19 @@ describe('/auth', () => {
 
         it('does not create a user if the password is missing', async () => {
             const newUser = {
-                username: "testemail@test.com"
+                username: "testemail@test.com",
+                cart:{
+                    connect:{
+                        id: 2
+                    }
+                }
             }
+
+            const cart= {
+                id: 2,
+                user: newUser
+            }
+            prismaMock.cart.create.mockResolvedValue(cart);
 
             const response = await request(app).post('/auth/register').send(newUser);
             console.log(response.body)
