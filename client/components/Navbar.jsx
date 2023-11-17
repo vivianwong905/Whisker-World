@@ -3,7 +3,7 @@ import { logout } from '../redux/authSlice';
 import { useSelector, useDispatch } from 'react-redux'
 
 //import Link as RouterLink for mui 
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import catIcon from '../../image/catIcon.png'
 
 //import the mui components
@@ -24,6 +24,7 @@ const NavBar = () => {
   const open = Boolean(anchorEl);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
