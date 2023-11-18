@@ -20,24 +20,29 @@ const api = createApi({
     // define the API endpoints we are trying to access
     endpoints: (builder) => ({
         //cat product-
-        //get all the cat products
+        //get all the cat products api/products/
         getCatProducts: builder.query({
             query: () => "/api/products/",
         }),
-        //get single cat product query
+        //get single cat product query api/products/:id
         getSingleCatProduct: builder.query({
             query: (productId) => "/api/products/" + productId,
         }),
 
-        //TODO: create new cat product mutation
+        // create new cat product mutation api/products/
+        createCatProduct: builder.mutation({
+            query: (productData) => ({
+                url: "api/products/",
+                method: "POST",
+                body: productData
+            })
+        }),
 
-        createCatProduct: builder.mutation({}),
-
-        //TODO: update new cat product mutation
+        //TODO: update new cat product mutation api/products/:id
 
         updateCatProduct: builder.mutation({}),
 
-        //TODO: delete cat product mutation
+        //TODO: delete cat product mutation api/products/:id
 
         deleteCatProduct: builder.mutation({}),
 
@@ -46,56 +51,65 @@ const api = createApi({
 
         getUsersCart: builder.query({}),
 
-        //TODO: create items in users cart api/users/me/cart mutation
+        //TODO: create items in users cart api/users/me/cart/items mutation
 
         createCartItemsInCart: builder.mutation({}),
 
-        // TODO: update users cart api/users/me/cart/:id mutation
+        // TODO: update users cart api/users/me/cart/items/:id mutation
 
         updateUsersCart: builder.mutation({}),
 
-        // TODO: delete items in users cart api/users/me/cart/:id mutation
+        // TODO: delete items in users cart api/users/me/cart/items/:id mutation
 
         deleteCartItemsInCart: builder.mutation({}),
 
         //auth folder:
-        //TODO: the /auth/register mutation
+        // /auth/register mutation
 
-            register: builder.mutation({
+        register: builder.mutation({
             query: (user) => ({
                 url: '/auth/register',
                 method: "POST",
-                body: user 
+                body: user
             }),
-    
+
         }),
 
-        //TODO: the /auth/login mutation 
-        
-            login: builder.mutation({
+        // /auth/login mutation 
+
+        login: builder.mutation({
             query: (user) => ({
                 url: '/auth/login',
                 method: "POST",
                 body: user
             }),
-      
-        }), 
 
-        //TODO: curently logged in user query /auth/me
+        }),
 
-        currentUser: builder.query({}),
+        //curently logged in user query /auth/me
 
-        //TODO: get all users admin query /auth/
-        getAllUsers: builder.query({}),
+        currentUser: builder.query({
+            query: () => "/auth/me",
+        }),
+
+        // get all users admin query /auth/
+        
+        getAllUsers: builder.query({
+            query: () => "/auth/",
+        }),
     })
 })
 
 
 export default api;
 
-export const {
-  useGetCatProductsQuery,
-  useGetSingleCatProductQuery,
-  useRegisterMutation,
-  useLoginMutation,
+export const { //ADD Querys or Mutaions in order from above
+    useGetCatProductsQuery,
+    useGetSingleCatProductQuery,
+    useCreateCatProductMutation,
+    //querys or mutations add here
+    useRegisterMutation,
+    useLoginMutation,
+    useCurrentUserQuery,
+    useGetAllUsersQuery
 } = api;
