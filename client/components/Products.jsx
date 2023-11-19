@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetCatProductsQuery } from "../redux/api";
 import React from "react";
 import { Button,Box,Card,CardActions,CardContent,CardMedia,Typography,Grid } from "@mui/material";
+import NewProductForm from "./NewProductForm";
 
 const Products = () => {
   const navigate = useNavigate();
@@ -16,7 +17,9 @@ const Products = () => {
     }
    
   return (
+    
     <Box>
+      <NewProductForm />
       <Typography variant="h3" sx={{marginLeft:14}} >Cat Products</Typography>
       {error && !products && (<p> Failed to load products from api</p>)}
       <Grid container spacing={4} sx={{marginLeft:10}}>
