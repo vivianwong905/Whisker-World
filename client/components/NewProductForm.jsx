@@ -5,19 +5,25 @@ import { useState } from "react";
 
 import { useCreateCatProductMutation } from "../redux/api";
 
+import { Stack, Button, Paper, TextField, Typography } from "@mui/material";
+
+
 const NewProductForm = () => {
 
-    const [createCatProduct, {isLoading}]= useCreateCatProductMutation();
+    const [createCatProduct, { isLoading: isLoadingProductForm }] = useCreateCatProductMutation();
 
-    const [id, setId]= useState("");
-    const [productName, setProductName]= useState("");
-    const [detail, setDetail]= useState("");
-    const [price, setPrice]=useState("");
-    const [imageUrl, setImageUrl]= useState("");
-    const [error, setError]= useState("")
+    const [id, setId] = useState("");
+    const [productName, setProductName] = useState("");
+    const [detail, setDetail] = useState("");
+    const [price, setPrice] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
+    const [error, setError] = useState("")
 
+    if (isLoadingProductForm) {
+        return <Typography>Loading...</Typography>;
+    }
 
-    function resetForm(){
+    function resetForm() {
         setId("");
         setProductName("");
         setDetail("");
@@ -26,72 +32,76 @@ const NewProductForm = () => {
         setError("");
     }
 
-    async function handleSubmit(e){
+    async function handleSubmit(e) {
         //prevent the browser from refreshing the page
         e.preventDefault();
 
         //read data directly from state
-        console.log({id,name:productName,detail,imageUrl,price});
+        console.log({ id, name: productName, detail, imageUrl, price });
 
-        if(!error){
-            createCatProduct({id,name:productName,detail,imageUrl,price})
+        if (!error) {
+            createCatProduct({ id, name: productName, detail, imageUrl, price })
         }
     }
 
-    return(
-        <div className="formContainer">
-                <h2>Add New Product</h2>
+    return (
+        <Paper elevation={6} sx={{ padding: 1, margin: "auto", width: "50%", justifyContent: "center", textAlign: "center" }} >
+            <form className="form" method="post" onSubmit={handleSubmit}>
+                <Typography variant="h5">Add New Product</Typography>
                 {error && <p>{error}</p>}
-            <form className= "form" method="post" onSubmit={handleSubmit}>
-                <label>
-                    Id:{"  "}
-                    <input
-                        name="productId"
+                <Stack direction="column" >
+                    <TextField
+                        label="ID"
                         value={id}
-                        onChange={(e) =>setId(e.target.value)}
+                        onChange={(e) => setId(e.target.value)}
+                        sx={{ margin: "8px 0" }}
                     />
-                </label>
-
-                <label>
-                    Name:{" "}
-                    <input
-                        name="productName"
+                    <TextField
+                        label="Name"
                         value={productName}
-                        onChange={(e) =>setProductName(e.target.value)}
+                        onChange={(e) => setProductName(e.target.value)}
+                        sx={{ margin: "8px 0" }}
                     />
-                </label>
-
-                <label>
-                    Description:{" "}
-                    <input
-                        name="detail"
+                    <TextField
+                        label="Description"
                         value={detail}
-                        onChange={(e) =>setDetail(e.target.value)}
+                        onChange={(e) => setDetail(e.target.value)}
+                        sx={{ margin: "8px 0" }}
                     />
-                </label>
-                <label>
-                Price:{" "}
-                    <input
-                        name="price"
+                    <TextField
+                        label="Price"
                         value={price}
-                        onChange={(e) =>setPrice(e.target.value)}
+                        onChange={(e) => setPrice(e.target.value)}
+                        sx={{ margin: "8px 0" }}
                     />
-                </label>
-
-                <label>
-                    Image:{" "}
-                    <input
-                        name="productImage"
+                    <TextField
+                        label="Image Url"
                         value={imageUrl}
-                        onChange={(e) =>setImageUrl(e.target.value)}
+                        onChange={(e) => setImageUrl(e.target.value)}
+                        sx={{ margin: "8px 0" }}
                     />
-                </label>
-
-                <button type="reset" onClick={resetForm}>Reset</button>
-                <button disabled={error} type="submit">Submit</button>
+                </Stack>
+                <Button
+                    type="reset"
+                    onClick={resetForm}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%" }}
+                    variant="contained"
+                    size="large"
+                >
+                    Reset
+                </Button>
+                <Button
+                    disabled={error}
+                    type="submit"
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%" }}
+                    variant="contained"
+                    size="large"
+                >
+                    Submit
+                </Button>
             </form>
-        </div>
-        )
+        </Paper>
+    )
 }
 
 export default NewProductForm;
