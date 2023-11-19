@@ -3,18 +3,17 @@ import { useGetAllUsersQuery } from "../redux/api";
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import { DataGrid } from '@mui/x-data-grid';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
 
 const Admin = () => {
-  const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'username', headerName: 'Username', width: 130 },
-    { field: 'name', headerName: 'Full Name', width: 130 },
-    { field: 'admin', headerName: 'Admin', width: 130 },
-    { field: 'cartId', headerName: 'Cart ID', width: 130 },
-  ]
-  
+
   const { data: users, isLoading, error } = useGetAllUsersQuery();
 
   if (isLoading) {
@@ -26,25 +25,42 @@ const Admin = () => {
   }
 
   return (
-    <Box sx={{ height: 100}}>
-      <Typography variant="h3" sx={{marginLeft:14}} >Users</Typography>
+    <Box>
+      <Typography variant="h5" sx={{ marginLeft: 10, padding: 1 }} >Users</Typography>
       {error && !users && (<p> Failed to load user data from api</p>)}
-     
-      {users ?(
-        users.map((user) =>{
-         
-          return(
-            <ul key={user.name}>
-              <li>{user.id}</li>
-              <li>{user.username}</li>
-              <li>{user.name}</li>
-              <li>{user.admin}</li>
-              <li>{user.cartId}</li>
-            </ul>
-          )
-        
-        })
-      ): !error && <p>Loading...</p>}
+      <TableContainer sx={{ maxWidth: 700, marginLeft: 10 }} component={Paper}>
+        <Table sx={{ maxWidth: 700 }}>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell align="right">Username</TableCell>
+              <TableCell align="right">Name</TableCell>
+              <TableCell align="right">Admin</TableCell>
+              <TableCell align="right">Cart ID</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users ? (
+              users.map((user) => {
+                return (
+                  <TableRow
+                    key={user.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {user.id}
+                    </TableCell>
+                    <TableCell align="right">{user.username}</TableCell>
+                    <TableCell align="right">{user.name}</TableCell>
+                    <TableCell align="right">{user.admin ? "true" : "false"}</TableCell>
+                    <TableCell align="right">{user.cartId}</TableCell>
+                  </TableRow>
+                )
+              })
+            ) : !error && <p>Loading...</p>}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };
