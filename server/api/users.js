@@ -14,7 +14,7 @@ usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
             }
         });
         res.send(cart);
-    } catch (error) {
+    } catch (error) { 
         console.error(error)
         next(error);
     }
