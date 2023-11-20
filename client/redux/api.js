@@ -38,13 +38,24 @@ const api = createApi({
             })
         }),
 
-        //TODO: update new cat product mutation api/products/:id
+        // update new cat product mutation api/products/:id
 
-        updateCatProduct: builder.mutation({}),
+        updateCatProduct: builder.mutation({
+            query: (productId) => ({
+                url: "api/products/" + productId,
+                method: "PUT",
+                body: productId
+            })
+        }),
 
-        //TODO: delete cat product mutation api/products/:id
+        //delete cat product mutation api/products/:id
 
-        deleteCatProduct: builder.mutation({}),
+        deleteCatProduct: builder.mutation({
+            query: (productId) => ({
+                url: "api/products/" + productId,
+                method: "DELETE",
+            })
+        }),
 
         //cart querys and mutations:
         //TODO: get users items in cart api/users/me/cart query
@@ -107,6 +118,8 @@ export const { //ADD Querys or Mutaions in order from above
     useGetCatProductsQuery,
     useGetSingleCatProductQuery,
     useCreateCatProductMutation,
+    useUpdateCatProductMutation,
+    useDeleteCatProductMutation,
     //querys or mutations add here
     useRegisterMutation,
     useLoginMutation,

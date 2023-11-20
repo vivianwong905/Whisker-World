@@ -1,7 +1,8 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { useGetSingleCatProductQuery } from '../redux/api';
+import { useGetSingleCatProductQuery, useDeleteCatProductMutation } from '../redux/api';
+import { useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -13,13 +14,14 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 const SingleProduct = () => {
-
+  const { user } = useSelector(state => state.auth)
   const params = useParams();
 
   const catProductId = params.id;
   const navigate = useNavigate();
 
   const { data: product, isLoading, error } = useGetSingleCatProductQuery(catProductId);
+  const [deleteCatProduct] = useDeleteCatProductMutation();
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -29,7 +31,6 @@ const SingleProduct = () => {
     return <Typography>Error: {error.message}</Typography>;
   }
 
-console.error(error)
   return (
     <Box sx={{ margin: 5 }}>
       {error && !data && (<p>Failed to load cat product.</p>)}
@@ -48,8 +49,9 @@ console.error(error)
                         <Typography sx={{textAlign: "center"}}><b>Description:</b> {product.detail}</Typography>
                         <Typography sx={{textAlign: "center"}}><b>Price:</b> ${product.price}</Typography>
                     </CardContent>
-            <CardActions>
-              <Button onClick={() => navigate("/")} > Back </Button>
+            <CardActions sx={{ justifyContent: "center" }}>
+              <Button variant="contained" onClick={() => navigate("/")} > Back </Button>
+              {user?.admin && <Button variant="contained" onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
             </CardActions>
           </Card>
         </Grid>

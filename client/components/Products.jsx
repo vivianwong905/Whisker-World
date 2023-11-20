@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useGetCatProductsQuery } from "../redux/api";
+import { useGetCatProductsQuery, useDeleteCatProductMutation } from "../redux/api";
 import React from "react";
 import { Button, Box, Card, CardActions, CardContent, CardMedia, Typography, Grid } from "@mui/material";
 import NewProductForm from "./NewProductForm";
@@ -11,6 +11,7 @@ const Products = () => {
   const navigate = useNavigate();
 
   const { data: products, isLoading, error } = useGetCatProductsQuery();
+  const [deleteCatProduct] = useDeleteCatProductMutation();
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -39,11 +40,12 @@ const Products = () => {
                     sx={{ objectFit: "contain" }}
                   />
                   <CardContent>
-                    <Typography variant="h4" sx={{ textAlign: "center" }}>{product.name}</Typography>
+                    <Typography variant="h6" sx={{ textAlign: "center" }}>{product.name}</Typography>
                     <Typography sx={{ textAlign: "center" }}><b>Price:</b>${product.price}</Typography>
                   </CardContent>
-                  <CardActions>
-                    <Button onClick={() => navigate("/" + product.id)} >Cat Product Info</Button>
+                  <CardActions sx={{ justifyContent: "center" }}>
+                    <Button variant="contained" onClick={() => navigate("/" + product.id)}>Product Info</Button>
+                    {user?.admin && <Button variant="contained" onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
                   </CardActions>
                 </Card>
               </Grid>
