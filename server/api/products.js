@@ -1,4 +1,3 @@
-//need to add admin privileges to updating routes
 
 const productsRouter = require("express").Router();
 const { requireAdmin, requireUser } = require("../auth/middleware");

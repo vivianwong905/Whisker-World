@@ -18,11 +18,6 @@ function App() {
     <>
       <NavBar />
       <div id="container">
-        <div id="navbar">
-          <Link to="/auth">Admin</Link>
-          <br />
-          <Link to="/checkout">Checkout</Link>
-        </div>
         <div id="main-section">
           <Routes>
             <Route path="/auth/register" element={<Login_register />} />
