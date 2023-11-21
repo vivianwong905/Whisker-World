@@ -17,7 +17,7 @@ const api = createApi({
         },
     }),
 
-    tagTypes: ["Product"],
+    tagTypes: ["Product", "Cart"],
 
     // define the API endpoints we are trying to access
     endpoints: (builder) => ({
@@ -65,21 +65,44 @@ const api = createApi({
         }),
 
         //cart querys and mutations:
-        //TODO: get users items in cart api/users/me/cart query
+        //get users items in cart api/users/me/cart query
 
-        getUsersCart: builder.query({}),
+        getUsersCart: builder.query({
+            query: () => "api/users/me/cart",
+            providesTags: ["Cart"]
+        }),
 
-        //TODO: create items in users cart api/users/me/cart/items mutation
+        //add items in users cart api/users/me/cart/items mutation
 
-        createCartItemsInCart: builder.mutation({}),
+        createCartItemsInCart: builder.mutation({
+            query: ( {productId} ) => ({
+                url: "api/users/me/cart/items",
+                method: "POST",
+                body: {productId } //this has to MATCH what our server is looking for
+            }),
+            invalidatesTags: ["Cart"]
+        }),
 
-        // TODO: update users cart api/users/me/cart/items/:id mutation
+        // update users cart api/users/me/cart/items/:id mutation
 
-        updateUsersCart: builder.mutation({}),
+        updateUsersCart: builder.mutation({
+            query: (cartItemId) => ({
+                url: "api/users/me/cart/items" + cartItemId,
+                method: "PATCH",
+                body: cartItemId
+            }),
+            invalidatesTags: ["Cart"]
+        }),
 
-        // TODO: delete items in users cart api/users/me/cart/items/:id mutation
+        // delete items in users cart api/users/me/cart/items/:id mutation
 
-        deleteCartItemsInCart: builder.mutation({}),
+        deleteCartItemsInCart: builder.mutation({
+            query: (cartItemId) => ({
+                url: "api/users/me/cart/items" + cartItemId,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Cart"]
+        }),
 
         //auth folder:
         // /auth/register mutation
@@ -121,13 +144,16 @@ const api = createApi({
 
 export default api;
 
-export const { //ADD Querys or Mutaions in order from above
+export const {
     useGetCatProductsQuery,
     useGetSingleCatProductQuery,
     useCreateCatProductMutation,
     useUpdateCatProductMutation,
     useDeleteCatProductMutation,
-    //querys or mutations add here
+    useGetUsersCartQuery,
+    useCreateCartItemsInCartMutation,
+    useUpdateUsersCartMutation,
+    useDeleteCartItemsInCartMutation,
     useRegisterMutation,
     useLoginMutation,
     useCurrentUserQuery,
