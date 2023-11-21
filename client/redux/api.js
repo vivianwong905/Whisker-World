@@ -104,6 +104,15 @@ const api = createApi({
             invalidatesTags: ["Cart"]
         }),
 
+        //delete all items in a users cart for checking out 
+        checkoutCart: builder.mutation({
+            query: (cart) => ({
+                url: "/api/checkout" + cart,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Cart"]
+        }),
+
         //auth folder:
         // /auth/register mutation
 
@@ -154,8 +163,9 @@ export const {
     useCreateCartItemsInCartMutation,
     useUpdateUsersCartMutation,
     useDeleteCartItemsInCartMutation,
+    useCheckoutCartMutation,
     useRegisterMutation,
     useLoginMutation,
     useCurrentUserQuery,
-    useGetAllUsersQuery
+    useGetAllUsersQuery,
 } = api;

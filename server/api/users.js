@@ -14,7 +14,7 @@ usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
             }
         });
         res.send(cart);
-    } catch (error) { 
+    } catch (error) {
         console.error(error)
         next(error);
     }
@@ -23,7 +23,7 @@ usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
 // post - add an product to my cart
 usersRouter.post("/me/cart/items", requireUser, async (req, res, next) => {
     try {
-        const {productId } = req.body 
+        const { productId } = req.body
         const cart = await prisma.cart.findFirstOrThrow({
             where: { user: { id: req.user.id } },
             include: {

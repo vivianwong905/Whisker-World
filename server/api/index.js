@@ -17,6 +17,9 @@ apiRouter.use('/users', usersRouter);
 const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
 
+const checkoutRouter = require('./checkout')
+apiRouter.use('/checkout', checkoutRouter);
+
 apiRouter.use((error, req, res, next) => {
     res.send(error);
 });
