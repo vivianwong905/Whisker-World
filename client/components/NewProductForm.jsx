@@ -12,7 +12,7 @@ const NewProductForm = () => {
 
     const [createCatProduct, { isLoading: isLoadingProductForm }] = useCreateCatProductMutation();
 
-    const [id, setId] = useState("");
+   
     const [productName, setProductName] = useState("");
     const [detail, setDetail] = useState("");
     const [price, setPrice] = useState("");
@@ -24,7 +24,7 @@ const NewProductForm = () => {
     }
 
     function resetForm() {
-        setId("");
+       
         setProductName("");
         setDetail("");
         setPrice("");
@@ -37,10 +37,10 @@ const NewProductForm = () => {
         e.preventDefault();
 
         //read data directly from state
-        console.log({ id, name: productName, detail, imageUrl, price });
+        console.log({  name: productName, detail, imageUrl, price });
 
         if (!error) {
-            createCatProduct({ id, name: productName, detail, imageUrl, price })
+            createCatProduct({ name: productName, detail, imageUrl, price })
         }
     }
 
@@ -50,12 +50,6 @@ const NewProductForm = () => {
                 <Typography variant="h5">Add New Product</Typography>
                 {error && <p>{error}</p>}
                 <Stack direction="column" >
-                    <TextField
-                        label="ID"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                        sx={{ margin: "8px 0" }}
-                    />
                     <TextField
                         label="Name"
                         value={productName}
