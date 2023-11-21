@@ -1,16 +1,14 @@
 import CartItems from "./cartItems";
 import { Typography, Paper, Button, Grid, Card, CardMedia, CardContent, CardActions } from "@mui/material";
 import { useSelector } from "react-redux";
-import {
-  useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation
-} from "../redux/api";
+import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../redux/api";
 import { useNavigate } from "react-router-dom";
 import CheckoutCartButton from "./CheckoutCartButton";
 
 const Cart = () => {
   const { user } = useSelector(state => state.auth);
   const { data: cart, isLoading, error } = useGetUsersCartQuery();
-
+console.log(cart)
   const navigate = useNavigate();
 
   if (isLoading) {
@@ -23,9 +21,9 @@ const Cart = () => {
   return (
     <>
       <Paper elevation={6}>
-        <Typography variant="h3" sx={{ marginLeft: 14 }} >Your Cart</Typography>
+        <Typography variant="h3" sx={{ marginLeft: 14 }} >Welcome to {user.name}'s Cart</Typography>
         <Grid container spacing={4}>
-          {cart?.cartItems?.length // this is to make sure that checking for null along the way - data? and cartItems?
+          {cart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
             //any of these are undefined - then will display cart as empty
             ? cart.cartItems.map(cartItem => {
               return (
@@ -51,13 +49,13 @@ const Cart = () => {
                 </Grid>)
             })
             : (
-              <Typography variant="h3">
+              <Typography variant="h3" sx={{padding: 10}}>
                 Your cart is empty
               </Typography>
             )}
         </Grid>
-        <Typography>
-          Click here to <Button onClick={() => { navigate('/') }}>continue shopping</Button>
+        <Typography sx={{padding: 2}}>
+          Click here to<Button onClick={() => { navigate('/') }}>continue shopping</Button>
         </Typography>
         <CheckoutCartButton cartId={cart.id} />
       </Paper>
