@@ -8,7 +8,7 @@ const api = createApi({
         baseUrl: "/",
         // set the Content-Type header to the application/json
         prepareHeaders: (headers, { getState }) => {
-            const token = getState().token
+            const token = getState().auth.token
             headers.set("Content-Type", "application/json")
             if (token) {
                 headers.set('authorization', `Bearer ${token}`)
@@ -17,16 +17,20 @@ const api = createApi({
         },
     }),
 
+    tagTypes: ["Product"],
+
     // define the API endpoints we are trying to access
     endpoints: (builder) => ({
         //cat product-
         //get all the cat products api/products/
         getCatProducts: builder.query({
             query: () => "/api/products/",
+            providesTags: ["Product"]
         }),
         //get single cat product query api/products/:id
         getSingleCatProduct: builder.query({
             query: (productId) => "/api/products/" + productId,
+            providesTags: ["Product"]
         }),
 
         // create new cat product mutation api/products/
@@ -35,7 +39,8 @@ const api = createApi({
                 url: "api/products/",
                 method: "POST",
                 body: productData
-            })
+            }),
+            invalidatesTags: ["Product"]
         }),
 
         // update new cat product mutation api/products/:id
@@ -45,7 +50,8 @@ const api = createApi({
                 url: "api/products/" + productId,
                 method: "PUT",
                 body: productId
-            })
+            }),
+            invalidatesTags: ["Product"]
         }),
 
         //delete cat product mutation api/products/:id
@@ -54,7 +60,8 @@ const api = createApi({
             query: (productId) => ({
                 url: "api/products/" + productId,
                 method: "DELETE",
-            })
+            }),
+            invalidatesTags: ["Product"]
         }),
 
         //cart querys and mutations:
