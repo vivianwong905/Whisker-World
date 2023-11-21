@@ -4,7 +4,7 @@ import Login_register from './components/login_register';
 import Cart from './components/Cart';
 import Products from './components/Products';
 import Admin from './components/Admin';
-import Checkout from './components/Checkout';
+import Checkout from './components/CheckoutCartButton';
 import NavBar from './components/Navbar';
 import SingleProduct from './components/SingleProduct';
 import { useSelector } from 'react-redux'
