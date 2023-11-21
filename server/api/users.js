@@ -23,7 +23,7 @@ usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
 // post - add an product to my cart
 usersRouter.post("/me/cart/items", requireUser, async (req, res, next) => {
     try {
-        const { quantity, productId } = req.body
+        const {productId } = req.body 
         const cart = await prisma.cart.findFirstOrThrow({
             where: { user: { id: req.user.id } },
             include: {
@@ -32,7 +32,8 @@ usersRouter.post("/me/cart/items", requireUser, async (req, res, next) => {
                 }
             }
         });
-        const cartItem = await prisma.cartItem.create({
+        const cartItem = await prisma.cartItem.create({ //TODO: update quantity if there is already a quantity for this product
+            // look prisma increment upsert - these two should work together
             data: {
                 quantity: quantity,
                 productId: productId,
@@ -98,7 +99,6 @@ usersRouter.patch("/me/cart/items/:id", requireUser, async (req, res, next) => {
 // Delete an item from the cart
 usersRouter.delete("/me/cart/items/:id", requireUser, async (req, res, next) => {
     try {
-        const { quantity } = req.body;
         const { id } = req.params;
         const cartItemToDelete = await prisma.cartItem.findUnique({
             where: {

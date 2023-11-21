@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { useGetSingleCatProductQuery, useDeleteCatProductMutation } from '../redux/api';
+import { useGetSingleCatProductQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from '../redux/api';
 import { useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 const SingleProduct = () => {
-  const { user } = useSelector(state => state.auth)
+  const { user, token } = useSelector(state => state.auth)
   const params = useParams();
 
   const catProductId = params.id;
@@ -22,6 +22,7 @@ const SingleProduct = () => {
 
   const { data: product, isLoading, error } = useGetSingleCatProductQuery(catProductId);
   const [deleteCatProduct] = useDeleteCatProductMutation();
+  const [createCartItemsInCart] = useCreateCartItemsInCartMutation(catProductId);
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -52,6 +53,7 @@ const SingleProduct = () => {
             <CardActions sx={{ justifyContent: "center" }}>
               <Button variant="contained" onClick={() => navigate("/")} > Back </Button>
               {user?.admin && <Button variant="contained" onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
+              {token && <Button variant="contained" onClick={()=> createCartItemsInCart({ quantity: 1, productId: product.id })}>Add Product to Cart! </Button>}
             </CardActions>
           </Card>
         </Grid>
