@@ -32,10 +32,16 @@ usersRouter.post("/me/cart/items", requireUser, async (req, res, next) => {
                 }
             }
         });
-        const cartItem = await prisma.cartItem.create({ //TODO: update quantity if there is already a quantity for this product
+        const cartItem = await prisma.cartItem.upsert({ //TODO: update quantity if there is already a quantity for this product
             // look prisma increment upsert - these two should work together
-            data: {
-                quantity: quantity,
+            where:{cartId: req.user.cartId},
+            update:{
+                quantity: {
+                    increment: 1
+                } 
+            },
+            create: {
+                quantity: { increment: 1},
                 productId: productId,
                 cartId: cart.id
             },
