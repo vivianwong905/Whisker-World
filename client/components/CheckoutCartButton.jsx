@@ -4,9 +4,11 @@ import { Link as RouterLink } from "react-router-dom";
 
 import { useCheckoutCartMutation } from '../redux/api';
 
-import  Typography  from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
 
 const CheckoutCartButton = ({ cartId }) => {
     const token = useSelector(state => state.auth.token);
@@ -16,17 +18,14 @@ const CheckoutCartButton = ({ cartId }) => {
     const onCheckout = async () => {
         await checkoutCart(cartId);
     }
-    console.log(data)
+
     if (data) {
-        return( 
-            <Typography sx={{ textAlign: "center", margin: "auto"}}>
-                Thank you for shopping at Whisker World! You have successfully checkedout!
-            </Typography>
-        // <ul>
-        //     <li><Typography>{data.product.name}</Typography></li>
-        //     <li><Typography>{data.product.price}</Typography></li>
-        //     <li><Typography>{data.quantity}</Typography></li>
-        // </ul>
+        return (
+            <Stack direction="row">
+                <Typography sx={{ textAlign: "center", padding: 5,  }} variant="h5">
+                    Thank you for shopping at Whisker World! Your order will ship soon!
+                </Typography>
+            </Stack>
         )
     }
 

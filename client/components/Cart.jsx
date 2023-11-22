@@ -49,12 +49,12 @@ const Cart = () => {
                 </Grid>)
             })
             : (
-              <Typography variant="h3" sx={{padding: 10}}>
+              <Typography variant="h3" sx={{ padding: 10 }}>
                 Your cart is empty
               </Typography>
             )}
         </Grid>
-        <Typography sx={{padding: 2}}>
+        <Typography sx={{ padding: 2, marginLeft: 5 }}>
           Click here to<Button onClick={() => { navigate('/') }}>continue shopping</Button>
         </Typography>
         <CheckoutCartButton cartId={cart.id} />
