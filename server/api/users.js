@@ -20,7 +20,7 @@ usersRouter.get("/me/cart", requireUser, async (req, res, next) => {
     }
 });
 
-// post - add an product to my cart
+// post - add an product to my cart... or update the quantity if there is already a product in the cart
 usersRouter.post("/me/cart/items", requireUser, async (req, res, next) => {
     try {
         const { productId } = req.body
@@ -32,18 +32,21 @@ usersRouter.post("/me/cart/items", requireUser, async (req, res, next) => {
                 }
             }
         });
-        const cartItem = await prisma.cartItem.upsert({ //TODO: update quantity if there is already a quantity for this product
-            // look prisma increment upsert - these two should work together
-            where:{cartId: req.user.cartId},
-            update:{
+        const cartItem = await prisma.cartItem.upsert({ 
+            where: { cartId_productId: { cartId: req.user.cartId, productId: productId } },
+            update: {
                 quantity: {
                     increment: 1
-                } 
+                }
             },
             create: {
-                quantity: { increment: 1},
-                productId: productId,
-                cartId: cart.id
+                quantity: 1,
+                product: {
+                    connect: { id: productId, }
+                },
+                cart: {
+                    connect: { id: cart.id }
+                }
             },
             include: {
                 cart: {
@@ -55,8 +58,10 @@ usersRouter.post("/me/cart/items", requireUser, async (req, res, next) => {
                 }
             }
         });
+        console.log(cartItem)
         res.send(cartItem.cart);
     } catch (error) {
+        console.error(error)
         next(error);
     }
 });

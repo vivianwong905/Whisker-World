@@ -107,8 +107,8 @@ const api = createApi({
         //delete all items in a users cart for checking out 
         checkoutCart: builder.mutation({
             query: (cart) => ({
-                url: "/api/checkout" + cart,
-                method: "DELETE",
+                url: "/api/checkout/" + cart,
+                method: "POST",
             }),
             invalidatesTags: ["Cart"]
         }),

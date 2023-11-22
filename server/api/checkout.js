@@ -6,31 +6,25 @@ const checkoutRouter = require("express").Router();
 const { requireUser } = require("../auth/middleware");
 const prisma = require("../db/client");
 
-checkoutRouter.delete("/:id", requireUser, async(req, res, next) => {
+//this is a post because eventually we will want to do more than delete
+checkoutRouter.post("/:id", requireUser, async (req, res, next) => {
     try {
         const { id } = req.params;
         const cartToCheckout = await prisma.cart.findFirst({
             where: { user: { id: req.user.id } },
             include: {
+                user: true,
                 cartItems: {
                     include: { product: true }
                 }
             }
         });
 
-        if (cartToCheckout.id === req.user.id) {
+        if (cartToCheckout.user.id === req.user.id) {
             const cartItem = await prisma.cartItem.deleteMany({
-                include: {
-                    cart: {
-                        include: {
-                            cartItems: {
-                                include: { product: true }
-                            }
-                        }
-                    }
-                }
+                where: { cartId: cartToCheckout.id },
             });
-            res.send(cartItem.cart); //or cartitem down the line
+            res.send(cartItem); 
         } else {
             next({
                 name: 'UnauthorizedUserError',
@@ -38,6 +32,7 @@ checkoutRouter.delete("/:id", requireUser, async(req, res, next) => {
             })
         }
     } catch (error) {
+        console.error(error)
         next(error);
     }
 });

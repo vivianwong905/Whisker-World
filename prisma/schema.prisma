@@ -33,6 +33,7 @@ model CartItem {
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   cartId    Int
   cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  @@unique([cartId,productId])
 }
 
 model Product {

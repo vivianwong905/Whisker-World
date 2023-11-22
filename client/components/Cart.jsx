@@ -8,7 +8,7 @@ import CheckoutCartButton from "./CheckoutCartButton";
 const Cart = () => {
   const { user } = useSelector(state => state.auth);
   const { data: cart, isLoading, error } = useGetUsersCartQuery();
-console.log(cart)
+
   const navigate = useNavigate();
 
   if (isLoading) {
