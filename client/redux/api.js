@@ -87,7 +87,7 @@ const api = createApi({
 
         updateUsersCart: builder.mutation({
             query: (cartItemId) => ({
-                url: "api/users/me/cart/items" + cartItemId,
+                url: "api/users/me/cart/items/" + cartItemId,
                 method: "PATCH",
                 body: cartItemId
             }),
@@ -98,7 +98,7 @@ const api = createApi({
 
         deleteCartItemsInCart: builder.mutation({
             query: (cartItemId) => ({
-                url: "api/users/me/cart/items" + cartItemId,
+                url: "api/users/me/cart/items/" + cartItemId,
                 method: "DELETE"
             }),
             invalidatesTags: ["Cart"]
