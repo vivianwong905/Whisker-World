@@ -1,21 +1,24 @@
-import CartItems from "./cartItems";
+
 import { Typography, Paper, Button, Grid, Card, CardMedia, CardContent, CardActions } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../redux/api";
 import { useNavigate } from "react-router-dom";
 import CheckoutCartButton from "./CheckoutCartButton";
 
+
 const Cart = () => {
   const { user } = useSelector(state => state.auth);
   const { data: cart, isLoading, error } = useGetUsersCartQuery();
 
   const navigate = useNavigate();
+  const [deleteCartItemsInCart] = useDeleteCartItemsInCartMutation();
+  const [updateUsersCart] = useUpdateUsersCartMutation();
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
   if (error) {
-    return <Typography>Error: {error.message}</Typography>;
+    return <Typography color="error">Error: You must be logged in to preform this action</Typography>;
   }
 
   return (
@@ -42,6 +45,8 @@ const Cart = () => {
                       <Typography sx={{ textAlign: "center" }}><b>Quantity:</b>{cartItem.quantity}</Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: "center" }}>
+                      <Button variant="contained" onClick={() => deleteCartItemsInCart(cartItem.id)} > Delete </Button>
+                      <Button variant="contained" onClick={() => updateUsersCart(cartItem.id)} > Add </Button>
                       {/* add update quantity and delete jsx - reference singleProduct jsx */}
 
                     </CardActions>
