@@ -4,24 +4,36 @@ import api from './api';
 
 const authSlice = createSlice({
     name: "auth",
-    initialState: {token: null, user: null},
+    initialState: {token: localStorage.getItem("token"), 
+    user: JSON.parse(localStorage.getItem("user"))},
     reducers: {
-        logout: (_state) => ({token: null, user: null})
+        logout: successfulLogout
     },
 
     extraReducers: (builder) => {
         builder.addMatcher(
             api.endpoints.register.matchFulfilled,
-            (state, {payload}) => ({token: payload.token, user:payload.user})
+            successfulAuth
         );
 
         builder.addMatcher(
             api.endpoints.login.matchFulfilled,
-            (state, {payload}) => ({token: payload.token, user:payload.user})
+            successfulAuth
         )
     }
 });
+//local storage
+function successfulAuth(state, {payload}) {
+    localStorage.setItem("token", payload.token)
+    localStorage.setItem("user", JSON.stringify(payload.user))
+    return ({token: payload.token, user:payload.user})
+}
 
+function successfulLogout(_state) {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    return ({token: null, user: null})
+}
 export default authSlice.reducer;
 
 export const {logout} = authSlice.actions;

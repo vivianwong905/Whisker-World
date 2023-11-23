@@ -71,6 +71,8 @@ usersRouter.patch("/me/cart/items/:id", requireUser, async (req, res, next) => {
     try {
         const { quantity } = req.body;
         const { id } = req.params;
+        console.log(req.params, "Req-PARAMS");
+        console.log(req.body, "BODDYYYYYY");
         //auth check to see if you are the user that owns the cart that the cart item is in
         const cartItemToUpdate = await prisma.cartItem.findUnique({
             where: {
