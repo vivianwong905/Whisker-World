@@ -48,9 +48,11 @@ productsRouter.put("/:id",[requireUser, requireAdmin], async (req, res, next) =>
 
         res.send(product);
     } catch (error) {
+        console.error(error)
         next(error);
     }
 });
+
 // Delete a product by id (need to be an admin)
 productsRouter.delete("/:id", [requireUser, requireAdmin], async (req, res, next) => {
     try {

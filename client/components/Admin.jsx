@@ -11,10 +11,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import UpdateProductForm from "./UpdateProductForm";
+
 
 const Admin = () => {
 
   const { data: users, isLoading, error } = useGetAllUsersQuery();
+
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -25,6 +28,7 @@ const Admin = () => {
   }
 
   return (
+    <Paper>
     <Box>
       <Typography variant="h5" sx={{ marginLeft: 10, padding: 1 }} >Users</Typography>
       {error && !users && (<p> Failed to load user data from api</p>)}
@@ -62,6 +66,10 @@ const Admin = () => {
         </Table>
       </TableContainer>
     </Box>
+    <Box>
+          <UpdateProductForm />
+    </Box>
+    </Paper>
   );
 };
 
