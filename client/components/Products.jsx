@@ -13,6 +13,7 @@ const Products = () => {
   const { data: products, isLoading, error } = useGetCatProductsQuery();
   const [deleteCatProduct] = useDeleteCatProductMutation();
   const [createCartItemsInCart] = useCreateCartItemsInCartMutation();
+  
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -47,6 +48,7 @@ const Products = () => {
                   <CardActions sx={{ justifyContent: "center" }}>
                     <Button variant="contained" onClick={() => navigate("/" + product.id)}>Product Info</Button>
                     {user?.admin && <Button variant="contained" onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
+                    {user?.admin && <Button variant="contained" onClick={() => navigate("/admin",{state:product})}>Update Product</Button>}
                     {token && <Button variant="contained" onClick={()=> createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
                   </CardActions>
                 </Card>

@@ -46,10 +46,10 @@ const api = createApi({
         // update new cat product mutation api/products/:id
 
         updateCatProduct: builder.mutation({
-            query: (productId) => ({
+            query: ({productId, product}) => ({
                 url: "api/products/" + productId,
                 method: "PUT",
-                body: productId
+                body: product
             }),
             invalidatesTags: ["Product"]
         }),
