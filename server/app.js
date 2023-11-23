@@ -19,11 +19,11 @@ app.get("/test", (req, res, next) => {
   res.send("Test route");
 });
 
-app.get('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
-})
+// app.get('/', (req, res, next) => {
+//   res.sendFile(path.join(__dirname, '../dist/index.html'));
+// })
 
-// TODO: Add your routers here
+
 
 const apiRouter = require("./api");
 app.use('/api', apiRouter);
@@ -45,12 +45,9 @@ app.use((error, req, res, next) => {
     });
 });
 
-// 404 handler
+// send the file if no route matches
 app.get('*', (req, res) => {
-    res.status(404).send({
-        error: '404 - Not Found',
-        message: 'No route found for the requested URL',
-    });
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
   
 
