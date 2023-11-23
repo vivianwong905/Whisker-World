@@ -86,10 +86,10 @@ const api = createApi({
         // update users cart api/users/me/cart/items/:id mutation
 
         updateUsersCart: builder.mutation({
-            query: (cartItemId) => ({
+            query: ({cartItemId, quantity}) => ({
                 url: "api/users/me/cart/items/" + cartItemId,
                 method: "PATCH",
-                body: {cartItemId}
+                body: {quantity}
             }),
             invalidatesTags: ["Cart"]
         }),
