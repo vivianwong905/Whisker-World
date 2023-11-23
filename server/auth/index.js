@@ -171,5 +171,11 @@ authRouter.get('/', [requireUser, requireAdmin], async (req, res, next) => {
     }
 });
 
+authRouter.get('*', (req, res) => {
+    res.status(404).send({
+        error: '404 - Not Found',
+        message: 'No route found for the requested URL',
+    });
+});
 
 module.exports = authRouter;
