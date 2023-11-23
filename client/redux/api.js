@@ -89,7 +89,7 @@ const api = createApi({
             query: (cartItemId) => ({
                 url: "api/users/me/cart/items/" + cartItemId,
                 method: "PATCH",
-                body: cartItemId
+                body: {cartItemId}
             }),
             invalidatesTags: ["Cart"]
         }),

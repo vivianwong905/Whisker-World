@@ -46,9 +46,8 @@ const Cart = () => {
                     </CardContent>
                     <CardActions sx={{ justifyContent: "center" }}>
                       <Button variant="contained" onClick={() => deleteCartItemsInCart(cartItem.id)} > Delete </Button>
-                      <Button variant="contained" onClick={() => updateUsersCart(cartItem.id)} > Add </Button>
+                      <Button variant="contained" onClick={() => updateUsersCart(cartItem.id)} > Update </Button>
                       {/* add update quantity and delete jsx - reference singleProduct jsx */}
-
                     </CardActions>
                   </Card>
                 </Grid>)
