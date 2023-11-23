@@ -14,6 +14,16 @@ const Cart = () => {
   const [deleteCartItemsInCart] = useDeleteCartItemsInCartMutation();
   const [updateUsersCart] = useUpdateUsersCartMutation();
 
+  const handleIncrement = (cartItem) => {
+    const newQuantity = cartItem.quantity + 1;
+   updateUsersCart({cartItemId: cartItem.id, quantity: newQuantity});
+  };
+
+    const handleDecrement = (cartItem) => {
+    const newQuantity = cartItem.quantity - 1;
+   updateUsersCart({cartItemId: cartItem.id, quantity: newQuantity});
+  };
+
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
@@ -45,9 +55,9 @@ const Cart = () => {
                       <Typography sx={{ textAlign: "center" }}><b>Quantity:</b>{cartItem.quantity}</Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: "center" }}>
-                      <Button variant="contained" onClick={() => deleteCartItemsInCart(cartItem.id)} > Delete </Button>
-                      <Button variant="contained" onClick={() => updateUsersCart(cartItem.id)} > Update </Button>
-                      {/* add update quantity and delete jsx - reference singleProduct jsx */}
+                      <Button variant="contained" onClick={() => deleteCartItemsInCart(cartItem.id)} > Remove Item </Button>
+                      <Button variant="contained" onClick={() => handleIncrement(cartItem)} > + </Button>
+                      <Button variant="contained" onClick={() => handleDecrement(cartItem)} disabled={cartItem.quantity === 1}> - </Button>
                     </CardActions>
                   </Card>
                 </Grid>)
