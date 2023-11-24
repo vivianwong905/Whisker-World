@@ -10,16 +10,22 @@ import { Stack, Button, Paper, TextField, Typography } from "@mui/material";
 
 
 const UpdateProductForm = () => {
-    const navigate = useNavigate();
+
     const [updateCatProduct, { isLoading: isLoadingUpdatedProductForm }] = useUpdateCatProductMutation();
+    
+    const navigate = useNavigate();
     const location = useLocation();
-    const {state} = location
-    const [productName, setProductName] = useState(state.name);
-    const [detail, setDetail] = useState(state.detail);
-    const [price, setPrice] = useState(state.price);
-    const [imageUrl, setImageUrl] = useState(state.imageUrl);
-    const [error, setError] = useState("")
-    const id= state.id  
+    const {state} = location;
+
+    //form state
+    const [productName, setProductName] = useState(state && state.name);
+    const [detail, setDetail] = useState(state && state.detail);
+    const [price, setPrice] = useState(state && state.price);
+    const [imageUrl, setImageUrl] = useState(state && state.imageUrl);
+    const id= state && state.id  
+
+    const [error, setError] = useState("");
+
     if (isLoadingUpdatedProductForm) {
         return <Typography>Loading...</Typography>;
     }
@@ -47,7 +53,7 @@ const UpdateProductForm = () => {
     }
 
     return (
-        <Paper elevation={6} sx={{ padding: 1, margin: "auto", width: "50%", justifyContent: "center", textAlign: "center" }} >
+        <Paper elevation={6} sx={{ padding: 1, marginTop:5, marginLeft:10, width: "100%", justifyContent: "right", textAlign: "center", minWidth: 200 }} >
             <form className="form" method="post" onSubmit={handleSubmit}>
                 <Typography variant="h5">Add Updated Product</Typography>
                 {error && <p>{error}</p>}
