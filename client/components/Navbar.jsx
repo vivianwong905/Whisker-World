@@ -88,6 +88,7 @@ const NavBar = () => {
               </span>
             </Tooltip>
             {user?.admin && <MenuItem onClick={handleClose} component={RouterLink} to="/auth">Admin</MenuItem>}
+
           </Menu>
         </Toolbar>
       </AppBar>

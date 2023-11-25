@@ -53,6 +53,7 @@ const SingleProduct = () => {
             <CardActions sx={{ justifyContent: "center" }}>
               <Button variant="contained" onClick={() => navigate("/")} > Back </Button>
               {user?.admin && <Button variant="contained" onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
+              {user?.admin && <Button variant="contained" onClick={() => navigate("/admin",{state:product})}>Update Product</Button>}
               {token && <Button variant="contained" onClick={()=> createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
             </CardActions>
           </Card>
