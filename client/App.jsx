@@ -20,7 +20,7 @@ function App() {
       <div id="container">
         <div id="main-section">
           <Routes>
-            <Route path="/auth/register" element={<Login_register />} />
+            <Route path="/register" element={<Login_register />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/" element={<Products />} />
             <Route path="/:id" element={<SingleProduct />}/>
