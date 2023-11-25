@@ -93,7 +93,7 @@ const UpdateProductForm = () => {
                     Reset
                 </Button>
                 <Button
-                    disabled={error}
+                    disabled={error || state === null}
                     type="submit"
                     sx={{ margin: "8px 0", justifyContent: "center", width: "50%" }}
                     variant="contained"
