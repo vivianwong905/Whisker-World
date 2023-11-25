@@ -45,7 +45,7 @@ const NewProductForm = () => {
     }
 
     return (
-        <Paper elevation={6} sx={{ padding: 1, margin: "auto", width: "50%", justifyContent: "center", textAlign: "center" }} >
+        <Paper elevation={6} sx={{ padding: 1, margin: "auto", marginTop: 2, width: "50%", justifyContent: "center", textAlign: "center" }} >
             <form className="form" method="post" onSubmit={handleSubmit}>
                 <Typography variant="h5">Add New Product</Typography>
                 {error && <p>{error}</p>}
