@@ -3,29 +3,34 @@
  */
 
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
 // import extensions to Jest expect
 import "@testing-library/jest-dom";
 
+import {render} from './utils'
+
+import { handlers } from '../../mocks/serverMock';
 
 import App from '../App';
 
-//import react-redux provider and mock store
-import { Provider } from 'react-redux';
-import store from '../redux/store';
-import configureStore from 'redux-mock-store'
+import { setupServer } from 'msw/node'
 
-import { BrowserRouter } from "react-router-dom"
+const server = setupServer(...handlers)
+  
+// Enable API mocking before tests.
+beforeAll(() => server.listen())
+
+// Reset any runtime request handlers we may add during the tests.
+afterEach(() => server.resetHandlers())
+
+// Disable API mocking after the tests are done.
+afterAll(() => server.close())
+
 
 describe("<App />" , () => {
     
     it("renders the App component", ()=>{
         const app = render(
-            <BrowserRouter>
-                <Provider store={store}>
                     <App />
-                </Provider>
-            </BrowserRouter>
         );
         expect(app).not.toBe(null);
     })

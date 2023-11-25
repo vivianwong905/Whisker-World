@@ -15,7 +15,7 @@ describe('/api/posts', () => {
     })
 
     describe('GET /api/products', () => {
-        it('returns list of all posts', async () => {
+        it('returns list of all products', async () => {
             const products = [
                 { id: 1, name: "cats are cool", detail: "here are all the cool cats", price: 10, imageUrl: "www.image.com" },
                 { id: 2, name: "dogs are cool", detail: "here are all the cool dogs", price: 12, imageUrl: "www.images.com" }
@@ -44,7 +44,7 @@ describe('/api/posts', () => {
     });
 
     describe('GET /api/products/:id', () => {
-        it('returns a single post', async () => {
+        it('returns a single product', async () => {
             const productToFind =  { id: 2, name: "cats are cool", detail: "here are all the cool cats", price: 10, imageUrl: "www.image.com" };
 
 
@@ -127,7 +127,7 @@ describe('/api/posts', () => {
     })
 
     describe('PUT /api/products/:postId', () => {
-        it('successfully updates a post', async () => {
+        it('successfully updates a product', async () => {
             const user = {id: 2} 
             const productToUpdate = {
                 id: 1, 
@@ -147,7 +147,7 @@ describe('/api/posts', () => {
 
             //mock that you are logged in
             jwt.verify.mockReturnValue({ id: user.id })
-            prismaMock.users.findUnique.mockResolvedValue({ id: user.id});
+            prismaMock.user.findUnique.mockResolvedValue({ id: user.id});
     
 
             //mock the prisma calls for the put request
@@ -158,11 +158,12 @@ describe('/api/posts', () => {
                 .put('/api/products/1')
                 .set('Authorization', 'Bearer testToken')
                 .send(updatedProduct);
-
+            console.log(response.body)
             expect(response.body.id).toEqual(updatedProduct.id);
-            expect(response.body.title).toEqual(updatedProduct.title);
-            expect(response.body.content).toEqual(updatedProduct.content);
-            expect(response.body.tags).toEqual(updatedProduct.tags);
+            expect(response.body.name).toEqual(updatedProduct.name);
+            expect(response.body.detail).toEqual(updatedProduct.detail);
+            expect(response.body.price).toEqual(updatedProduct.price);
+            expect(response.body.imageUrl).toEqual(updatedProduct.imageUrl);
 
             expect(prismaMock.product.update).toHaveBeenCalledTimes(1);
 
@@ -183,7 +184,7 @@ describe('/api/posts', () => {
     })
 
     describe('DELETE /api/products/:postId', () => {
-        it('successfully deletes a post', async () => {
+        it('successfully deletes a product', async () => {
             const user ={id: 23} 
             const deletedProduct = {
                 id: 1, 
@@ -195,17 +196,19 @@ describe('/api/posts', () => {
 
              //mock that you are logged in
             jwt.verify.mockReturnValue({ id: user.id })
-            prismaMock.users.findUnique.mockResolvedValue({ id: user.id });
+            prismaMock.user.findUnique.mockResolvedValue({ id: user.id });
 
-            prismaMock.product.delete.mockResolvedValue(deletedProduct );
+            prismaMock.product.delete.mockResolvedValue(deletedProduct);
 
             const response = await request(app)
                 .delete('/api/products/1')
                 .set('Authorization', 'Bearer testToken')
             expect(response.body.id).toEqual(deletedProduct.id);
-            expect(response.body.title).toEqual(deletedProduct.title);
-            expect(response.body.content).toEqual(deletedProduct.content);
-            expect(response.body.tags).toEqual(deletedProduct.tags);
+            expect(response.body.name).toEqual(deletedProduct.name);
+            expect(response.body.detail).toEqual(deletedProduct.detail);
+            expect(response.body.price).toEqual(deletedProduct.price);
+            expect(response.body.imageUrl).toEqual(deletedProduct.imageUrl);
+            
 
             expect(prismaMock.product.delete).toHaveBeenCalledTimes(1);
 
