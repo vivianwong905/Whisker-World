@@ -1,10 +1,10 @@
 import React from 'react';
 import { logout } from '../redux/authSlice';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 
 //import Link as RouterLink for mui 
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import catIcon from '../../image/catIcon.png'
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import catIcon from '../../image/catIcon.png';
 
 //import the mui components
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
