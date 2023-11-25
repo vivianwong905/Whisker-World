@@ -24,7 +24,7 @@ const api = createApi({
         //cat product-
         //get all the cat products api/products/
         getCatProducts: builder.query({
-            query: () => "/api/products/",
+            query: () => "api/products/",
             providesTags: ["Product"]
         }),
         //get single cat product query api/products/:id

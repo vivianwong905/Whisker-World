@@ -1,0 +1,16 @@
+import React from 'react'
+import { http, HttpResponse, delay } from 'msw'
+import { setupServer } from 'msw/node'
+import { fireEvent, screen } from '@testing-library/react'
+
+export const handlers = [
+    http.get('/api/products', async () => {
+      await delay(150)
+      return HttpResponse.json([
+        { id: 1, name: "cats are cool", detail: "here are all the cool cats", price: 10, imageUrl: "www.image.com" },
+        { id: 2, name: "dogs are cool", detail: "here are all the cool dogs", price: 12, imageUrl: "www.images.com" },
+    ])
+    })
+  ]
+  
+// make different handler for each api endpoint on front end
