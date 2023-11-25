@@ -65,7 +65,7 @@ const NavBar = () => {
               navigate('/')
             }}
             >Logout</Button>) :
-          (<Button color="inherit" component={RouterLink} to="/auth/register">Login or Register</Button>)}
+          (<Button color="inherit" component={RouterLink} to="/register">Login or Register</Button>)}
           <Menu
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"

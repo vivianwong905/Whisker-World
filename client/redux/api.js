@@ -24,12 +24,12 @@ const api = createApi({
         //cat product-
         //get all the cat products api/products/
         getCatProducts: builder.query({
-            query: () => "api/products/",
+            query: () => "api/products",
             providesTags: ["Product"]
         }),
         //get single cat product query api/products/:id
         getSingleCatProduct: builder.query({
-            query: (productId) => "/api/products/" + productId,
+            query: (productId) => "api/products/" + productId,
             providesTags: ["Product"]
         }),
 
@@ -107,7 +107,7 @@ const api = createApi({
         //delete all items in a users cart for checking out 
         checkoutCart: builder.mutation({
             query: (cart) => ({
-                url: "/api/checkout/" + cart,
+                url: "api/checkout/" + cart,
                 method: "POST",
             }),
             invalidatesTags: ["Cart"]
@@ -118,7 +118,7 @@ const api = createApi({
 
         register: builder.mutation({
             query: (user) => ({
-                url: '/auth/register',
+                url: 'auth/register',
                 method: "POST",
                 body: user
             }),
@@ -129,7 +129,7 @@ const api = createApi({
 
         login: builder.mutation({
             query: (user) => ({
-                url: '/auth/login',
+                url: 'auth/login',
                 method: "POST",
                 body: user
             }),
@@ -139,13 +139,13 @@ const api = createApi({
         //curently logged in user query /auth/me
 
         currentUser: builder.query({
-            query: () => "/auth/me",
+            query: () => "auth/me",
         }),
 
         // get all users admin query /auth/
         
         getAllUsers: builder.query({
-            query: () => "/auth/",
+            query: () => "auth/",
         }),
     })
 })

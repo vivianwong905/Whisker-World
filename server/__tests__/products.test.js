@@ -33,12 +33,14 @@ describe('/api/posts', () => {
         // it('should handle an error', async () => {
         //     const mockErrorMessage = "error getting the products";
 
-        //     prismaMock.posts.findMany.mockRejectedValue(new Error(mockErrorMessage));
+        //     prismaMock.product.findMany.mockRejectedValue(new Error(mockErrorMessage));
 
-        //     const response = await request(app).get('/api/products')
-        //     console.log(response)
+        //     const response = await request(app)
+        //     .get('/api/products')
+          
+        //     console.log(response.body)
         //     expect(response.body).toEqual(mockErrorMessage);
-        //     expect(prismaMock.products.findMany).toHaveBeenCalledTimes(1);
+        //     expect(prismaMock.product.findMany).toHaveBeenCalledTimes(1);
 
         // })
     });
@@ -57,14 +59,14 @@ describe('/api/posts', () => {
         })
 
         // it('should handle an error', async () => {
-        //     const mockErrorMessage = `{"name":"Error","message":"Error occured during get single post"}`;
+        //     const mockErrorMessage = "Error occured during get single post";
 
-        //     prismaMock.products.findUnique.mockRejectedValue(new Error(mockErrorMessage));
+        //     prismaMock.product.findUnique.mockRejectedValue(new Error(mockErrorMessage));
 
         //     const response = await request(app).get('/api/products/1')
 
-        //     expect(response._body.message).toEqual(mockErrorMessage);
-        //     expect(prismaMock.products.findUnique).toHaveBeenCalledTimes(1);
+        //     expect(response.body).toEqual(mockErrorMessage);
+        //     expect(prismaMock.product.findUnique).toHaveBeenCalledTimes(1);
 
         // })
     })
@@ -80,14 +82,14 @@ describe('/api/posts', () => {
             }
 
              //mock that you are logged in
-            const userId = 2
-            jwt.verify.mockReturnValue({ id: userId })
-            prismaMock.users.findUnique.mockResolvedValue({ id: userId });
+            const user = {id: 2, admin: true} 
+            jwt.verify.mockReturnValue(user)
+            prismaMock.user.findUnique.mockResolvedValue(user);
 
             prismaMock.product.create.mockResolvedValue(newProduct);
 
             const response = await request(app).post('/api/products').set('Authorization', 'Bearer testToken')
-    
+           
             expect(response.body.id).toEqual(newProduct.id);
             expect(response.body.title).toEqual(newProduct.title);
             expect(response.body.content).toEqual(newProduct.content);
@@ -96,39 +98,36 @@ describe('/api/posts', () => {
             expect(prismaMock.product.create).toHaveBeenCalledTimes(1);
         })
 
-        // it('should handle an error', async () => {
-        //     const mockErrorMessage = `{"name":"Error","message":"Error occured during creating post"}`;
+        // it('should handle if user is not an admin', async () => {
+        //     const mockErrorMessage = "You must be an admin to preform this action"
 
-        //      //mock that you are logged in
-        //     const userId = 2
-        //     jwt.verify.mockReturnValue({ id: userId })
-        //     prismaMock.users.findUnique.mockResolvedValue({ id: userId });
+        //     const user = {id: 2, admin: false} 
+        //     jwt.verify.mockReturnValue(user)
+        //     prismaMock.user.findUnique.mockResolvedValue(false);
 
-        //     prismaMock.products.create.mockRejectedValue(new Error(mockErrorMessage));
+        //     prismaMock.product.create.mockRejectedValue(new Error(mockErrorMessage));
 
         //     const response = await request(app).post('/api/products').set('Authorization', 'Bearer testToken')
 
-
-        //     expect(response._body.message).toEqual(mockErrorMessage);
-        //     expect(prismaMock.products.create).toHaveBeenCalledTimes(1);
-
-        // })
-
-        // it('should handle if user not logged in', async () => {
-        //     const mockErrorMessage = "You must be logged in to preform this action"
-
-        //     prismaMock.products.create.mockRejectedValue(new Error(mockErrorMessage));
-
-        //     const response = await request(app).post('/api/products')
-
         //     expect(response.body.message).toEqual(mockErrorMessage);
-        //     expect(prismaMock.products.create).toHaveBeenCalledTimes(0);
+        //     expect(prismaMock.product.create).toHaveBeenCalledTimes(0);
         // })
+
+        it('should handle if user not logged in', async () => {
+            const mockErrorMessage = "You must be logged in to preform this action"
+
+            prismaMock.product.create.mockRejectedValue(new Error(mockErrorMessage));
+
+            const response = await request(app).post('/api/products')
+
+            expect(response.body.message).toEqual(mockErrorMessage);
+            expect(prismaMock.product.create).toHaveBeenCalledTimes(0);
+        })
     })
 
-    describe('PUT /api/products/:postId', () => {
+    describe('PUT /api/products/:id', () => {
         it('successfully updates a product', async () => {
-            const user = {id: 2} 
+            const user = {id: 2, admin: true} 
             const productToUpdate = {
                 id: 1, 
                 name: "cats are cool", 
@@ -146,8 +145,8 @@ describe('/api/posts', () => {
             }
 
             //mock that you are logged in
-            jwt.verify.mockReturnValue({ id: user.id })
-            prismaMock.user.findUnique.mockResolvedValue({ id: user.id});
+            jwt.verify.mockReturnValue( user )
+            prismaMock.user.findUnique.mockResolvedValue(user);
     
 
             //mock the prisma calls for the put request
@@ -158,7 +157,7 @@ describe('/api/posts', () => {
                 .put('/api/products/1')
                 .set('Authorization', 'Bearer testToken')
                 .send(updatedProduct);
-            console.log(response.body)
+      
             expect(response.body.id).toEqual(updatedProduct.id);
             expect(response.body.name).toEqual(updatedProduct.name);
             expect(response.body.detail).toEqual(updatedProduct.detail);
@@ -169,23 +168,37 @@ describe('/api/posts', () => {
 
         })
 
-       
+             // it('should handle if user is not an admin', async () => {
+        //     const mockErrorMessage = "You must be an admin to preform this action"
 
-        // it('should handle user not be logged in', async () => {
-        //     const mockErrorMessage = "You must be logged in to preform this action"
+        //     const user = {id: 2, admin: false} 
+        //     jwt.verify.mockReturnValue(user)
+        //     prismaMock.user.findUnique.mockResolvedValue(false);
 
-        //     prismaMock.products.update.mockRejectedValue(new Error(mockErrorMessage));
+        //     prismaMock.product.update.mockRejectedValue(new Error(mockErrorMessage));
 
-        //     const response = await request(app).put('/api/products/1')
+        //     const response = await request(app).post('/api/products/1').set('Authorization', 'Bearer testToken')
 
         //     expect(response.body.message).toEqual(mockErrorMessage);
         //     expect(prismaMock.product.update).toHaveBeenCalledTimes(0);
         // })
+       
+
+        it('should handle user not be logged in', async () => {
+            const mockErrorMessage = "You must be logged in to preform this action"
+
+            prismaMock.products.update.mockRejectedValue(new Error(mockErrorMessage));
+
+            const response = await request(app).put('/api/products/1')
+
+            expect(response.body.message).toEqual(mockErrorMessage);
+            expect(prismaMock.product.update).toHaveBeenCalledTimes(0);
+        })
     })
 
-    describe('DELETE /api/products/:postId', () => {
+    describe('DELETE /api/products/:id', () => {
         it('successfully deletes a product', async () => {
-            const user ={id: 23} 
+            const user ={id: 23, admin: true} 
             const deletedProduct = {
                 id: 1, 
                 name: "cats are cool", 
@@ -195,8 +208,8 @@ describe('/api/posts', () => {
             }
 
              //mock that you are logged in
-            jwt.verify.mockReturnValue({ id: user.id })
-            prismaMock.user.findUnique.mockResolvedValue({ id: user.id });
+            jwt.verify.mockReturnValue(user)
+            prismaMock.user.findUnique.mockResolvedValue(user);
 
             prismaMock.product.delete.mockResolvedValue(deletedProduct);
 
@@ -214,16 +227,31 @@ describe('/api/posts', () => {
 
         })
 
-        // it('should handle the user not be logged in', async () => {
-        //     const mockErrorMessage = "You must be logged in to preform this action"
+             // it('should handle if user is not an admin', async () => {
+        //     const mockErrorMessage = "You must be an admin to preform this action"
+
+        //     const user = {id: 2, admin: false} 
+        //     jwt.verify.mockReturnValue(user)
+        //     prismaMock.user.findUnique.mockResolvedValue(false);
 
         //     prismaMock.product.delete.mockRejectedValue(new Error(mockErrorMessage));
 
-        //     const response = await request(app).delete('/api/products/1')
+        //     const response = await request(app).post('/api/products/1').set('Authorization', 'Bearer testToken')
 
         //     expect(response.body.message).toEqual(mockErrorMessage);
         //     expect(prismaMock.product.delete).toHaveBeenCalledTimes(0);
         // })
+
+        it('should handle the user not be logged in', async () => {
+            const mockErrorMessage = "You must be logged in to preform this action"
+
+            prismaMock.product.delete.mockRejectedValue(new Error(mockErrorMessage));
+
+            const response = await request(app).delete('/api/products/1')
+
+            expect(response.body.message).toEqual(mockErrorMessage);
+            expect(prismaMock.product.delete).toHaveBeenCalledTimes(0);
+        })
     })
 })
 
