@@ -59,7 +59,7 @@ describe('/api/posts', () => {
         })
 
         // it('should handle an error', async () => {
-        //     const mockErrorMessage = "Error occured during get single post";
+        //     const mockErrorMessage = "Error occured during get single product";
 
         //     prismaMock.product.findUnique.mockRejectedValue(new Error(mockErrorMessage));
 
