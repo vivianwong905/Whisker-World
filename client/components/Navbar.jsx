@@ -17,6 +17,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Tooltip } from '@mui/material';
 
 const NavBar = () => {
   const{ token,user} = useSelector(state => state.auth);
@@ -33,6 +34,7 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -80,7 +82,11 @@ const NavBar = () => {
             }}
           >
             <MenuItem onClick={handleClose} component={RouterLink} to="/">Products</MenuItem>
-            <MenuItem onClick={handleClose} component={RouterLink} to="/cart"><ShoppingCartIcon/>Cart</MenuItem>
+            <Tooltip title = {!token ? "Sign in to view the cart": '' }>
+              <span>
+              <MenuItem disabled={!token} onClick={handleClose} component={RouterLink} to="/cart"><ShoppingCartIcon/>Cart</MenuItem>
+              </span>
+            </Tooltip>
             {user?.admin && <MenuItem onClick={handleClose} component={RouterLink} to="/auth">Admin</MenuItem>}
           </Menu>
         </Toolbar>
