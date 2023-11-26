@@ -3,8 +3,8 @@ import { http, HttpResponse, delay } from 'msw'
 import { setupServer } from 'msw/node'
 import { fireEvent, screen } from '@testing-library/react'
 
-export const handlers = [
-    http.get('/api/products', async () => {
+export const productsHandlers = [
+    http.get('http://localhost:8080/api/products', async () => {
       await delay(150)
       return HttpResponse.json([
         { id: 1, name: "cats are cool", detail: "here are all the cool cats", price: 10, imageUrl: "www.image.com" },

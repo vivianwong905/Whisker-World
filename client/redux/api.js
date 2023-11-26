@@ -1,11 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+export const serviceURL = process.env.NODE_ENV === "test" ? "http://localhost:8080/" : "/";
+
 const api = createApi({
     reducerPath: "api",
 
     baseQuery: fetchBaseQuery({
         //base url for API calls ... need to change this when deployed
-        baseUrl: "/",
+        baseUrl: serviceURL,
         // set the Content-Type header to the application/json
         prepareHeaders: (headers, { getState }) => {
             const token = getState().auth.token

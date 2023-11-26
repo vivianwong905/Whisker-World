@@ -85,7 +85,7 @@ const NewProductForm = () => {
                     Reset
                 </Button>
                 <Button
-                    disabled={error}
+                    disabled={!!error}
                     type="submit"
                     sx={{ margin: "8px 0", justifyContent: "center", width: "50%" }}
                     variant="contained"
