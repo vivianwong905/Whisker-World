@@ -18,5 +18,27 @@ describe("<NavBar />" , () => {
                     <NavBar />
         );
         expect(navbar).not.toBe(null);
-    })
+    });
+
+    it("contains a login or register button with correct text", () => {
+   
+        const navBar = render(<NavBar />);
+
+        
+        const loginOrRegister = navBar.getByText(/Login or Register/i) ;
+
+        
+        expect(loginOrRegister).toBeInTheDocument();
+    });
+
+    // it("contains a admin button with correct text", () => {
+   
+    //     const navBar = render(<NavBar />);
+
+        
+    //     const admin = navBar.getByText("Admin") ;
+
+        
+    //     expect(admin).toBeInTheDocument();
+    // });
 })
