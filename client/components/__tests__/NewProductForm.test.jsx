@@ -18,5 +18,16 @@ describe("<NewProductForm />" , () => {
                     <NewProductForm />
         );
         expect(newProductForm).not.toBe(null);
-    })
+    });
+
+    // it("contains a button with correct text",() => {
+    //     // render the NewProductForm component
+    //     const createProduct= render(<NewProductForm />);
+
+     
+    //     const submitButton = createProduct.findByRole('button', {name:"Submit"});
+
+    //     // assert that the submitButton exists in the Document
+    //     expect(submitButton).toBeInTheDocument();
+    // });
 })

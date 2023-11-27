@@ -8,13 +8,13 @@ import "@testing-library/jest-dom";
 
 import {render} from './utils'
 
-import { handlers } from '../../mocks/serverMock';
+import { productsHandlers } from '../../mocks/serverMock';
 
 import App from '../App';
 
 import { setupServer } from 'msw/node'
 
-const server = setupServer(...handlers)
+const server = setupServer(...productsHandlers)
   
 // Enable API mocking before tests.
 beforeAll(() => server.listen())
