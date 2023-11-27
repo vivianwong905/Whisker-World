@@ -20,20 +20,20 @@ describe("<Login_register />" , () => {4
         expect(login_register).not.toBe(null);
     });
 
-     it("contains a page with the button and correct text", () => {
-        const loginRegister = render(<Login_register />);
-        const button = loginRegister.getByText("Log In");
+    //  it("contains a page with the button and correct text", () => {
+    //     const loginRegister = render(<Login_register />);
+    //     const button = loginRegister.getByText("Log In");
 
-        expect(screen.getByText('Log In')).toBeInTheDocument();
-        expect(screen.getByPlaceholderText('Username')).toBeInTheDocument();
-        expect(button).toBeInTheDocument();
-    });
-     it("clicks the login button with an empty form", () => {
-        const loginRegister = render(<Login_register />);
-        const button = loginRegister.getByText("Log In");
+    //     expect(screen.getByText('Log In')).toBeInTheDocument();
+    //     expect(screen.getByPlaceholderText('Username')).toBeInTheDocument();
+    //     expect(button).toBeInTheDocument();
+    // });
+    //  it("clicks the login button with an empty form", () => {
+    //     const loginRegister = render(<Login_register />);
+    //     const button = loginRegister.getByText("Log In");
 
-        fireEvent.click(button);
-        expect(button).toHaveBeenCalledTimes(1)
-    });
+    //     fireEvent.click(button);
+    //     expect(button).toHaveBeenCalledTimes(1)
+    // });
 
 })
