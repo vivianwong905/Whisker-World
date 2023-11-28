@@ -18,11 +18,11 @@ const UpdateProductForm = () => {
     const {state} = location;
 
     //form state
-    const [productName, setProductName] = useState(state && state.name);
-    const [detail, setDetail] = useState(state && state.detail);
-    const [price, setPrice] = useState(state && state.price);
-    const [imageUrl, setImageUrl] = useState(state && state.imageUrl);
-    const id= state && state.id  
+    const [productName, setProductName] = useState((state && state.name) ?? "");
+    const [detail, setDetail] = useState((state && state.detail)?? "");
+    const [price, setPrice] = useState((state && state.price)?? "");
+    const [imageUrl, setImageUrl] = useState((state && state.imageUrl)?? "");
+    const id= state && state.id ;
 
     const [error, setError] = useState("");
 

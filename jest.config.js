@@ -23,4 +23,6 @@ module.exports = {
       },
       //set up for msw text encoder error
       setupFiles: ['./jest.pollyfills.js'],
+
+      modulePathIgnorePatterns: ["<rootDir>/client/__tests__/utils.js"]
 }

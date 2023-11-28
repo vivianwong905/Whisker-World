@@ -11,6 +11,20 @@ import {render} from '../../__tests__/utils';
 
 import SingleProduct from '../SingleProduct';
 
+import { singleProductHandlers } from '../../../mocks/serverMock';
+
+import { setupServer } from 'msw/node';
+
+const server = setupServer(...singleProductHandlers)
+  
+// Enable API mocking before tests.
+beforeAll(() => server.listen())
+
+// Reset any runtime request handlers we may add during the tests.
+afterEach(() => server.resetHandlers())
+
+// Disable API mocking after the tests are done.
+afterAll(() => server.close())
 
 describe("<SingleProduct />" , () => {
     
