@@ -72,7 +72,6 @@ const Products = () => {
                 </Grid>
               )
             })) : !error && <p>Loading...</p>}
-
       </Grid>
     </Box>
   )

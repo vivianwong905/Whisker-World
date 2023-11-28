@@ -38,7 +38,7 @@ const Cart = () => {
         <Grid container spacing={4}>
           {cart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
             //any of these are undefined - then will display cart as empty
-            ? cart.cartItems.map(cartItem => {
+            ? cart.cartItems.slice().sort((a,b)=> a.product.name>b.product.name? 1 : -1 ).map(cartItem => {
               return (
                 <Grid item key={cartItem.id} >
                   <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450 }} >
