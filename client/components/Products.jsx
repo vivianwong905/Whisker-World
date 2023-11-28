@@ -21,7 +21,7 @@ const Products = () => {
   if (error) {
     return <Typography>Error: {error.message}</Typography>;
   }
-
+  // .slice().sort((a,b)=> a.products.name > b.products.name ? 1 : -1 ).
   return (
 
     <Box>
