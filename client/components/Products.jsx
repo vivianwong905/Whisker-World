@@ -39,7 +39,8 @@ const Products = () => {
       {error && !products && (<p> Failed to load products from api</p>)}
       <Grid container spacing={4} sx={{ marginLeft: 10 }}>
         {products ? (
-          products.filter(product => {
+          products.slice().sort((a,b)=> a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1 )
+          .filter(product => {
             if (searchQuery === '') {
               return product
             } else if (product.name.toLowerCase().includes(searchQuery.toLowerCase())) {
