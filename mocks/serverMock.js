@@ -13,7 +13,7 @@ export const productsHandlers = [
   ]
 
   export const singleProductHandlers = [
-    http.get('http://localhost:8080/api/products/:id', async () => {
+    http.get('http://localhost:8080/api/products/1', async () => {
       await delay(150)
       return HttpResponse.json([
         { id: 1, name: "cats are cool", detail: "here are all the cool cats", price: 10, imageUrl: "www.image.com" },

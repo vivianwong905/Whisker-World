@@ -30,7 +30,7 @@ const Products = () => {
       {error && !products && (<p> Failed to load products from api</p>)}
       <Grid container spacing={4} sx={{ marginLeft: 10 }}>
         {products ? (
-          products.map((product) => {
+          products.slice().sort((a,b)=> a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1 ).map((product) => {
             return (
               <Grid item key={product.name} >
                 <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450 }} >

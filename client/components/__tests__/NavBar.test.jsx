@@ -10,6 +10,7 @@ import {render} from '../../__tests__/utils';
 
 import NavBar from '../Navbar';
 
+import { screen, fireEvent } from '@testing-library/react';
 
 describe("<NavBar />" , () => {
     
@@ -31,11 +32,26 @@ describe("<NavBar />" , () => {
         expect(loginOrRegister).toBeInTheDocument();
     });
 
-    // it("contains a admin button with correct text", () => {
+    //TODO: test this test in the app file for navbar
+    // it("contains a products button with correct text", async () => {
+   
+    //         const navBar = render(<NavBar />);
+    //         const menu = await navBar.findByLabelText("menu")
+       
+    //         fireEvent(menu, new MouseEvent("click"))
+    //         const product = navBar.getByText("Products") ;
+    //     console.log(navBar)
+            
+    //         expect(product).toBeInTheDocument();
+    //     });
+
+    //TODO: this is less priorty because we are testing for enduser
+    // it("contains an admin button with correct text", async () => {
    
     //     const navBar = render(<NavBar />);
-
-        
+    //     const menu = await navBar.findByLabelText("menu")
+    //     console.log(menu)
+    //     fireEvent(menu, new MouseEvent("click"))
     //     const admin = navBar.getByText("Admin") ;
 
         
