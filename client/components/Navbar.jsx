@@ -87,7 +87,7 @@ const NavBar = () => {
               <MenuItem disabled={!token} onClick={handleClose} component={RouterLink} to="/cart"><ShoppingCartIcon/>Cart</MenuItem>
               </span>
             </Tooltip>
-            {user?.admin && <MenuItem onClick={handleClose} component={RouterLink} to="/auth">Admin</MenuItem>}
+            {user?.admin && <MenuItem onClick={handleClose} component={RouterLink} to="/admin">Admin</MenuItem>}
 
           </Menu>
         </Toolbar>
