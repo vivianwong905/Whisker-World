@@ -55,6 +55,7 @@ const NewProductForm = () => {
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
                         sx={{ margin: "8px 0" }}
+                        inputProps={{style: {textTransform: 'capitalize'}}}
                     />
                     <TextField
                         label="Description"
