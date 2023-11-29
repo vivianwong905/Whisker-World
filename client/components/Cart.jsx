@@ -4,31 +4,34 @@ import { useSelector } from "react-redux";
 import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../redux/api";
 import { useNavigate } from "react-router-dom";
 import CheckoutCartButton from "./CheckoutCartButton";
-
+import { useState } from "react";
+import GuestCartItem from "./GuestCartItem";
 
 const Cart = () => {
   const { user } = useSelector(state => state.auth);
+  const guestCart = useSelector(state => state.cart)
   const { data: cart, isLoading, error } = useGetUsersCartQuery();
 
   const navigate = useNavigate();
   const [deleteCartItemsInCart] = useDeleteCartItemsInCartMutation();
   const [updateUsersCart] = useUpdateUsersCartMutation();
 
+  const [type, setType] = useState("guest")
   const handleIncrement = (cartItem) => {
     const newQuantity = cartItem.quantity + 1;
-   updateUsersCart({cartItemId: cartItem.id, quantity: newQuantity});
+    updateUsersCart({ cartItemId: cartItem.id, quantity: newQuantity });
   };
 
-    const handleDecrement = (cartItem) => {
+  const handleDecrement = (cartItem) => {
     const newQuantity = cartItem.quantity - 1;
-   updateUsersCart({cartItemId: cartItem.id, quantity: newQuantity});
+    updateUsersCart({ cartItemId: cartItem.id, quantity: newQuantity });
   };
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
   if (error) {
-    return <Typography color="error">Error: You must be logged in to preform this action</Typography>;
+    return <Typography color="error">Error: {error.message}</Typography>;
   }
 
   return (
@@ -36,9 +39,9 @@ const Cart = () => {
       <Paper elevation={6}>
         <Typography variant="h3" sx={{ marginLeft: 14 }} >Welcome to {user.name}'s Cart</Typography>
         <Grid container spacing={4}>
-          {cart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
+          {type === "loggedin" && cart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
             //any of these are undefined - then will display cart as empty
-            ? cart.cartItems.slice().sort((a,b)=> a.product.name>b.product.name? 1 : -1 ).map(cartItem => {
+            ? cart.cartItems.slice().sort((a, b) => a.product.name > b.product.name ? 1 : -1).map(cartItem => {
               return (
                 <Grid item key={cartItem.id} >
                   <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450 }} >
@@ -66,6 +69,20 @@ const Cart = () => {
               <Typography variant="h3" sx={{ padding: 10 }}>
                 Your cart is empty
               </Typography>
+            )}
+          {type === "guest" &&  guestCart? (guestCart.map((item) => (
+            <GuestCartItem
+              key={item.id}
+              id={item.id}
+              image={item.image}
+              title={item.title}
+              price={item.price}
+              quantity={item.quantity}
+            />
+          ))) : (
+          <Typography variant="h3" sx={{ padding: 10 }}>
+            Your cart is empty
+          </Typography>
             )}
         </Grid>
         <Typography sx={{ padding: 2, marginLeft: 5 }}>

@@ -3,8 +3,9 @@ import { useGetCatProductsQuery, useDeleteCatProductMutation, useCreateCartItems
 import React, { useState } from "react";
 import { Button, Box, Card, CardActions, CardContent, CardMedia, Typography, Grid, TextField } from "@mui/material";
 import NewProductForm from "./NewProductForm";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
+import { addToCart } from "../redux/cartSlice";
 
 const Products = () => {
   const { user, token } = useSelector(state => state.auth)
@@ -13,6 +14,9 @@ const Products = () => {
   const { data: products, isLoading, error } = useGetCatProductsQuery();
   const [deleteCatProduct] = useDeleteCatProductMutation();
   const [createCartItemsInCart] = useCreateCartItemsInCartMutation();
+
+  const [type,setType] = useState("guest");
+  const dispatch = useDispatch()
 
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -66,7 +70,8 @@ const Products = () => {
                       <Button variant="contained" onClick={() => navigate("/" + product.id)}>Product Info</Button>
                       {user?.admin && <Button variant="contained" onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
                       {user?.admin && <Button variant="contained" onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
-                      {token && <Button variant="contained" onClick={() => createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
+                      {type === "guest" && <Button variant="contained" onClick={() => dispatch(addToCart({quantity, id, name, price, imageUrl }))}>Add to Cart</Button>}
+                      {type === "loggedIn" && token && <Button variant="contained" onClick={() => createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
                     </CardActions>
                   </Card>
                 </Grid>
