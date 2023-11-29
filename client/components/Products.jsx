@@ -59,7 +59,7 @@ const Products = () => {
                       sx={{ objectFit: "contain" }}
                     />
                     <CardContent>
-                      <Typography variant="h6" sx={{ textAlign: "center" }}>{product.name}</Typography>
+                      <Typography variant="h6" sx={{ textAlign: "center", textTransform: "capitalize" }}>{product.name}</Typography>
                       <Typography sx={{ textAlign: "center" }}><b>Price:</b>${product.price}</Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: "center" }}>
