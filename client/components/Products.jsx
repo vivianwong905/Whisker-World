@@ -42,7 +42,7 @@ const Products = () => {
       <Typography variant="h3" sx={{ marginLeft: 14 }} >Cat Products</Typography>
       {error && !products && (<p> Failed to load products from api</p>)}
       <Grid container spacing={4} sx={{ marginLeft: 10 }}>
-        {products ? (
+        {products ? ( // localCompare not working here ...
           products.slice().sort((a,b)=> a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1 )
           .filter(product => {
             if (searchQuery === '') {

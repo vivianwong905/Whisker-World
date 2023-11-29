@@ -1,18 +1,21 @@
 
 import { Typography, Paper, Button, Grid, Card, CardMedia, CardContent, CardActions } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../redux/api";
 import { useNavigate } from "react-router-dom";
 import CheckoutCartButton from "./CheckoutCartButton";
 import { useState } from "react";
 import GuestCartItem from "./GuestCartItem";
+import { viewCart } from "../redux/cartSlice";
+
 
 const Cart = () => {
   const { user } = useSelector(state => state.auth);
   const guestCart = useSelector(state => state.cart)
-  const { data: cart, isLoading, error } = useGetUsersCartQuery();
+  const { data: loggedInCart, isLoading, error } = useGetUsersCartQuery();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [deleteCartItemsInCart] = useDeleteCartItemsInCartMutation();
   const [updateUsersCart] = useUpdateUsersCartMutation();
 
@@ -39,9 +42,9 @@ const Cart = () => {
       <Paper elevation={6}>
         <Typography variant="h3" sx={{ marginLeft: 14 }} >Welcome to {user.name}'s Cart</Typography>
         <Grid container spacing={4}>
-          {type === "loggedin" && cart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
+          {type === "loggedin" && loggedInCart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
             //any of these are undefined - then will display cart as empty
-            ? cart.cartItems.slice().sort((a, b) => a.product.name > b.product.name ? 1 : -1).map(cartItem => {
+            ? loggedInCart.cartItems.slice().sort((a, b) => a.product.name > b.product.name ? 1 : -1).map(cartItem => {
               return (
                 <Grid item key={cartItem.id} >
                   <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450 }} >
@@ -70,16 +73,16 @@ const Cart = () => {
                 Your cart is empty
               </Typography>
             )}
-          {type === "guest" &&  guestCart? (guestCart.map((item) => (
+          {type === "guest" &&  guestCart? (dispatch(viewCart(guestCart.map((item) => (
             <GuestCartItem
               key={item.id}
               id={item.id}
               image={item.image}
-              title={item.title}
+              name={item.name}
               price={item.price}
               quantity={item.quantity}
             />
-          ))) : (
+          ))))) : (
           <Typography variant="h3" sx={{ padding: 10 }}>
             Your cart is empty
           </Typography>
