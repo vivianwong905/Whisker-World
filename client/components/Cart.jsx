@@ -68,12 +68,12 @@ const Cart = () => {
                   </Card>
                 </Grid>)
             })
-            : ( user &&
-              <Typography variant="h3" sx={{ padding: 10 }}>
+            : (
+              user && <Typography variant="h3" sx={{ padding: 10 }}>
                 Your cart is empty
               </Typography>
             )}
-          {!user && guestCart ? (guestCart.map((item) => (
+          {!user && guestCart.length  ? (guestCart.map((item) => (
             <Grid item key={item.id} >
               <GuestCartItem
                 key={item.id}
@@ -84,8 +84,8 @@ const Cart = () => {
                 quantity={item.quantity}
               />
             </Grid>
-          ))) : (!user &&
-            <Typography variant="h3" sx={{ padding: 10 }}>
+          ))) : (
+           !user && <Typography variant="h3" sx={{ padding: 10 }}>
               Your cart is empty
             </Typography>
           )}
