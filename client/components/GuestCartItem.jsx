@@ -12,7 +12,7 @@ const GuestCartItem = ({id, imageUrl, name, price, quantity}) => {
             <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450 }} >
                 <CardMedia
                     component="img"
-                    alt={cartItem.product}
+                    alt={name}
                     height="250"
                     image={imageUrl}
                     sx={{ objectFit: "contain" }}
@@ -25,7 +25,7 @@ const GuestCartItem = ({id, imageUrl, name, price, quantity}) => {
                 <CardActions sx={{ justifyContent: "center" }}>
                     <Button variant="contained" onClick={() => dispatch(removeItem(id))} > Remove Item </Button>
                     <Button variant="contained" onClick={() => dispatch(incrementQuantity(id))} > + </Button>
-                    <Button variant="contained" onClick={() => dispatch(decrementQuantity(id))} disabled={cartItem.quantity === 1}> - </Button>
+                    <Button variant="contained" onClick={() => dispatch(decrementQuantity(id))} disabled={quantity === 1}> - </Button>
                 </CardActions>
             </Card>
         </Paper>

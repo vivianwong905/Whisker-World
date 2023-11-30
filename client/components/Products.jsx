@@ -15,7 +15,6 @@ const Products = () => {
   const [deleteCatProduct] = useDeleteCatProductMutation();
   const [createCartItemsInCart] = useCreateCartItemsInCartMutation();
 
-  const [type,setType] = useState("guest");
   const dispatch = useDispatch()
 
   const [searchQuery, setSearchQuery] = useState("")
@@ -71,8 +70,8 @@ const Products = () => {
                       <Button variant="contained" onClick={() => navigate("/" + product.id)}>Product Info</Button>
                       {user?.admin && <Button variant="contained" onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
                       {user?.admin && <Button variant="contained" onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
-                      {type === "guest" && <Button variant="contained" onClick={() => dispatch(addToCart({quantity, id, name, price, imageUrl }))}>Add to Cart</Button>}
-                      {type === "loggedIn" && token && <Button variant="contained" onClick={() => createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
+                      {!user && <Button variant="contained" onClick={() => dispatch(addToCart({...product}))}>Add to Cart</Button>}
+                      {token && <Button variant="contained" onClick={() => createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
                     </CardActions>
                   </Card>
                 </Grid>

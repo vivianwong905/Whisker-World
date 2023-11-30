@@ -68,25 +68,27 @@ const Cart = () => {
                   </Card>
                 </Grid>)
             })
-            : (
+            : ( user &&
               <Typography variant="h3" sx={{ padding: 10 }}>
                 Your cart is empty
               </Typography>
             )}
-          {!user &&  guestCart? (guestCart.map((item) => (
-            <GuestCartItem
-              key={item.id}
-              id={item.id}
-              image={item.image}
-              name={item.name}
-              price={item.price}
-              quantity={item.quantity}
-            />
-          ))) : (
-          <Typography variant="h3" sx={{ padding: 10 }}>
-            Your cart is empty
-          </Typography>
-            )}
+          {!user && guestCart ? (guestCart.map((item) => (
+            <Grid item key={item.id} >
+              <GuestCartItem
+                key={item.id}
+                id={item.id}
+                image={item.imageUrl}
+                name={item.name}
+                price={item.price}
+                quantity={item.quantity}
+              />
+            </Grid>
+          ))) : (!user &&
+            <Typography variant="h3" sx={{ padding: 10 }}>
+              Your cart is empty
+            </Typography>
+          )}
         </Grid>
         <Typography sx={{ padding: 2, marginLeft: 5 }}>
           Click here to<Button onClick={() => { navigate('/') }}>continue shopping</Button>
