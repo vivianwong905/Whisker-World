@@ -44,6 +44,7 @@ const Products = () => {
       <Grid container spacing={4} sx={{ marginLeft: 10 }}>
         {products ? ( // localCompare not working here ... .sort((a,b)=> a.name.localeCompare(b.name))
           products.slice().sort((a,b)=> a.name > b.name ? 1 : -1 )
+
           .filter(product => {
             if (searchQuery === '') {
               return product
