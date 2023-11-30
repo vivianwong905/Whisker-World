@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 
-
 import { clearCart } from "../redux/cartSlice";
 
 import Typography from "@mui/material/Typography";
@@ -13,17 +12,6 @@ const GuestCheckoutCartButton = ({ cartId }) => {
 
     const dispatch = useDispatch();
 
-   
-  
-    // if (guestCart?.length === 0) {
-    //     return (
-    //         <Stack direction="row">
-    //             <Typography sx={{ textAlign: "center", padding: 5,  }} variant="h5">
-    //                 Thank you for shopping at Whisker World! Your order will ship soon!
-    //             </Typography>
-    //         </Stack>
-    //     )
-    // }
 
     if (guestCart) {
         return (
@@ -35,7 +23,8 @@ const GuestCheckoutCartButton = ({ cartId }) => {
                 Check Out
             </Button>
         )
-    } else if (guestCart?.length === 0) {
+    } 
+     if (guestCart?.length === 0) {
         return (
             <Stack direction="row">
                 <Typography sx={{ textAlign: "center", padding: 5,  }} variant="h5">
