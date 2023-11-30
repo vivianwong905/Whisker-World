@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CheckoutCartButton from "./CheckoutCartButton";
 import { useState } from "react";
 import GuestCartItem from "./GuestCartItem";
-import { viewCart } from "../redux/cartSlice";
+import { clearCart } from "../redux/cartSlice";
 
 
 const Cart = () => {
@@ -78,7 +78,7 @@ const Cart = () => {
               <GuestCartItem
                 key={item.id}
                 id={item.id}
-                image={item.imageUrl}
+                imageUrl={item.imageUrl}
                 name={item.name}
                 price={item.price}
                 quantity={item.quantity}
@@ -93,7 +93,8 @@ const Cart = () => {
         <Typography sx={{ padding: 2, marginLeft: 5 }}>
           Click here to<Button onClick={() => { navigate('/') }}>continue shopping</Button>
         </Typography>
-        <CheckoutCartButton cartId={loggedInCart?.id} />
+        {user && <CheckoutCartButton cartId={loggedInCart?.id} /> }
+        {!user && <Button variant="contained" onClick={() => clearCart()}>Checkout</Button>}
       </Paper>
     </>
   );
