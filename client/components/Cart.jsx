@@ -11,7 +11,7 @@ import { viewCart } from "../redux/cartSlice";
 
 const Cart = () => {
   const { user } = useSelector(state => state.auth);
-  const guestCart = useSelector(state => state.cart)
+  const guestCart = useSelector(state => state.cart.items)
   const { data: loggedInCart, isLoading, error } = useGetUsersCartQuery();
 
   const navigate = useNavigate();
@@ -30,19 +30,19 @@ const Cart = () => {
     updateUsersCart({ cartItemId: cartItem.id, quantity: newQuantity });
   };
 
-  if (isLoading) {
+  if (user && isLoading) {
     return <Typography>Loading...</Typography>;
   }
-  if (error) {
+  if (user && error) {
     return <Typography color="error">Error: {error.message}</Typography>;
   }
 
   return (
     <>
       <Paper elevation={6}>
-        <Typography variant="h3" sx={{ marginLeft: 14 }} >Welcome to {user.name}'s Cart</Typography>
+        <Typography variant="h3" sx={{ marginLeft: 14 }} >Welcome to {user ? `${user.name}'s` : "Your"} Cart</Typography>
         <Grid container spacing={4}>
-          {type === "loggedin" && loggedInCart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
+          {user && loggedInCart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
             //any of these are undefined - then will display cart as empty
             ? loggedInCart.cartItems.slice().sort((a, b) => a.product.name > b.product.name ? 1 : -1).map(cartItem => {
               return (
@@ -73,7 +73,7 @@ const Cart = () => {
                 Your cart is empty
               </Typography>
             )}
-          {type === "guest" &&  guestCart? (dispatch(viewCart(guestCart.map((item) => (
+          {!user &&  guestCart? (guestCart.map((item) => (
             <GuestCartItem
               key={item.id}
               id={item.id}
@@ -82,7 +82,7 @@ const Cart = () => {
               price={item.price}
               quantity={item.quantity}
             />
-          ))))) : (
+          ))) : (
           <Typography variant="h3" sx={{ padding: 10 }}>
             Your cart is empty
           </Typography>
@@ -91,7 +91,7 @@ const Cart = () => {
         <Typography sx={{ padding: 2, marginLeft: 5 }}>
           Click here to<Button onClick={() => { navigate('/') }}>continue shopping</Button>
         </Typography>
-        <CheckoutCartButton cartId={cart.id} />
+        <CheckoutCartButton cartId={loggedInCart?.id} />
       </Paper>
     </>
   );
