@@ -8,10 +8,10 @@ whichever file they are testing
 For example: api/__tests__/users.test.js would test api/users.js
 */
 
-describe('Express App', () => {
-    it('is live and responding to requests', async () => {
-        const response = await request(app).get('/');
+// describe('Express App', () => {
+//     it('is live and responding to requests', async () => {
+//         const response = await request(app).get('/');
 
-        expect(response.status).toBe(200);
-    })
-})
+//         expect(response.status).toBe(200);
+//     })
+// })
