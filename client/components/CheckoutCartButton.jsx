@@ -1,13 +1,10 @@
 
 import { useSelector } from "react-redux";
-import { Link as RouterLink } from "react-router-dom";
 
 import { useCheckoutCartMutation } from '../redux/api';
 
 import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 
 const CheckoutCartButton = ({ cartId }) => {
@@ -41,8 +38,7 @@ const CheckoutCartButton = ({ cartId }) => {
         )
     }
 
-    //this is not needed yet
-    // return <Link href="#" component={RouterLink} to="/login">Log In to Check Out</Link>;
+    
 }
 
 
