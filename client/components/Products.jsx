@@ -30,7 +30,7 @@ const Products = () => {
 
     <Box>
       <TextField
-        // id="outlined-basic"
+        id="outlined-basic"
         variant="outlined"
         label="Search"
         placeholder="Search Products Here..."
@@ -41,7 +41,7 @@ const Products = () => {
       <Typography variant="h3" sx={{ marginLeft: 14 }} >Cat Products</Typography>
       {error && !products && (<p> Failed to load products from api</p>)}
       <Grid container spacing={4} sx={{ marginLeft: 10 }}>
-        {products ? ( 
+        {products ? ( // sort the products in alphabetical order and then filter when the person is searching in the search bar
           products.slice().sort((a,b)=> a.name.localeCompare(b.name))
           .filter(product => {
             if (searchQuery === '') {
