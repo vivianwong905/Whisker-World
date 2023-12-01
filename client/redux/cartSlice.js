@@ -4,6 +4,7 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         items: [],
+        cartCheckedOut: false
     },
     reducers: {
         addToCart: (state, action) => {
@@ -31,7 +32,11 @@ const cartSlice = createSlice({
             state.items = removeCartItem;
         },
         clearCart: (state) => {
-           return [];
+           state.items = []
+           state.cartCheckedOut = true
+        },
+        resetCart: (state) =>{
+            state.cartCheckedOut = false
         }
     },
 });
@@ -42,5 +47,6 @@ export const {
     incrementQuantity,
     decrementQuantity,
     removeItem,
-    clearCart
+    clearCart,
+    resetCart
 } = cartSlice.actions;
