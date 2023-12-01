@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 
 const SALT_ROUNDS = 5;
 
+
 async function seed() {
   console.log("Seeding the database.");
   try {
