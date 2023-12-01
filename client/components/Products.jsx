@@ -13,7 +13,7 @@ const Products = () => {
   const { price, category} =useSelector(state => state.filter);
   const navigate = useNavigate();
 
-  const { data: products, isLoading, error } = useGetCatProductsQuery(); // add price?
+  const { data: products, isLoading, error } = useGetCatProductsQuery(price ?? undefined); // if price is truthy pass it, otherwise pass undefined
   const [deleteCatProduct] = useDeleteCatProductMutation();
   const [createCartItemsInCart] = useCreateCartItemsInCartMutation();
 
@@ -56,9 +56,10 @@ const Products = () => {
               return product;
             }
           })
-          .filter(product => {
-            return !price || (price && product.price <= price)
-          })
+          //commenting out below as this is an example of how to do this price filter in the FE
+          // .filter(product => {
+          //   return !price || (price && product.price <= price)
+          // })
             .map((product) => {
               return (
                 <Grid item key={product.name} >
@@ -73,6 +74,7 @@ const Products = () => {
                     <CardContent>
                       <Typography variant="h6" sx={{ textAlign: "center", textTransform: "capitalize" }}>{product.name}</Typography>
                       <Typography sx={{ textAlign: "center" }}><b>Price:</b>${product.price}</Typography>
+                      <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: "center" }}>
                       <Button variant="contained" onClick={() => navigate("/" + product.id)}>Product Info</Button>

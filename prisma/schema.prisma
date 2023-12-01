@@ -43,12 +43,6 @@ model Product {
   detail    String
   price     Decimal    @db.Money
   imageUrl  String
+  category  String
   cartItems CartItem[]
-  category  Category[]
-}
-
-model Category {
-  id       Int       @id @default(autoincrement())
-  category String
-  product  Product[]
 }

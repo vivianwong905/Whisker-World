@@ -17,6 +17,7 @@ const NewProductForm = () => {
     const [detail, setDetail] = useState("");
     const [price, setPrice] = useState("");
     const [imageUrl, setImageUrl] = useState("");
+    const [category, setCategory] = useState("");
     const [error, setError] = useState("")
 
     if (isLoadingProductForm) {
@@ -28,6 +29,7 @@ const NewProductForm = () => {
         setProductName("");
         setDetail("");
         setPrice("");
+        setCategory("");
         setImageUrl("");
         setError("");
     }
@@ -37,10 +39,10 @@ const NewProductForm = () => {
         e.preventDefault();
 
         //read data directly from state
-        console.log({  name: productName, detail, imageUrl, price });
+        console.log({  name: productName, detail, imageUrl, price, category });
 
         if (!error) {
-            createCatProduct({ name: productName, detail, imageUrl, price })
+            createCatProduct({ name: productName, detail, imageUrl, price, category })
         }
     }
 
@@ -67,6 +69,12 @@ const NewProductForm = () => {
                         label="Price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        sx={{ margin: "8px 0" }}
+                    />
+                    <TextField
+                        label="Category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
                         sx={{ margin: "8px 0" }}
                     />
                     <TextField
