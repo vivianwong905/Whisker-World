@@ -20,15 +20,19 @@ const api = createApi({
     }),
 
     tagTypes: ["Product", "Cart"],
+                // VIVIAN TODO: function that would take a price and return a string/api/products?price=${price}
+            //if price existed then do this, if not return all/set of if statements/ URL search params 
 
     // define the API endpoints we are trying to access
     endpoints: (builder) => ({
         //cat product-
         //get all the cat products api/products/
         getCatProducts: builder.query({
-            query: () => "api/products",
-            // VIVIAN TODO: function that would take a price and return a string/api/products?price=${price}
-            //if price existed then do this, if not return all/set of if statements/ URL search params 
+            query: (price) => {
+                const url = price ? `api/products?price=${price}` : "api/products";
+                return url;
+            },
+
             providesTags: ["Product"]
         }),
         //get single cat product query api/products/:id

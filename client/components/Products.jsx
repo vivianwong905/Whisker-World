@@ -13,7 +13,7 @@ const Products = () => {
   const { price, category} =useSelector(state => state.filter);
   const navigate = useNavigate();
 
-  const { data: products, isLoading, error } = useGetCatProductsQuery();
+  const { data: products, isLoading, error } = useGetCatProductsQuery(); // add price?
   const [deleteCatProduct] = useDeleteCatProductMutation();
   const [createCartItemsInCart] = useCreateCartItemsInCartMutation();
 

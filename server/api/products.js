@@ -6,9 +6,23 @@ const prisma = require("../db/client");
 // Get all products
 // if no queries are pass, return all
 productsRouter.get("/", async (req, res, next) => {
-    try {
-        const products = await prisma.product.findMany();
-        res.send(products);
+ try {
+        const { price } = req.query;
+
+        if (price !== undefined) {
+            const filteredProducts = await prisma.product.findMany({
+                where: {
+                    price: {
+                        lt: parseInt(price),
+                    },
+                },
+            });
+
+            res.send(filteredProducts);
+        } else {
+            const allProducts = await prisma.product.findMany();
+            res.send(allProducts);
+        }
     } catch (error) {
         next(error);
     }
