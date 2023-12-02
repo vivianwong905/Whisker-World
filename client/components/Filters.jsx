@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useState } from "react";
-import { Button, Box, Card, Checkbox, Slider, Typography} from '@mui/material';
+import { Button, Box, Card, Checkbox, Slider, Typography, FormGroup, FormControlLabel} from '@mui/material';
 import { useSelector, useDispatch } from "react-redux";
 import { setPriceFilter, setCategoryFilter } from "../redux/filterSlice";
 
@@ -27,14 +27,14 @@ const Filters = () => {
     dispatch(setPriceFilter(price));
   };
  
-  // const handleCategoryChange = (category) => {
-  //   dispatch(setCategoryFilter(category));
-  // };
+  const handleCategoryChange = (event, category) => {
+    dispatch(setCategoryFilter(category));
+  };
 
 
   return (
     <div> 
-      <Card sx={{ maxWidth: 500, minWidth: 350, maxHeight: 200, minHeight: 200 }}> 
+      <Card sx={{ maxWidth: 500, minWidth: 350, maxHeight: 250, minHeight: 250 }}> 
       <Typography variant="h6">Price Filter</Typography>
       <Slider
         getAriaLabel={() => 'Price Range'}
@@ -46,18 +46,14 @@ const Filters = () => {
         step={5}
         max={40} 
       />
- 
-      {/* <Typography variant="h6">Category Filter</Typography>
-      {categories.map((cat, index) => (
-          <Checkbox
-            key={index}
-            label={cat}
-            checked={category === cat}
-            onChange={() => handleCategoryChange(cat)}
-          />
-      ))}
-      <Button variant="contained" onClick={() => handleCategoryChange(category)}>Apply category filter</Button>
-      <Button onClick={resetFilters}>Reset</Button> */}
+
+<FormGroup>
+  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Food')} value="Food" />} label="Food" />
+  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Treat')} value="Treat" />} label="Treat" />
+  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Toys')} value="Toys" />} label="Toys" />
+  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Accessories')} value="Accessories" />} label="Accessories" />
+</FormGroup>
+
       </Card>
     </div>
   );
