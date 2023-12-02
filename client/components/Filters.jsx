@@ -28,7 +28,9 @@ const Filters = () => {
   };
  
   const handleCategoryChange = (event, category) => {
-    dispatch(setCategoryFilter(category));
+    console.log(event.target.checked, "event");//this will give you a true or false
+    console.log(category, "category"); //string
+    dispatch(setCategoryFilter({category, isChecked: event.target.checked}));
   };
 
 
