@@ -32,7 +32,7 @@ const GuestCheckoutCartButton = () => {
             <Button
                 onClick={() => dispatch(clearCart())}
                 variant="contained"
-                sx={{ margin: 2, textAlign: "right", padding: 2,"&:hover":{bgcolor: "magenta", color:"white"} }}
+                sx={{ margin: 2,marginLeft: 4.5, padding: 2,"&:hover":{bgcolor: "magenta", color:"white"} }}
             >
                 Check Out
             </Button>

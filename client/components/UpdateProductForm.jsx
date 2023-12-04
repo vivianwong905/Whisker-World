@@ -4,7 +4,7 @@ import React from "react";
 import { useState } from "react";
 
 import { useUpdateCatProductMutation } from "../redux/api";
-import { useLocation, useNavigate } from "react-router-dom" 
+import { useLocation, useNavigate } from "react-router-dom"
 
 import { Stack, Button, Paper, TextField, Typography } from "@mui/material";
 
@@ -12,18 +12,18 @@ import { Stack, Button, Paper, TextField, Typography } from "@mui/material";
 const UpdateProductForm = () => {
 
     const [updateCatProduct, { isLoading: isLoadingUpdatedProductForm }] = useUpdateCatProductMutation();
-    
+
     const navigate = useNavigate();
     const location = useLocation();
-    const {state} = location;
+    const { state } = location;
 
     //form state
     const [productName, setProductName] = useState((state && state.name) ?? "");
-    const [detail, setDetail] = useState((state && state.detail)?? "");
-    const [price, setPrice] = useState((state && state.price)?? "");
-    const [imageUrl, setImageUrl] = useState((state && state.imageUrl)?? "");
-    const [category, setCategory] = useState((state && state.category)?? "");
-    const id= state && state.id ;
+    const [detail, setDetail] = useState((state && state.detail) ?? "");
+    const [price, setPrice] = useState((state && state.price) ?? "");
+    const [imageUrl, setImageUrl] = useState((state && state.imageUrl) ?? "");
+    const [category, setCategory] = useState((state && state.category) ?? "");
+    const id = state && state.id;
 
     const [error, setError] = useState("");
 
@@ -32,7 +32,7 @@ const UpdateProductForm = () => {
     }
 
     function resetForm() {
-       
+
         setProductName("");
         setDetail("");
         setPrice("");
@@ -46,16 +46,16 @@ const UpdateProductForm = () => {
         e.preventDefault();
 
         //read data directly from state
-        console.log(id,{  name: productName, detail, imageUrl, price, category });
+        console.log(id, { name: productName, detail, imageUrl, price, category });
 
         if (!error) {
-            updateCatProduct({productId: id, product: { name: productName, detail, imageUrl, price, category }})
+            updateCatProduct({ productId: id, product: { name: productName, detail, imageUrl, price, category } })
             setTimeout(() => navigate('/'), 2000);
         }
     }
 
     return (
-        <Paper elevation={6} sx={{ padding: 1, marginTop:5, marginLeft:10, width: "100%", justifyContent: "right", textAlign: "center", minWidth: 200 }} >
+        <Paper elevation={6} sx={{ padding: 1, marginTop: 5, marginLeft: 8, width: "100%", justifyContent: "right", textAlign: "center", minWidth: 300 }} >
             <form className="form" method="post" onSubmit={handleSubmit}>
                 <Typography variant="h5">Add Updated Product</Typography>
                 {error && <p>{error}</p>}
@@ -65,7 +65,7 @@ const UpdateProductForm = () => {
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
                         sx={{ margin: "8px 0" }}
-                        inputProps={{style: {textTransform: 'capitalize'}}}
+                        inputProps={{ style: { textTransform: 'capitalize' } }}
                     />
                     <TextField
                         label="Description"
@@ -95,7 +95,7 @@ const UpdateProductForm = () => {
                 <Button
                     type="reset"
                     onClick={resetForm}
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", ":hover":{bgcolor: "magenta", color:"white"} }}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", ":hover": { bgcolor: "magenta", color: "white" } }}
                     variant="contained"
                     size="large"
                 >
@@ -104,7 +104,7 @@ const UpdateProductForm = () => {
                 <Button
                     disabled={error || state === null}
                     type="submit"
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", ":hover":{bgcolor: "magenta", color:"white"} }}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", ":hover": { bgcolor: "magenta", color: "white" } }}
                     variant="contained"
                     size="large"
                 >

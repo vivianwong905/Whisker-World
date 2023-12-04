@@ -1,5 +1,5 @@
-
-import { Typography, Paper, Button, Grid} from "@mui/material";
+import {Link as RouterLink} from "react-router-dom"
+import { Typography, Paper, Button, Grid, Link} from "@mui/material";
 import { useSelector} from "react-redux";
 import { useGetUsersCartQuery} from "../redux/api";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ const Cart = () => {
   return (
     <>
       <Paper elevation={6}>
-        <Typography variant="h3" sx={{ marginLeft: 14 }} >Welcome to {user ? `${user.name}'s` : "Your"} Cart</Typography>
+        <Typography variant="h3" sx={{ marginLeft: 2, padding: 2}} >Welcome to {user ? `${user.name}'s` : "Your"} Cart</Typography>
         <Grid container spacing={4}>
           {user && <Grid item>
             <LoggedInCartItem />
@@ -37,13 +37,13 @@ const Cart = () => {
               />
             </Grid>
           ))) : (
-            !user && <Typography variant="h3" sx={{ padding: 10 }}>
+            !user && <Typography variant="h3" sx={{ marginLeft: 7.5, padding: 1 }}>
               Your cart is empty
             </Typography>
           )}
         </Grid>
-        <Typography sx={{ padding: 3, marginLeft: 4 }}>
-          Click here to<Button onClick={() => { navigate('/') }}>continue shopping</Button>
+        <Typography variant="h6" sx={{ padding: 2, marginLeft: 3.5 }}>
+          Click here to <Link href="#" component={RouterLink} to="/">continue shopping</Link>
         </Typography>
         {user && <CheckoutCartButton cartId={loggedInCart?.id} />}
         {!user && <GuestCheckoutCartButton />}

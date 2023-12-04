@@ -12,7 +12,7 @@ const NewProductForm = () => {
 
     const [createCatProduct, { isLoading: isLoadingProductForm }] = useCreateCatProductMutation();
 
-   
+
     const [productName, setProductName] = useState("");
     const [detail, setDetail] = useState("");
     const [price, setPrice] = useState("");
@@ -25,7 +25,7 @@ const NewProductForm = () => {
     }
 
     function resetForm() {
-       
+
         setProductName("");
         setDetail("");
         setPrice("");
@@ -39,7 +39,7 @@ const NewProductForm = () => {
         e.preventDefault();
 
         //read data directly from state
-        console.log({  name: productName, detail, imageUrl, price, category });
+        console.log({ name: productName, detail, imageUrl, price, category });
 
         if (!error) {
             createCatProduct({ name: productName, detail, imageUrl, price, category })
@@ -47,7 +47,7 @@ const NewProductForm = () => {
     }
 
     return (
-        <Paper elevation={6} sx={{ padding: 1, margin: "auto", marginTop: 2, width: "50%", justifyContent: "center", textAlign: "center" }} >
+        <Paper elevation={6} sx={{ padding: 1, marginTop: 2, textAlign: "center", width: "100%", minWidth: 300 }} >
             <form className="form" method="post" onSubmit={handleSubmit}>
                 <Typography variant="h5">Add New Product</Typography>
                 {error && <p>{error}</p>}
@@ -57,7 +57,7 @@ const NewProductForm = () => {
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
                         sx={{ margin: "8px 0" }}
-                        inputProps={{style: {textTransform: 'capitalize'}}}
+                        inputProps={{ style: { textTransform: 'capitalize' } }}
                     />
                     <TextField
                         label="Description"
@@ -87,7 +87,7 @@ const NewProductForm = () => {
                 <Button
                     type="reset"
                     onClick={resetForm}
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%","&:hover":{bgcolor: "magenta", color:"white"}}}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
                     variant="contained"
                     size="large"
                 >
@@ -96,7 +96,7 @@ const NewProductForm = () => {
                 <Button
                     disabled={!!error}
                     type="submit"
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover":{bgcolor: "magenta", color:"white"}}}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
                     variant="contained"
                     size="large"
                 >
