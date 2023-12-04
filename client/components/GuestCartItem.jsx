@@ -8,7 +8,7 @@ const GuestCartItem = ({id, imageUrl, name, price, quantity}) => {
     const dispatch = useDispatch();
 
     return (
-        <Paper elevation={6}>
+        <Paper elevation={6} sx={{marginLeft: 4}}>
             <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450 }} >
                 <CardMedia
                     component="img"

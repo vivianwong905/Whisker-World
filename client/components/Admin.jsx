@@ -29,54 +29,52 @@ const Admin = () => {
   }
 
   return (
-    <Paper sx={{marginTop: 5}}>
-      <Grid container spacing={4} alignItems="baseline">
-        <Grid item sx={{justifyContent: "flex-start"}} >
-          <Box>
-            <Typography variant="h5" sx={{ marginLeft: 10, padding: 1 }} >Users</Typography>
-            {error && !users && (<p> Failed to load user data from api</p>)}
-            <TableContainer sx={{ maxWidth: 700, marginLeft: 10 }} component={Paper}>
-              <Table sx={{ maxWidth: 700 }}>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell align="right">Username</TableCell>
-                    <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">Admin</TableCell>
-                    <TableCell align="right">Cart ID</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {users ? (
-                    users.map((user) => {
-                      return (
-                        <TableRow
-                          key={user.name}
-                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {user.id}
-                          </TableCell>
-                          <TableCell align="right">{user.username}</TableCell>
-                          <TableCell align="right">{user.name}</TableCell>
-                          <TableCell align="right">{user.admin ? "true" : "false"}</TableCell>
-                          <TableCell align="right">{user.cartId}</TableCell>
-                        </TableRow>
-                      )
-                    })
-                  ) : !error && <p>Loading...</p>}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
-        </Grid>
-        <Grid item sx={{justifyContent: "flex-end"}} >
-          <Box>
-            <UpdateProductForm />
-          </Box>
-        </Grid>
+    <Grid container spacing={4} alignItems="baseline">
+      <Grid item sx={{ justifyContent: "flex-start" }} >
+        <Box>
+          {error && !users && (<p> Failed to load user data from api</p>)}
+          <TableContainer sx={{ maxWidth: 700, marginLeft: 4, marginTop:2 }} component={Paper}>
+            <Typography variant="h4" sx={{ padding: 1 }} >Users</Typography>
+            <Table sx={{ maxWidth: 700 }}>
+              <TableHead>
+                <TableRow >
+                  <TableCell sx={{fontSize: 20}}>ID</TableCell>
+                  <TableCell align="right" sx={{fontSize:18}}>Username</TableCell>
+                  <TableCell align="right" sx={{fontSize:18}}>Name</TableCell>
+                  <TableCell align="right" sx={{fontSize:18}}>Admin</TableCell>
+                  <TableCell align="right" sx={{fontSize:18}}>Cart ID</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users ? (
+                  users.map((user) => {
+                    return (
+                      <TableRow
+                        key={user.name}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <TableCell component="th" scope="row" sx={{fontSize:18}}>
+                          {user.id}
+                        </TableCell>
+                        <TableCell align="right" sx={{fontSize:18}}>{user.username}</TableCell>
+                        <TableCell align="right" sx={{fontSize:18}}>{user.name}</TableCell>
+                        <TableCell align="right" sx={{fontSize:18}}>{user.admin ? "true" : "false"}</TableCell>
+                        <TableCell align="right" sx={{fontSize:18}}>{user.cartId}</TableCell>
+                      </TableRow>
+                    )
+                  })
+                ) : !error && <p>Loading...</p>}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Grid>
-    </Paper>
+      <Grid item sx={{ justifyContent: "flex-end" }} >
+        <Box>
+          <UpdateProductForm />
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

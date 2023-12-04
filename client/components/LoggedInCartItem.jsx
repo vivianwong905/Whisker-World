@@ -1,4 +1,4 @@
-import { Typography, Box, Button, Grid, Card, CardMedia, CardContent, CardActions } from "@mui/material";
+import { Typography, Box, Button, Grid, Card, CardMedia, CardContent, CardActions, Stack } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../redux/api";
 
@@ -29,13 +29,13 @@ const LoggedInCartItem = () => {
 
     return (
         <>
-            <Box>
-                <Grid container spacing={4}>
+            <Box sx={{marginLeft: 4,}}>
+                <Grid container spacing={4} >
                     {user && loggedInCart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
                         //any of these are undefined - then will display cart as empty
                         ? loggedInCart.cartItems.slice().sort((a, b) => a.product.name > b.product.name ? 1 : -1).map(cartItem => {
                             return (
-                                <Grid item key={cartItem.id} >
+                                <Grid item key={cartItem.id}>
                                     <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450 }} >
                                         <CardMedia
                                             component="img"
@@ -58,7 +58,8 @@ const LoggedInCartItem = () => {
                                 </Grid>)
                         })
                         : (
-                            user && <Typography variant="h3" sx={{ padding: 15 }}>
+                            user && 
+                                <Typography variant="h3" sx={{marginLeft: 3.5, padding: 1}} >
                                 Your cart is empty
                             </Typography>
                         )}

@@ -5,14 +5,14 @@ import { useState } from "react";
 
 import { useCreateCatProductMutation } from "../redux/api";
 
-import { Stack, Button, Paper, TextField, Typography } from "@mui/material";
+import { Stack, Button, Paper, TextField, Typography, MenuItem } from "@mui/material";
 
 
 const NewProductForm = () => {
 
     const [createCatProduct, { isLoading: isLoadingProductForm }] = useCreateCatProductMutation();
 
-   
+
     const [productName, setProductName] = useState("");
     const [detail, setDetail] = useState("");
     const [price, setPrice] = useState("");
@@ -25,7 +25,7 @@ const NewProductForm = () => {
     }
 
     function resetForm() {
-       
+
         setProductName("");
         setDetail("");
         setPrice("");
@@ -39,17 +39,36 @@ const NewProductForm = () => {
         e.preventDefault();
 
         //read data directly from state
-        console.log({  name: productName, detail, imageUrl, price, category });
+        console.log({ name: productName, detail, imageUrl, price, category });
 
         if (!error) {
             createCatProduct({ name: productName, detail, imageUrl, price, category })
         }
     }
 
+    const categories = [
+        {
+            value: 'Food',
+            label: 'Food',
+        },
+        {
+            value: 'Treat',
+            label: 'Treat',
+        },
+        {
+            value: 'Toys',
+            label: 'Toys',
+        },
+        {
+            value: 'Accessories',
+            label: 'Accessories',
+        },
+    ];
+
     return (
-        <Paper elevation={6} sx={{ padding: 1, margin: "auto", marginTop: 2, width: "50%", justifyContent: "center", textAlign: "center" }} >
+        <Paper elevation={6} sx={{ padding: 1, marginTop: 2, textAlign: "center", width: "100%", minWidth: 300 }} >
             <form className="form" method="post" onSubmit={handleSubmit}>
-                <Typography variant="h5">Add New Product</Typography>
+                <Typography variant="h4">Add New Product</Typography>
                 {error && <p>{error}</p>}
                 <Stack direction="column" >
                     <TextField
@@ -57,7 +76,7 @@ const NewProductForm = () => {
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
                         sx={{ margin: "8px 0" }}
-                        inputProps={{style: {textTransform: 'capitalize'}}}
+                        inputProps={{ style: { textTransform: 'capitalize' } }}
                     />
                     <TextField
                         label="Description"
@@ -76,7 +95,14 @@ const NewProductForm = () => {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         sx={{ margin: "8px 0" }}
-                    />
+                        select
+                    >
+                        {categories.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                     <TextField
                         label="Image Url"
                         value={imageUrl}
@@ -87,7 +113,7 @@ const NewProductForm = () => {
                 <Button
                     type="reset"
                     onClick={resetForm}
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%","&:hover":{bgcolor: "magenta", color:"white"}}}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
                     variant="contained"
                     size="large"
                 >
@@ -96,7 +122,7 @@ const NewProductForm = () => {
                 <Button
                     disabled={!!error}
                     type="submit"
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover":{bgcolor: "magenta", color:"white"}}}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
                     variant="contained"
                     size="large"
                 >
