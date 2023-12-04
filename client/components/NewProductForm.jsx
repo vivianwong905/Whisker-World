@@ -49,7 +49,7 @@ const NewProductForm = () => {
     return (
         <Paper elevation={6} sx={{ padding: 1, marginTop: 2, textAlign: "center", width: "100%", minWidth: 300 }} >
             <form className="form" method="post" onSubmit={handleSubmit}>
-                <Typography variant="h5">Add New Product</Typography>
+                <Typography variant="h4">Add New Product</Typography>
                 {error && <p>{error}</p>}
                 <Stack direction="column" >
                     <TextField
