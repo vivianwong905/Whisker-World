@@ -81,7 +81,7 @@ const Login_register = () => {
                 <Button
                     variant="contained"
                     size="large"
-                    sx={{ margin: "8px 0", width: "100%" }}
+                    sx={{ margin: "8px 0", width: "100%","&:hover":{bgcolor: "magenta", color:"white" }}}
                     type="submit"
                 >
                     {type === "login" ? "Log In" : "Register"}

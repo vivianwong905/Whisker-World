@@ -32,12 +32,11 @@ const GuestCheckoutCartButton = () => {
             <Button
                 onClick={() => dispatch(clearCart())}
                 variant="contained"
-                sx={{ margin: 2, textAlign: "right", padding: 2 }}
+                sx={{ margin: 2, textAlign: "right", padding: 2,"&:hover":{bgcolor: "magenta", color:"white"} }}
             >
                 Check Out
             </Button>
         )
-    
 
     //this is not needed yet
     // return <Link href="#" component={RouterLink} to="/login">Log In to Check Out</Link>;

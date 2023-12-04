@@ -42,7 +42,7 @@ const Cart = () => {
             </Typography>
           )}
         </Grid>
-        <Typography sx={{ padding: 2, marginLeft: 5 }}>
+        <Typography sx={{ padding: 3, marginLeft: 4 }}>
           Click here to<Button onClick={() => { navigate('/') }}>continue shopping</Button>
         </Typography>
         {user && <CheckoutCartButton cartId={loggedInCart?.id} />}

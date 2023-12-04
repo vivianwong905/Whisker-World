@@ -1,7 +1,13 @@
 /* Put your CSS in here! */
+/* Nav Bar */
 
 #cat-logo{
-    height: 1.4em;
+    height: 2.0em;
     align-content: center;
     justify-content: center;
+} 
+
+body{
+    background-color: antiquewhite;
+
 }

@@ -60,12 +60,13 @@ const NavBar = () => {
           {token ?
             (<Button
               color="inherit"
+              sx={{"&:hover":{bgcolor: "#02E2EB", color:"white"}}}
               onClick={() => {
                 dispatch(logout())
                 navigate('/')
               }}
             >Logout</Button>) :
-            (<Button color="inherit" component={RouterLink} to="/register">Login or Register</Button>)}
+            (<Button color="inherit" sx={{"&:hover":{bgcolor: "#02E2EB", color:"white"}}} component={RouterLink} to="/register">Login or Register</Button>)}
           <Menu
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
@@ -81,9 +82,9 @@ const NavBar = () => {
               horizontal: 'left',
             }}
           >
-            <MenuItem onClick={handleClose} component={RouterLink} to="/">Products</MenuItem>
-            <MenuItem onClick={handleClose} component={RouterLink} to="/cart"><ShoppingCartIcon />Cart</MenuItem>
-            {user?.admin && <MenuItem onClick={handleClose} component={RouterLink} to="/admin">Admin</MenuItem>}
+            <MenuItem onClick={handleClose} sx={{"&:hover":{bgcolor: "#02E2EB", color:"black"}}} component={RouterLink} to="/">Products</MenuItem>
+            <MenuItem onClick={handleClose} sx={{"&:hover":{bgcolor: "#02E2EB", color:"black"}}} component={RouterLink} to="/cart"><ShoppingCartIcon />Cart</MenuItem>
+            {user?.admin && <MenuItem onClick={handleClose} sx={{"&:hover":{bgcolor: "#02E2EB", color:"black"}}} component={RouterLink} to="/admin">Admin</MenuItem>}
           </Menu>
         </Toolbar>
       </AppBar>
