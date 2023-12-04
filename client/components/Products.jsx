@@ -1,24 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { useGetCatProductsQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from "../redux/api";
 import React, { useState } from "react";
-import { Button, Box, Card, CardActions, CardContent, CardMedia, Typography, Grid, TextField } from "@mui/material";
+import { Button, Box, Card, CardActions, CardContent, CardMedia, Typography, Grid, TextField} from "@mui/material";
 import NewProductForm from "./NewProductForm";
 import { useSelector, useDispatch } from "react-redux";
-
+import Filters from "./Filters";
 import { addToCart } from "../redux/cartSlice";
 
 
 const Products = () => {
   const { user, token } = useSelector(state => state.auth)
+  const { price, category} =useSelector(state => state.filter);
+  
   const navigate = useNavigate();
 
-  const { data: products, isLoading, error } = useGetCatProductsQuery();
+  const { data: products, isLoading, error } = useGetCatProductsQuery(price ?? undefined); // if price is truthy pass it, otherwise pass undefined
   const [deleteCatProduct] = useDeleteCatProductMutation();
   const [createCartItemsInCart] = useCreateCartItemsInCartMutation();
 
   const dispatch = useDispatch()
 
   const [searchQuery, setSearchQuery] = useState("")
+
+
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -31,18 +35,19 @@ const Products = () => {
 
     <Box>
       <TextField
-        // id="outlined-basic"
+        id="outlined-basic"
         variant="outlined"
         label="Search"
         placeholder="Search Products Here..."
         onChange={event => setSearchQuery(event.target.value)}
         sx={{ marginLeft: 10, marginTop: 3, padding:2}}
       />
+      <Filters />
       {user?.admin && <NewProductForm />}
       <Typography variant="h3" sx={{ marginLeft: 14 }} >Cat Products</Typography>
       {error && !products && (<p> Failed to load products from api</p>)}
       <Grid container spacing={4} sx={{ marginLeft: 10 }}>
-        {products ? ( 
+        {products ? ( // sort the products in alphabetical order and then filter when the person is searching in the search bar
           products.slice().sort((a,b)=> a.name.localeCompare(b.name))
           .filter(product => {
             if (searchQuery === '') {
@@ -51,6 +56,18 @@ const Products = () => {
               return product;
             }
           })
+          .filter(product => {
+            if (category.length === 0) { // category is an array
+              return true //this means no filter, so show it 
+            } else {
+              return category.includes(product.category)
+            }
+              })
+          //commenting out below as this is an example of how to do this price filter in the FE
+          // .filter(product => {
+          //   return !price || (price && product.price <= price)
+          // })
+              
             .map((product) => {
               return (
                 <Grid item key={product.name} >
@@ -65,6 +82,7 @@ const Products = () => {
                     <CardContent>
                       <Typography variant="h6" sx={{ textAlign: "center", textTransform: "capitalize" }}>{product.name}</Typography>
                       <Typography sx={{ textAlign: "center" }}><b>Price:</b>${product.price}</Typography>
+                      <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: "center"}}>
                       <Button variant="contained"  sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80}} onClick={() => navigate("/" + product.id)}>Product Info</Button>

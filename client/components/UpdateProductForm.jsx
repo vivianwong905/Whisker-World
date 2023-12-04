@@ -22,6 +22,7 @@ const UpdateProductForm = () => {
     const [detail, setDetail] = useState((state && state.detail)?? "");
     const [price, setPrice] = useState((state && state.price)?? "");
     const [imageUrl, setImageUrl] = useState((state && state.imageUrl)?? "");
+    const [category, setCategory] = useState((state && state.category)?? "");
     const id= state && state.id ;
 
     const [error, setError] = useState("");
@@ -35,6 +36,7 @@ const UpdateProductForm = () => {
         setProductName("");
         setDetail("");
         setPrice("");
+        setCategory("");
         setImageUrl("");
         setError("");
     }
@@ -44,10 +46,10 @@ const UpdateProductForm = () => {
         e.preventDefault();
 
         //read data directly from state
-        console.log(id,{  name: productName, detail, imageUrl, price });
+        console.log(id,{  name: productName, detail, imageUrl, price, category });
 
         if (!error) {
-            updateCatProduct({productId: id, product: { name: productName, detail, imageUrl, price }})
+            updateCatProduct({productId: id, product: { name: productName, detail, imageUrl, price, category }})
             setTimeout(() => navigate('/'), 2000);
         }
     }
@@ -75,6 +77,12 @@ const UpdateProductForm = () => {
                         label="Price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        sx={{ margin: "8px 0" }}
+                    />
+                    <TextField
+                        label="Category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
                         sx={{ margin: "8px 0" }}
                     />
                     <TextField

@@ -51,6 +51,7 @@ const SingleProduct = () => {
                         <Typography variant="h5" sx={{textAlign: "center", textTransform: "capitalize"}}>{product.name}</Typography>
                         <Typography sx={{textAlign: "center"}}><b>Description:</b> {product.detail}</Typography>
                         <Typography sx={{textAlign: "center"}}><b>Price:</b> ${product.price}</Typography>
+                        <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>
                     </CardContent>
             <CardActions sx={{ justifyContent: "center" }}>
               <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100}} onClick={() => navigate("/")} > Back </Button>

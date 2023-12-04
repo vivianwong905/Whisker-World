@@ -26,7 +26,11 @@ const api = createApi({
         //cat product-
         //get all the cat products api/products/
         getCatProducts: builder.query({
-            query: () => "api/products",
+            query: (price) => {
+                return price ? `api/products?price=${price}` : "api/products";
+                
+            },
+
             providesTags: ["Product"]
         }),
         //get single cat product query api/products/:id
