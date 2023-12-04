@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useUpdateCatProductMutation } from "../redux/api";
 import { useLocation, useNavigate } from "react-router-dom"
 
-import { Stack, Button, Paper, TextField, Typography } from "@mui/material";
+import { Stack, Button, Paper, TextField, Typography, MenuItem } from "@mui/material";
 
 
 const UpdateProductForm = () => {
@@ -54,6 +54,26 @@ const UpdateProductForm = () => {
         }
     }
 
+    const categories = [
+        {
+            value: 'Food',
+            label: 'Food',
+        },
+        {
+            value: 'Treat',
+            label: 'Treat',
+        },
+        {
+            value: 'Toys',
+            label: 'Toys',
+        },
+        {
+            value: 'Accessories',
+            label: 'Accessories',
+        },
+    ];
+
+
     return (
         <Paper elevation={6} sx={{ padding: 1, marginTop: 5, marginLeft: 4, width: "100%", justifyContent: "right", textAlign: "center", minWidth: 300 }} >
             <form className="form" method="post" onSubmit={handleSubmit}>
@@ -84,7 +104,14 @@ const UpdateProductForm = () => {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         sx={{ margin: "8px 0" }}
-                    />
+                        select
+                    >
+                        {categories.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                     <TextField
                         label="Image Url"
                         value={imageUrl}

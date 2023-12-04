@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { useCreateCatProductMutation } from "../redux/api";
 
-import { Stack, Button, Paper, TextField, Typography } from "@mui/material";
+import { Stack, Button, Paper, TextField, Typography, MenuItem } from "@mui/material";
 
 
 const NewProductForm = () => {
@@ -46,6 +46,25 @@ const NewProductForm = () => {
         }
     }
 
+    const categories = [
+        {
+            value: 'Food',
+            label: 'Food',
+        },
+        {
+            value: 'Treat',
+            label: 'Treat',
+        },
+        {
+            value: 'Toys',
+            label: 'Toys',
+        },
+        {
+            value: 'Accessories',
+            label: 'Accessories',
+        },
+    ];
+
     return (
         <Paper elevation={6} sx={{ padding: 1, marginTop: 2, textAlign: "center", width: "100%", minWidth: 300 }} >
             <form className="form" method="post" onSubmit={handleSubmit}>
@@ -76,7 +95,14 @@ const NewProductForm = () => {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         sx={{ margin: "8px 0" }}
-                    />
+                        select
+                    >
+                        {categories.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                     <TextField
                         label="Image Url"
                         value={imageUrl}
