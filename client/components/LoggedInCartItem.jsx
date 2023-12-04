@@ -58,7 +58,7 @@ const LoggedInCartItem = () => {
                                 </Grid>)
                         })
                         : (
-                            user && <Typography variant="h3" sx={{ padding: 10 }}>
+                            user && <Typography variant="h3" sx={{ padding: 15 }}>
                                 Your cart is empty
                             </Typography>
                         )}

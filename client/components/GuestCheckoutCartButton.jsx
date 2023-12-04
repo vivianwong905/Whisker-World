@@ -27,7 +27,7 @@ const GuestCheckoutCartButton = ({ cartId }) => {
      if (guestCart?.length === 0) {
         return (
             <Stack direction="row">
-                <Typography sx={{ textAlign: "center", padding: 5,  }} variant="h5">
+                <Typography sx={{ textAlign: "left", padding: 5,  }} variant="h5">
                     Thank you for shopping at Whisker World! Your order will ship soon!
                 </Typography>
             </Stack>

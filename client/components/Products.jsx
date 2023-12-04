@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { addToCart } from "../redux/cartSlice";
 
+
 const Products = () => {
   const { user, token } = useSelector(state => state.auth)
   const navigate = useNavigate();
