@@ -4,17 +4,16 @@ const { requireAdmin, requireUser } = require("../auth/middleware");
 const prisma = require("../db/client");
 
 // Get all products
-// price || category and price && category, and none of the above - conditionally including that in the spread operator
 productsRouter.get("/", async (req, res, next) => {
  try {
-        const { price, category } = req.query;
+        const { price } = req.query;
 
         if (price) { //if price is anything above 0, !undefined or null, it will return something
             const filteredProducts = await prisma.product.findMany({
                 where: {
-                    ...(price && {price: {
+                    price: {
                         lte: parseInt(price), 
-                    }}),
+                    },
                 },
             });
 

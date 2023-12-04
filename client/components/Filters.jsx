@@ -1,21 +1,8 @@
 
 import React from "react";
-import { useState } from "react";
-import { Button, Box, Card, Checkbox, Slider, Typography, FormGroup, FormControlLabel} from '@mui/material';
+import { Card, Checkbox, Slider, Typography, FormGroup, FormControlLabel} from '@mui/material';
 import { useSelector, useDispatch } from "react-redux";
 import { setPriceFilter, setCategoryFilter } from "../redux/filterSlice";
-
-
-// const categories = [
-//   "food",
-//   "toys",
-//   "treats"
-// ];
-
-  // const resetFilters = () => {
-  //   setCategoryFilter('');
-  //   setPriceFilter('');
-  // };
 
 
 const Filters = () => {
@@ -28,15 +15,15 @@ const Filters = () => {
   };
  
   const handleCategoryChange = (event, category) => {
-    console.log(event.target.checked, "event");//this will give you a true or false
-    console.log(category, "category"); //string
+    // console.log(event.target.checked, "event");//this will give you a true or false
+    // console.log(category, "category"); //string
     dispatch(setCategoryFilter({category, isChecked: event.target.checked}));
   };
 
 
   return (
     <div> 
-      <Card sx={{ maxWidth: 500, minWidth: 350, maxHeight: 250, minHeight: 250 }}> 
+      <Card sx={{ maxWidth: 500, minWidth: 350, maxHeight: 300, minHeight: 250 }}> 
       <Typography variant="h6">Price Filter</Typography>
       <Slider
         getAriaLabel={() => 'Price Range'}
@@ -48,7 +35,7 @@ const Filters = () => {
         step={5}
         max={40} 
       />
-
+<Typography variant="h6">Category Filter</Typography>
 <FormGroup>
   <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Food')} value="Food" />} label="Food" />
   <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Treat')} value="Treat" />} label="Treat" />

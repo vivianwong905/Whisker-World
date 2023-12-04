@@ -57,17 +57,12 @@ const Products = () => {
             }
           })
           .filter(product => {
-            
             if (category.length === 0) { // category is an array
               return true //this means no filter, so show it 
-              
             } else {
               return category.includes(product.category)
             }
               })
-          // .filter(product => {
-          //  return !category || (category && product.category === category)
-          //     })
           //commenting out below as this is an example of how to do this price filter in the FE
           // .filter(product => {
           //   return !price || (price && product.price <= price)
