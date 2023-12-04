@@ -11,6 +11,7 @@ import { addToCart } from "../redux/cartSlice";
 const Products = () => {
   const { user, token } = useSelector(state => state.auth)
   const { price, category} =useSelector(state => state.filter);
+  
   const navigate = useNavigate();
 
   const { data: products, isLoading, error } = useGetCatProductsQuery(price ?? undefined); // if price is truthy pass it, otherwise pass undefined
@@ -20,7 +21,6 @@ const Products = () => {
   const dispatch = useDispatch()
 
   const [searchQuery, setSearchQuery] = useState("")
-
 
 
 
@@ -56,10 +56,18 @@ const Products = () => {
               return product;
             }
           })
+          .filter(product => {
+            if (category.length === 0) { // category is an array
+              return true //this means no filter, so show it 
+            } else {
+              return category.includes(product.category)
+            }
+              })
           //commenting out below as this is an example of how to do this price filter in the FE
           // .filter(product => {
           //   return !price || (price && product.price <= price)
           // })
+              
             .map((product) => {
               return (
                 <Grid item key={product.name} >
