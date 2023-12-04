@@ -33,8 +33,8 @@ const Filters = () => {
 
   return (
     <Box sx={{ marginTop: 2}}> 
-      <Card sx={{ maxWidth: 500, minWidth: 350, maxHeight: 300, minHeight: 250, padding: 2 }}> 
-      <Typography variant="h6" sx={{paddingBottom:4}}>Price Filter</Typography>
+      <Card sx={{ maxWidth: 500, minWidth: 350, maxHeight: 300, minHeight: 400, padding: 4.8 }}> 
+      <Typography variant="h6" sx={{paddingBottom:4, fontSize: 35}}>Price Filter</Typography>
       <Slider
         getAriaLabel={() => 'Price Range'}
         value={Number(price)}
@@ -45,13 +45,14 @@ const Filters = () => {
         step={5}
         max={50}
         marks={marks}
+        sx={{paddingTop:4}}
       />
-<Typography variant="h6">Category Filter</Typography>
-<FormGroup>
-  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Food')} value="Food" />} label="Food" />
-  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Treat')} value="Treat" />} label="Treat" />
-  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Toys')} value="Toys" />} label="Toys" />
-  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Accessories')} value="Accessories" />} label="Accessories" />
+<Typography variant="h6" sx={{paddingTop:2, fontSize: 35}}>Category Filter</Typography>
+<FormGroup >
+  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Food')} value="Food" />} label={<Typography variant="h5">Food</Typography>} />
+  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Treat')} value="Treat" />} label={<Typography variant="h5">Treat</Typography>} />
+  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Toys')} value="Toys" />} label={<Typography variant="h5">Toys</Typography>} />
+  <FormControlLabel control={<Checkbox onChange={(event) => handleCategoryChange(event, 'Accessories')} value="Accessories" />} label={<Typography variant="h5">Accessories</Typography>} />
 </FormGroup>
 
       </Card>
