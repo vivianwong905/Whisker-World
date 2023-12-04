@@ -50,9 +50,9 @@ const LoggedInCartItem = () => {
                                             <Typography sx={{ textAlign: "center" }}><b>Quantity:</b>{cartItem.quantity}</Typography>
                                         </CardContent>
                                         <CardActions sx={{ justifyContent: "center" }}>
-                                            <Button variant="contained" onClick={() => deleteCartItemsInCart(cartItem.id)} > Remove Item </Button>
-                                            <Button variant="contained" onClick={() => handleIncrement(cartItem)} > + </Button>
-                                            <Button variant="contained" onClick={() => handleDecrement(cartItem)} disabled={cartItem.quantity === 1}> - </Button>
+                                            <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}}} onClick={() => deleteCartItemsInCart(cartItem.id)} > Remove Item </Button>
+                                            <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}}} onClick={() => handleIncrement(cartItem)} > + </Button>
+                                            <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}}} onClick={() => handleDecrement(cartItem)} disabled={cartItem.quantity === 1}> - </Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>)

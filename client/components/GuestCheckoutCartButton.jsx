@@ -18,7 +18,7 @@ const GuestCheckoutCartButton = ({ cartId }) => {
             <Button
                 onClick={() => dispatch(clearCart())}
                 variant="contained"
-                sx={{ margin: 2, textAlign: "right", padding: 2 }}
+                sx={{ margin: 2, textAlign: "right", padding: 2,"&:hover":{bgcolor: "magenta", color:"white"} }}
             >
                 Check Out
             </Button>

@@ -53,7 +53,7 @@ const Products = () => {
             .map((product) => {
               return (
                 <Grid item key={product.name} >
-                  <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450 }} >
+                  <Card sx={{ maxWidth: 400, minWidth: 400, maxHeight: 450, minHeight: 450 }} >
                     <CardMedia
                       component="img"
                       alt={product.name}
@@ -65,12 +65,12 @@ const Products = () => {
                       <Typography variant="h6" sx={{ textAlign: "center", textTransform: "capitalize" }}>{product.name}</Typography>
                       <Typography sx={{ textAlign: "center" }}><b>Price:</b>${product.price}</Typography>
                     </CardContent>
-                    <CardActions sx={{ justifyContent: "center" }}>
-                      <Button variant="contained" onClick={() => navigate("/" + product.id)}>Product Info</Button>
-                      {user?.admin && <Button variant="contained" onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
-                      {user?.admin && <Button variant="contained" onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
-                      {!user && <Button variant="contained" onClick={() => dispatch(addToCart({...product}))}>Add to Cart</Button>}
-                      {token && <Button variant="contained" onClick={() => createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
+                    <CardActions sx={{ justifyContent: "center"}}>
+                      <Button variant="contained"  sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80}} onClick={() => navigate("/" + product.id)}>Product Info</Button>
+                      {user?.admin && <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80}} onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
+                      {user?.admin && <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80}} onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
+                      {!user && <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80}} onClick={() => dispatch(addToCart({...product}))}>Add to Cart</Button>}
+                      {token && <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80}} onClick={() => createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
                     </CardActions>
                   </Card>
                 </Grid>

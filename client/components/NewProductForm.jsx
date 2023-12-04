@@ -79,7 +79,7 @@ const NewProductForm = () => {
                 <Button
                     type="reset"
                     onClick={resetForm}
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%" }}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%","&:hover":{bgcolor: "magenta", color:"white"}}}
                     variant="contained"
                     size="large"
                 >
@@ -88,7 +88,7 @@ const NewProductForm = () => {
                 <Button
                     disabled={!!error}
                     type="submit"
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%" }}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover":{bgcolor: "magenta", color:"white"}}}
                     variant="contained"
                     size="large"
                 >
