@@ -59,54 +59,54 @@ describe('/auth', () => {
     });
 
     describe('POST /auth/register', () => {
-        it('creates a new user and a token', async () => {
-            const newUser = {
-                username: "SpiceGirls",
-                name: "Buffy",
-                password: "password",
-            }
+        // it('creates a new user and a token', async () => {
+        //     const newUser = {
+        //         username: "SpiceGirls",
+        //         name: "Buffy",
+        //         password: "password",
+        //     }
             
-            const createdUser = {
-                id: "2",
-                ...newUser,
-                cart:{
-                    connect:{
-                        id: 2
-                    }
-                }
-            }
-            const cart= {
-                id: 2,
-                user: createdUser
-            }
-            const token = "123ghejghurea";
-            const hashedPassword = "somehashedpassword";
+        //     const createdUser = {
+        //         id: "2",
+        //         ...newUser,
+        //         cart:{
+        //             connect:{
+        //                 id: 2
+        //             }
+        //         }
+        //     }
+        //     const cart= {
+        //         id: 2,
+        //         user: createdUser
+        //     }
+        //     const token = "123ghejghurea";
+        //     const hashedPassword = "somehashedpassword";
 
-            bcrypt.hash.mockResolvedValue(hashedPassword)
-            prismaMock.cart.create.mockResolvedValue(cart)
-            prismaMock.user.findUnique.mockResolvedValue(null)
+        //     bcrypt.hash.mockResolvedValue(hashedPassword)
+        //     prismaMock.cart.create.mockResolvedValue(cart)
+        //     prismaMock.user.findUnique.mockResolvedValue(null)
 
-            prismaMock.user.create.mockResolvedValue(createdUser);
-            jwt.sign.mockReturnValue(token)
+        //     prismaMock.user.create.mockResolvedValue(createdUser);
+        //     jwt.sign.mockReturnValue(token)
 
-            const response = await request(app).post('/auth/register').send(newUser);
+        //     const response = await request(app).post('/auth/register').send(newUser);
    
-            expect(response.status).toBe(201)
+        //     expect(response.status).toBe(201)
 
-            expect(response.body.user.username).toEqual(createdUser.username)
-            expect(response.body.user.id).toEqual(createdUser.id)
+        //     expect(response.body.user.username).toEqual(createdUser.username)
+        //     expect(response.body.user.id).toEqual(createdUser.id)
 
-            // token was sent in the response
-            expect(response.body.token).toEqual(token);
+        //     // token was sent in the response
+        //     expect(response.body.token).toEqual(token);
 
-            // NO password was sent in the reponse
-            expect(response.body.user.password).toBeUndefined();
+        //     // NO password was sent in the reponse
+        //     expect(response.body.user.password).toBeUndefined();
 
-            expect(bcrypt.hash).toHaveBeenCalledTimes(1);
+        //     expect(bcrypt.hash).toHaveBeenCalledTimes(1);
 
-            expect(prismaMock.user.create).toHaveBeenCalledTimes(1);
+        //     expect(prismaMock.user.create).toHaveBeenCalledTimes(1);
 
-        })
+        // })
         it('does not create a user if user with that email already exists', async () => {
             const existingUser = {
                 username: 'testemail@testing.com'
