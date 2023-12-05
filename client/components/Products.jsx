@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useGetCatProductsQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from "../redux/api";
 import React, { useState } from "react";
-import { Button, Box, Card, CardActions, CardContent, CardMedia, Typography, Grid, TextField } from "@mui/material";
+import { Button, Box, Card, CardActions, CardContent, CardMedia, Typography, Grid, TextField, Paper } from "@mui/material";
 import NewProductForm from "./NewProductForm";
 import { useSelector, useDispatch } from "react-redux";
 import Filters from "./Filters";
@@ -34,14 +34,16 @@ const Products = () => {
   return (
 
     <Box>
-      <TextField
-        id="outlined-basic"
-        variant="filled"
-        label="Search"
-        placeholder="Search Products Here..."
-        onChange={event => setSearchQuery(event.target.value)}
-        sx={{ marginLeft: 4, marginTop: 1, padding: 2 }}
-      />
+      <Paper sx={{ maxWidth: 250, marginLeft: 6, maxHeight: 100, marginTop: 2 }} >
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          label="Search"
+          placeholder="Search Products Here..."
+          onChange={event => setSearchQuery(event.target.value)}
+          sx={{ width: "100%" }}
+        />
+      </Paper>
       <Grid container spacing={4} sx={{ marginLeft: 2 }}>
         <Grid item  >
           <Filters />
