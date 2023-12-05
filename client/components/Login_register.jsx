@@ -7,12 +7,13 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { useLoginMutation, useRegisterMutation } from '../redux/api'
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Login_register = () => {
     const navigate = useNavigate();
     const [register, { isLoading }] = useRegisterMutation();
     const [login] = useLoginMutation();
-
+    const {items: cartItems} = useSelector(state => state.cart)
     const [type, setType] = useState("login");
 
     const [fullName, setFullName] = useState("");
@@ -26,7 +27,7 @@ const Login_register = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        
         try {
             if (type === "register") {
                 await register({ name: fullName, username, password });

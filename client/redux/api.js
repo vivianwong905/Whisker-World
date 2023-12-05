@@ -123,10 +123,10 @@ const api = createApi({
         // /auth/register mutation
 
         register: builder.mutation({
-            query: (user) => ({
+            query: ({username, password, name, cartItems}) => ({
                 url: 'auth/register',
                 method: "POST",
-                body: user
+                body: {username, password, name, cartItems}
             }),
 
         }),

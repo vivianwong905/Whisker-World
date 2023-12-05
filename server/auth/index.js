@@ -10,8 +10,8 @@ const SALT_ROUNDS = 5;
 // Register a new user account
 authRouter.post("/register", async (req, res, next) => {
     try {
-        const {username, password, name} = req.body;
-        if(!username || !password){
+        const { username, password, name, cartItems } = req.body;
+        if (!username || !password) {
             next({
                 name: "MissingCredentialsError",
                 message: "Please supply both a username and password"
@@ -35,9 +35,69 @@ authRouter.post("/register", async (req, res, next) => {
         } else {
             // todo: come back later, what to do with an existing cart (tier3) then you log in
             // attached logged out cart to new registered user
-            
+
+            // TODO: create cart with cart items optionally if they where a guest and had the cart 
+            // const query = {
+            //     data: {
+            //         cartItems: {
+            //             create: cartItems.map((item) => ({
+            //                 quantity: item.quantity,
+            //                 product: {
+            //                     connectOrCreate: {
+            //                         where: {
+            //                             id: Number(item.id)
+
+            //                         },
+            //                         create: {
+            //                             id: Number(item.id),
+            //                             name: item.name,
+            //                             detail: item.detail,
+            //                             price: item.price,
+            //                             imageUrl: item.imageUrl,
+            //                             category: item.category
+            //                         }
+            //                     }
+            //                 }
+            //             }))
+            //         },
+            //     },
+            //     include: {
+            //         cartItems: {
+            //             include: { product: true }
+            //         }
+            //     }
+            // }
+            // console.log(query)
             //line const cart is creating an empty cart with the const user on connected: cart.id
-            const cart = await prisma.cart.create();
+            const cart = await prisma.cart.create({
+                data: {
+                    cartItems: {
+                        create: cartItems.map((item) => ({
+                            quantity: item.quantity,
+                            product: {
+                                connectOrCreate: {
+                                    where: {
+                                        id: Number(item.id)
+                                    },
+                                    create: {
+                                        id: Number(item.id),
+                                        name: item.name,
+                                        detail: item.detail,
+                                        price: item.price,
+                                        imageUrl: item.imageUrl,
+                                        category: item.category
+                                    }
+                                }
+                            }
+                        }))
+                    },
+                },
+                include: {
+                    cartItems: {
+                        include: { product: true }
+                    }
+                }
+            });
             const user = await prisma.user.create({
                 data: {
                     username: username,
@@ -110,25 +170,25 @@ authRouter.post("/login", async (req, res, next) => {
                     });
                     return;
                 } else {
-                // Create a token with the user id
-                const token = jwt.sign({
-                    id: user.id,
-                    username
-                }, process.env.JWT_SECRET, {
-                    expiresIn: '1w'
-                });
+                    // Create a token with the user id
+                    const token = jwt.sign({
+                        id: user.id,
+                        username
+                    }, process.env.JWT_SECRET, {
+                        expiresIn: '1w'
+                    });
 
-                //delete user password before sending to the frontend
-                delete user.password
+                    //delete user password before sending to the frontend
+                    delete user.password
 
-                res.status(201).send({
-                    user,
-                    message: "you're logged in!",
-                    token
-                });
+                    res.status(201).send({
+                        user,
+                        message: "you're logged in!",
+                        token
+                    });
 
                 }
-            
+
             }
         }
     } catch (error) {
@@ -146,9 +206,9 @@ authRouter.get("/me", requireUser, async (req, res, next) => {
         const user = await prisma.user.findUnique({
             where: { id: req.user.id },
         });
-    //delete user password before sending to the frontend
+        //delete user password before sending to the frontend
         delete user.password
-        
+
         res.send(user);
     } catch (error) {
         next(error);
@@ -158,14 +218,14 @@ authRouter.get("/me", requireUser, async (req, res, next) => {
 // Admin get all users
 authRouter.get('/', [requireUser, requireAdmin], async (req, res, next) => {
     try {
-       
-            const users = await prisma.user.findMany();
-            
-            users.forEach(user => delete user.password);
-    
-            res.send(users);
-        
-        
+
+        const users = await prisma.user.findMany();
+
+        users.forEach(user => delete user.password);
+
+        res.send(users);
+
+
     } catch ({ name, message }) {
         next({ name, message });
     }

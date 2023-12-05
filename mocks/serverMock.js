@@ -53,4 +53,6 @@ export const productsHandlers = [
     ])
     })
   ]
+
+
 // make different handler for each api endpoint on front end,
