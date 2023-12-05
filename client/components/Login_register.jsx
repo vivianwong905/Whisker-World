@@ -6,12 +6,13 @@ import { Stack, Button, Paper, TextField, Typography, Link } from "@mui/material
 
 import { useLoginMutation, useRegisterMutation } from '../redux/api'
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Login_register = () => {
     const navigate = useNavigate();
     const [register, { isLoading }] = useRegisterMutation();
     const [login] = useLoginMutation();
-
+    const {items: cartItems} = useSelector(state => state.cart)
     const [type, setType] = useState("login");
 
     const [fullName, setFullName] = useState("");
@@ -19,13 +20,13 @@ const Login_register = () => {
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [successMessage, setSuccessMessage] = useState(null);
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        
         try {
             if (type === "register") {
-                await register({ name: fullName, username, password });
+                console.log(cartItems)
+                await register({ name: fullName, username, password , cartItems});
                 setSuccessMessage("Registration successful!");
                 setTimeout(() => navigate('/'), 2000);
             }
