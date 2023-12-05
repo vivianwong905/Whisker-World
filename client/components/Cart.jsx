@@ -15,7 +15,7 @@ const Cart = () => {
   const guestCart = useSelector(state => state.cart.items)
   const { data: loggedInCart, isLoading, error } = useGetUsersCartQuery();
 
-  const navigate = useNavigate();
+
 
   return (
     <>

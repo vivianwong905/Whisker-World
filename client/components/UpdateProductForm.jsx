@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useUpdateCatProductMutation } from "../redux/api";
 import { useLocation, useNavigate } from "react-router-dom"
 
-import { Stack, Button, Paper, TextField, Typography, MenuItem } from "@mui/material";
-
+import { Stack, Button, Paper, TextField, Typography, MenuItem, Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
 const UpdateProductForm = () => {
 
@@ -26,6 +26,8 @@ const UpdateProductForm = () => {
     const id = state && state.id;
 
     const [error, setError] = useState("");
+    // snack bar message
+    const [open, setOpen] = useState(false);
 
     if (isLoadingUpdatedProductForm) {
         return <Typography>Loading...</Typography>;
@@ -50,9 +52,31 @@ const UpdateProductForm = () => {
 
         if (!error) {
             updateCatProduct({ productId: id, product: { name: productName, detail, imageUrl, price, category } })
+            setOpen(true)
             setTimeout(() => navigate('/'), 2000);
         }
     }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    const action = (
+        <>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </>
+    )
 
     const categories = [
         {
@@ -137,6 +161,17 @@ const UpdateProductForm = () => {
                 >
                     Submit
                 </Button>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                    action={action}
+                >
+                    <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
+                    <AlertTitle>Success</AlertTitle>
+                        Product Updated!
+                    </Alert>
+                </Snackbar>
             </form>
         </Paper>
     )
