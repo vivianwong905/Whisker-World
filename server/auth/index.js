@@ -35,7 +35,9 @@ authRouter.post("/register", async (req, res, next) => {
         } else {
             // todo: come back later, what to do with an existing cart (tier3) then you log in
             // attached logged out cart to new registered user
-            
+
+           // TODO: create cart with cart items optionally if they where a guest and had the cart 
+           
             //line const cart is creating an empty cart with the const user on connected: cart.id
             const cart = await prisma.cart.create();
             const user = await prisma.user.create({
