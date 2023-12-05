@@ -5,8 +5,8 @@ import { useState } from "react";
 
 import { useCreateCatProductMutation } from "../redux/api";
 
-import { Stack, Button, Paper, TextField, Typography, MenuItem } from "@mui/material";
-
+import { Stack, Button, Paper, TextField, Typography, MenuItem, Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
 const NewProductForm = () => {
 
@@ -19,6 +19,9 @@ const NewProductForm = () => {
     const [imageUrl, setImageUrl] = useState("");
     const [category, setCategory] = useState("");
     const [error, setError] = useState("")
+
+    // snack bar message
+    const [open, setOpen] = useState(false);
 
     if (isLoadingProductForm) {
         return <Typography>Loading...</Typography>;
@@ -43,9 +46,29 @@ const NewProductForm = () => {
 
         if (!error) {
             createCatProduct({ name: productName, detail, imageUrl, price, category })
+            setOpen(true)
         }
     }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
 
+        setOpen(false);
+    };
+    // for the snack bar box
+    const action = (
+        <>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </>
+    ) 
     const categories = [
         {
             value: 'Food',
@@ -128,6 +151,17 @@ const NewProductForm = () => {
                 >
                     Submit
                 </Button>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                    action={action}
+                >
+                    <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
+                    <AlertTitle>Success</AlertTitle>
+                        Product Created!
+                    </Alert>
+                </Snackbar>
             </form>
         </Paper>
     )
