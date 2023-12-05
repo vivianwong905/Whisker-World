@@ -72,7 +72,7 @@ authRouter.post("/register", async (req, res, next) => {
             const cart = await prisma.cart.create({
                 data: {
                     cartItems: {
-                        create: cartItems.map((item) => ({
+                        create: cartItems?.map((item) => ({
                             quantity: item.quantity,
                             product: {
                                 connectOrCreate: {
