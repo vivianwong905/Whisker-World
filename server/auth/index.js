@@ -37,31 +37,67 @@ authRouter.post("/register", async (req, res, next) => {
             // attached logged out cart to new registered user
 
             // TODO: create cart with cart items optionally if they where a guest and had the cart 
-const query = {
-    data: {
-        cartItems: {
-            create: cartItems.map((item) => ({
-                quantity: item.quantity,
-                product: {
-                    connect: {
-                        id: Number(item.id)
+            // const query = {
+            //     data: {
+            //         cartItems: {
+            //             create: cartItems.map((item) => ({
+            //                 quantity: item.quantity,
+            //                 product: {
+            //                     connectOrCreate: {
+            //                         where: {
+            //                             id: Number(item.id)
+
+            //                         },
+            //                         create: {
+            //                             id: Number(item.id),
+            //                             name: item.name,
+            //                             detail: item.detail,
+            //                             price: item.price,
+            //                             imageUrl: item.imageUrl,
+            //                             category: item.category
+            //                         }
+            //                     }
+            //                 }
+            //             }))
+            //         },
+            //     },
+            //     include: {
+            //         cartItems: {
+            //             include: { product: true }
+            //         }
+            //     }
+            // }
+            // console.log(query)
+            //line const cart is creating an empty cart with the const user on connected: cart.id
+            const cart = await prisma.cart.create({
+                data: {
+                    cartItems: {
+                        create: cartItems.map((item) => ({
+                            quantity: item.quantity,
+                            product: {
+                                connectOrCreate: {
+                                    where: {
+                                        id: Number(item.id)
+                                    },
+                                    create: {
+                                        id: Number(item.id),
+                                        name: item.name,
+                                        detail: item.detail,
+                                        price: item.price,
+                                        imageUrl: item.imageUrl,
+                                        category: item.category
+                                    }
+                                }
+                            }
+                        }))
+                    },
+                },
+                include: {
+                    cartItems: {
+                        include: { product: true }
                     }
                 }
-            }))
-        },
-    },
-    include:{
-        cartItems: {
-            include:{
-                product: true
-            }
-        }
-    },
-
-}
-console.log(query)
-            //line const cart is creating an empty cart with the const user on connected: cart.id
-            const cart = await prisma.cart.create(query);
+            });
             const user = await prisma.user.create({
                 data: {
                     username: username,
