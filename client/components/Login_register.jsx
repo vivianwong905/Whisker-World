@@ -1,4 +1,4 @@
-// we might not need auth/login
+
 
 import { useState } from "react";
 
@@ -7,10 +7,12 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { useLoginMutation, useRegisterMutation } from '../redux/api'
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetCartAndItems } from "../redux/cartSlice";
 
 const Login_register = () => {
     const navigate = useNavigate();
+    const dispatch= useDispatch()
     const [register, { isLoading }] = useRegisterMutation();
     const [login] = useLoginMutation();
     const {items: cartItems} = useSelector(state => state.cart)
@@ -33,6 +35,7 @@ const Login_register = () => {
                 await register({ name: fullName, username, password, cartItems });
                 // setSuccessMessage("Registration successful!");
                      //TODO dispatch reset cart
+                dispatch(resetCartAndItems)
                 setOpen(true)
                 setTimeout(() => navigate('/'), 2000);
             }
@@ -41,6 +44,7 @@ const Login_register = () => {
                 await login({ username, password, cartItems });
                 // setSuccessMessage("Login successful!");
                 //TODO dispatch reset cart
+                dispatch(resetCartAndItems)
                 setOpen(true)
                 setTimeout(() => navigate('/'), 2000);
             }

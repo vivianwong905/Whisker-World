@@ -31,11 +31,14 @@ const cartSlice = createSlice({
             const removeCartItem = state.items.filter((item) => item.id !== action.payload);
             state.items = removeCartItem;
         },
-        clearCart: (state) => {
+        clearCart: (state) => {// for checkout button 
            state.items = []
            state.cartCheckedOut = true
         },
-        resetCart: (state) =>{
+        resetCart: (state) =>{// return the cart checked out boolean back to inital state
+            state.cartCheckedOut = false
+        },
+        resetCartAndItems: (state) =>{// return the cart checked out boolean back to inital state and items back to inital state
             state.items = []
             state.cartCheckedOut = false
         }
@@ -49,5 +52,6 @@ export const {
     decrementQuantity,
     removeItem,
     clearCart,
-    resetCart
+    resetCart,
+    resetCartAndItems
 } = cartSlice.actions;

@@ -109,7 +109,9 @@ authRouter.post("/login", async (req, res, next) => {
                 where: { username: username },
                 include:{
                     cart: {
-                        cartItems: true
+                        include:{
+                            cartItems: true
+                        }
                     }
                 }
             });
@@ -144,6 +146,15 @@ authRouter.post("/login", async (req, res, next) => {
                                 }
                             }
                         })
+
+                        delete user.password
+
+                        res.status(201).send({
+                            user,
+                            message: "you're logged in!",
+                            token,
+                            addCartItems
+                        });
                     }
                     // Create a token with the user id
                     const token = jwt.sign({

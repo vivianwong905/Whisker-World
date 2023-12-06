@@ -68,7 +68,7 @@ describe('/auth', () => {
 //             const cartItems =  {
 //                                 quantity: 2,
 //                                 productId: 108,
-//                                 cartId: 5
+//                                 cartId: 2
 //                             }
 
 //             const createdUser = {
