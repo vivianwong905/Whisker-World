@@ -30,15 +30,17 @@ const Login_register = () => {
         
         try {
             if (type === "register") {
-                await register({ name: fullName, username, password });
+                await register({ name: fullName, username, password, cartItems });
                 // setSuccessMessage("Registration successful!");
+                     //TODO dispatch reset cart
                 setOpen(true)
                 setTimeout(() => navigate('/'), 2000);
             }
 
             if (type === "login") {
-                await login({ username, password });
+                await login({ username, password, cartItems });
                 // setSuccessMessage("Login successful!");
+                //TODO dispatch reset cart
                 setOpen(true)
                 setTimeout(() => navigate('/'), 2000);
             }

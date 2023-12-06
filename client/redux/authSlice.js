@@ -26,12 +26,14 @@ const authSlice = createSlice({
 function successfulAuth(state, {payload}) {
     localStorage.setItem("token", payload.token)
     localStorage.setItem("user", JSON.stringify(payload.user))
+    localStorage.removeItem("cart")
     return ({token: payload.token, user:payload.user})
 }
 
 function successfulLogout(_state) {
     localStorage.removeItem("token")
     localStorage.removeItem("user")
+    localStorage.removeItem("cart")
     return ({token: null, user: null})
 }
 export default authSlice.reducer;

@@ -59,54 +59,60 @@ describe('/auth', () => {
     });
 
     describe('POST /auth/register', () => {
-        // it('creates a new user and a token', async () => {
-        //     const newUser = {
-        //         username: "SpiceGirls",
-        //         name: "Buffy",
-        //         password: "password",
-        //     }
-            
-        //     const createdUser = {
-        //         id: "2",
-        //         ...newUser,
-        //         cart:{
-        //             connect:{
-        //                 id: 2
-        //             }
-        //         }
-        //     }
-        //     const cart= {
-        //         id: 2,
-        //         user: createdUser
-        //     }
-        //     const token = "123ghejghurea";
-        //     const hashedPassword = "somehashedpassword";
+//         it('creates a new user and a token', async () => {
+//             const newUser = {
+//                 username: "SpiceGirls",
+//                 name: "Buffy",
+//                 password: "password",
+//             }
+//             const cartItems =  {
+//                                 quantity: 2,
+//                                 productId: 108,
+//                                 cartId: 5
+//                             }
 
-        //     bcrypt.hash.mockResolvedValue(hashedPassword)
-        //     prismaMock.cart.create.mockResolvedValue(cart)
-        //     prismaMock.user.findUnique.mockResolvedValue(null)
+//             const createdUser = {
+//                 id: "2",
+//                 ...newUser,
+//                 cart:{
+//                     connect:{
+//                         id: 2
+//                     }
+//                 }
+//             }
+//             const cart= {
+//                 id: 2,
+//                 user: createdUser,
+//                 cartItems: cartItems
+//             }
+//             const token = "123ghejghurea";
+//             const hashedPassword = "somehashedpassword";
 
-        //     prismaMock.user.create.mockResolvedValue(createdUser);
-        //     jwt.sign.mockReturnValue(token)
+//             bcrypt.hash.mockResolvedValue(hashedPassword)
+//             prismaMock.cart.create.mockResolvedValue(cart)
+//             prismaMock.user.findUnique.mockResolvedValue(null)
 
-        //     const response = await request(app).post('/auth/register').send(newUser);
-   
-        //     expect(response.status).toBe(201)
+//             prismaMock.user.create.mockResolvedValue(createdUser);
+//             jwt.sign.mockReturnValue(token)
 
-        //     expect(response.body.user.username).toEqual(createdUser.username)
-        //     expect(response.body.user.id).toEqual(createdUser.id)
+//             const response = await request(app).post('/auth/register').send(newUser);
+//    console.log(response.body)
+//             expect(response.status).toBe(201)
 
-        //     // token was sent in the response
-        //     expect(response.body.token).toEqual(token);
+//             expect(response.body.user.username).toEqual(createdUser.username)
+//             expect(response.body.user.id).toEqual(createdUser.id)
 
-        //     // NO password was sent in the reponse
-        //     expect(response.body.user.password).toBeUndefined();
+//             // token was sent in the response
+//             expect(response.body.token).toEqual(token);
 
-        //     expect(bcrypt.hash).toHaveBeenCalledTimes(1);
+//             // NO password was sent in the reponse
+//             expect(response.body.user.password).toBeUndefined();
 
-        //     expect(prismaMock.user.create).toHaveBeenCalledTimes(1);
+//             expect(bcrypt.hash).toHaveBeenCalledTimes(1);
 
-        // })
+//             expect(prismaMock.user.create).toHaveBeenCalledTimes(1);
+
+//         })
         it('does not create a user if user with that email already exists', async () => {
             const existingUser = {
                 username: 'testemail@testing.com'

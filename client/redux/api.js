@@ -134,10 +134,10 @@ const api = createApi({
         // /auth/login mutation 
 
         login: builder.mutation({
-            query: (user) => ({
+            query: ({username, password, cartItems}) => ({
                 url: 'auth/login',
                 method: "POST",
-                body: user
+                body: {username, password, cartItems}
             }),
 
         }),

@@ -36,6 +36,7 @@ const cartSlice = createSlice({
            state.cartCheckedOut = true
         },
         resetCart: (state) =>{
+            state.items = []
             state.cartCheckedOut = false
         }
     },
