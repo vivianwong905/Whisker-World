@@ -128,18 +128,18 @@ const api = createApi({
                 method: "POST",
                 body: {username, password, name, cartItems}
             }),
-
+            invalidatesTags: ["Cart"]
         }),
 
         // /auth/login mutation 
 
         login: builder.mutation({
-            query: (user) => ({
+            query: ({username, password, cartItems}) => ({
                 url: 'auth/login',
                 method: "POST",
-                body: user
+                body: {username, password, cartItems}
             }),
-
+            invalidatesTags: ["Cart"]
         }),
 
         //curently logged in user query /auth/me

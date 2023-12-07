@@ -33,60 +33,16 @@ authRouter.post("/register", async (req, res, next) => {
                 message: 'A user by that username already exists'
             });
         } else {
-            // todo: come back later, what to do with an existing cart (tier3) then you log in
-            // attached logged out cart to new registered user
-
-            // TODO: create cart with cart items optionally if they where a guest and had the cart 
-            // const query = {
-            //     data: {
-            //         cartItems: {
-            //             create: cartItems.map((item) => ({
-            //                 quantity: item.quantity,
-            //                 product: {
-            //                     connectOrCreate: {
-            //                         where: {
-            //                             id: Number(item.id)
-
-            //                         },
-            //                         create: {
-            //                             id: Number(item.id),
-            //                             name: item.name,
-            //                             detail: item.detail,
-            //                             price: item.price,
-            //                             imageUrl: item.imageUrl,
-            //                             category: item.category
-            //                         }
-            //                     }
-            //                 }
-            //             }))
-            //         },
-            //     },
-            //     include: {
-            //         cartItems: {
-            //             include: { product: true }
-            //         }
-            //     }
-            // }
-            // console.log(query)
+            // create cart with cart items optionally if they where a guest and had the cart 
             //line const cart is creating an empty cart with the const user on connected: cart.id
             const cart = await prisma.cart.create({
                 data: {
                     cartItems: {
-                        create: cartItems?.map((item) => ({
+                        create: cartItems.map((item) => ({
                             quantity: item.quantity,
                             product: {
-                                connectOrCreate: {
-                                    where: {
-                                        id: Number(item.id)
-                                    },
-                                    create: {
-                                        id: Number(item.id),
-                                        name: item.name,
-                                        detail: item.detail,
-                                        price: item.price,
-                                        imageUrl: item.imageUrl,
-                                        category: item.category
-                                    }
+                                connect: {
+                                    id: Number(item.id)
                                 }
                             }
                         }))
@@ -98,6 +54,7 @@ authRouter.post("/register", async (req, res, next) => {
                     }
                 }
             });
+
             const user = await prisma.user.create({
                 data: {
                     username: username,
@@ -140,7 +97,7 @@ authRouter.post("/register", async (req, res, next) => {
 // Login to an existing user account
 authRouter.post("/login", async (req, res, next) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, cartItems } = req.body;
         if (!username || !password) {
             res.status(500)
             next({
@@ -150,6 +107,13 @@ authRouter.post("/login", async (req, res, next) => {
         } else {
             const user = await prisma.user.findUnique({
                 where: { username: username },
+                include: {
+                    cart: {
+                        include: {
+                            cartItems: true
+                        }
+                    }
+                }
             });
             if (!user) {
                 next({
@@ -163,6 +127,7 @@ authRouter.post("/login", async (req, res, next) => {
                     password,
                     hashedPassword
                 );
+
                 if (!validPassword) {
                     next({
                         name: 'IncorrectCredentialsError',
@@ -170,6 +135,36 @@ authRouter.post("/login", async (req, res, next) => {
                     });
                     return;
                 } else {
+                    // TODO: if cartItmes.lenght === 0
+                    // update cart to add cart itmes
+                    if (cartItems.length > 0 && user.cart.cartItems.length === 0) {
+                        const addCartItems = await prisma.cart.update({
+                            where: { id: user.cartId},
+                            data: {
+                                cartItems: {
+                                    create:
+                                        cartItems.map((item) => ({
+                                            quantity: item.quantity,
+                                            product: {
+                                                connect: {
+                                                    id: Number(item.id)
+                                                }
+                                            }
+                                        }))
+                                }
+                            },
+                            include: {
+                                cartItems: {
+                                    include:{
+
+                                        product: true
+                                    }
+                                }
+                            }
+                        })
+
+                       
+                    }
                     // Create a token with the user id
                     const token = jwt.sign({
                         id: user.id,
