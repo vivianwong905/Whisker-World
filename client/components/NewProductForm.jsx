@@ -100,6 +100,11 @@ const NewProductForm = () => {
                         onChange={(e) => setProductName(e.target.value)}
                         sx={{ margin: "8px 0" }}
                         inputProps={{ style: { textTransform: 'capitalize' } }}
+                        helperText={
+                                        productName && productName.length > 40
+                                            ? <Alert severity="error"> Your product name is too long </Alert>
+                                            : null
+                                    }
                     />
                     <TextField
                         label="Description"

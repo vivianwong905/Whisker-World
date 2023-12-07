@@ -42,6 +42,11 @@ const Products = () => {
           placeholder="Search Products Here..."
           onChange={event => setSearchQuery(event.target.value)}
           sx={{ width: "100%" }}
+          helperText={
+            productName && productName.length > 40
+            ? <Alert severity="error"> Please limit your search to less than 40 characters </Alert>
+            : null
+          }
         />
       </Paper>
       <Grid container spacing={4} sx={{ marginLeft: 2 }}>
