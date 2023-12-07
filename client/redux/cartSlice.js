@@ -41,6 +41,7 @@ const cartSlice = createSlice({
         resetCartAndItems: (state) =>{// return the cart checked out boolean back to inital state and items back to inital state
             state.items = []
             state.cartCheckedOut = false
+            localStorage.removeItem("cart")
         }
     },
 });

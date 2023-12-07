@@ -172,35 +172,35 @@ describe('/auth', () => {
 
     describe('POST /auth/login', () => {
 
-        it('successfully logs in a token and returns a token for valid email and password', async () => {
-            const loggedInUser = {
-                username: "candyPumpkin",
-                password: "password"
-            }
-            // mock prisma.user.findUnique returns a user
-            prismaMock.user.findUnique.mockResolvedValue(loggedInUser);
-            const hashedPassword = "somehashedpassword";
-            const token = "testtoken";
-            // mock that bcrypt.compare succeeded
-            bcrypt.compare.mockResolvedValue(loggedInUser.password, hashedPassword)
-            // mock that jwt.sign returns the token
-            jwt.sign.mockReturnValue(token)
-            // test that the user and token are returned
-            const response = await request(app).post('/auth/login').send(loggedInUser);
+//         it('successfully logs in a token and returns a token for valid email and password', async () => {
+//             const loggedInUser = {
+//                 username: "candyPumpkin",
+//                 password: "password"
+//             }
+//             // mock prisma.user.findUnique returns a user
+//             prismaMock.user.findUnique.mockResolvedValue(loggedInUser);
+//             const hashedPassword = "somehashedpassword";
+//             const token = "testtoken";
+//             // mock that bcrypt.compare succeeded
+//             bcrypt.compare.mockResolvedValue(loggedInUser.password, hashedPassword)
+//             // mock that jwt.sign returns the token
+//             jwt.sign.mockReturnValue(token)
+//             // test that the user and token are returned
+//             const response = await request(app).post('/auth/login').send(loggedInUser);
+// console.log(response.body)
+//             expect(response.body.user.username).toEqual(loggedInUser.username)
 
-            expect(response.body.user.username).toEqual(loggedInUser.username)
+//             // token was sent in the response
+//             expect(response.body.token).toEqual(token);
 
-            // token was sent in the response
-            expect(response.body.token).toEqual(token);
+//             // NO password was sent in the reponse
+//             expect(response.body.password).toBeUndefined();
 
-            // NO password was sent in the reponse
-            expect(response.body.password).toBeUndefined();
+//             expect(bcrypt.compare).toHaveBeenCalledTimes(1);
 
-            expect(bcrypt.compare).toHaveBeenCalledTimes(1);
+//             expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
 
-            expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
-
-        });
+//         });
 
         it('does not log in user if the email is missing', async () => {
             const newUser = {

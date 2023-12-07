@@ -34,8 +34,8 @@ const Login_register = () => {
             if (type === "register") {
                 await register({ name: fullName, username, password, cartItems });
                 // setSuccessMessage("Registration successful!");
-                     //TODO dispatch reset cart
-                dispatch(resetCartAndItems)
+                     //TODO dispatch reset cart and items?
+                dispatch(resetCartAndItems())
                 setOpen(true)
                 setTimeout(() => navigate('/'), 2000);
             }
@@ -43,8 +43,8 @@ const Login_register = () => {
             if (type === "login") {
                 await login({ username, password, cartItems });
                 // setSuccessMessage("Login successful!");
-                //TODO dispatch reset cart
-                dispatch(resetCartAndItems)
+                //TODO dispatch reset cart and items?
+                dispatch(resetCartAndItems())
                 setOpen(true)
                 setTimeout(() => navigate('/'), 2000);
             }

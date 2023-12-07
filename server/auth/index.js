@@ -107,9 +107,9 @@ authRouter.post("/login", async (req, res, next) => {
         } else {
             const user = await prisma.user.findUnique({
                 where: { username: username },
-                include:{
+                include: {
                     cart: {
-                        include:{
+                        include: {
                             cartItems: true
                         }
                     }
@@ -137,24 +137,33 @@ authRouter.post("/login", async (req, res, next) => {
                 } else {
                     // TODO: if cartItmes.lenght === 0
                     // update cart to add cart itmes
-                    if(cartItems.length === 0){
+                    if (cartItems.length > 0 && user.cart.cartItems.length === 0) {
                         const addCartItems = await prisma.cart.update({
-                            where: { username: username },
+                            where: { id: user.cartId},
+                            data: {
+                                cartItems: {
+                                    create:
+                                        cartItems.map((item) => ({
+                                            quantity: item.quantity,
+                                            product: {
+                                                connect: {
+                                                    id: Number(item.id)
+                                                }
+                                            }
+                                        }))
+                                }
+                            },
                             include: {
                                 cartItems: {
-                                    include: { product: true }
+                                    include:{
+
+                                        product: true
+                                    }
                                 }
                             }
                         })
 
-                        delete user.password
-
-                        res.status(201).send({
-                            user,
-                            message: "you're logged in!",
-                            token,
-                            addCartItems
-                        });
+                       
                     }
                     // Create a token with the user id
                     const token = jwt.sign({
