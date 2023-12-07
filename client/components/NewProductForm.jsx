@@ -148,7 +148,7 @@ const NewProductForm = () => {
                     Reset
                 </Button>
                 <Button
-                    disabled={!!error}
+                    disabled={error || !productName|| !price || !detail || !imageUrl || !category }
                     type="submit"
                     sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
                     variant="contained"
