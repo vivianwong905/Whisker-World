@@ -39,7 +39,9 @@ const Login_register = () => {
                 //TODO dispatch reset cart and items?
                 dispatch(resetCartAndItems())
                 setOpen(true)
-                setTimeout(() => navigate('/'), 2000);
+                if(token){
+                    setTimeout(() => navigate('/'), 2000);
+                }
             }
 
             if (type === "login") {
@@ -48,7 +50,9 @@ const Login_register = () => {
                 //TODO dispatch reset cart and items?
                 dispatch(resetCartAndItems())
                 setOpen(true)
-                setTimeout(() => navigate('/'), 2000);
+                if(token){
+                    setTimeout(() => navigate('/'), 2000);
+                }
             }
         } catch (error) {
             console.error("Error:", error.message);
