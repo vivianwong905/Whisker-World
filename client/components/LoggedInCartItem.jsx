@@ -1,12 +1,15 @@
-import { Typography, Box, Button, Grid, Card, CardMedia, CardContent, CardActions, Link, Tooltip } from "@mui/material";
+import { Typography, Box, Button, Grid, Card, CardMedia, CardContent, CardActions, Stack, Link, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom"
 import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../redux/api";
-import CheckoutCartButton from "./CheckoutCartButton";
+import { useCheckoutCartMutation } from '../redux/api';
 
 const LoggedInCartItem = () => {
     const { user } = useSelector(state => state.auth);
     const { data: loggedInCart, isLoading, error } = useGetUsersCartQuery();
+
+
+    const [checkoutCart, { data: checkoutCartData }] = useCheckoutCartMutation();
 
     const [deleteCartItemsInCart] = useDeleteCartItemsInCartMutation();
     const [updateUsersCart] = useUpdateUsersCartMutation();
@@ -21,13 +24,18 @@ const LoggedInCartItem = () => {
         updateUsersCart({ cartItemId: cartItem.id, quantity: newQuantity });
     };
 
+    const onCheckout = async () => {
+        await checkoutCart(loggedInCart.id);
+    }
+
+
     if (user && isLoading) {
         return <Typography>Loading...</Typography>;
     }
     if (user && error) {
         return <Typography color="error">Error: {error.message}</Typography>;
     }
-
+   
     return (
         <>
             <Box sx={{ marginLeft: 4, }}>
@@ -59,19 +67,31 @@ const LoggedInCartItem = () => {
                                 </Grid>)
                         })
                         : (
-                            user &&
+                            user && !checkoutCartData &&
                             <Typography variant="h3" sx={{ marginLeft: 3.5, padding: 1 }} >
                                 Your cart is empty
                             </Typography>
                         )}
                 </Grid>
-                <Typography variant="h6" sx={{ padding: 2, marginLeft: 3.5 }}>
+                {/* success order message */}
+                {checkoutCartData &&  <Stack direction="row">
+                        <Typography sx={{ padding: 1, marginTop: 2 }} variant="h5">
+                            Thank you for shopping at Whisker World! Your order will ship soon!
+                        </Typography>
+                    </Stack>}
+                <Typography variant="h6" sx={{ padding: 3, marginLeft: 3.5 }}>
                     Click here to <Link href="#" component={RouterLink} to="/">continue shopping</Link>
                 </Typography>
                 {/* Logged in cart checkout button or disabled button if cart empty */}
-                {user && loggedInCart.cartItems.length > 0 ? (<CheckoutCartButton cartId={loggedInCart?.id} />)
+                {user && loggedInCart.cartItems.length > 0 ? (<Button
+                    onClick={onCheckout}
+                    variant="contained"
+                    sx={{ margin: 2, padding: 2, marginLeft: 5, "&:hover": { bgcolor: "magenta", color: "white" } }}
+                >
+                    Check Out
+                </Button>)
                     : (user &&
-                        <Tooltip title={<Typography>Add items to cart to checkout</Typography>} placement="bottom-start" >
+                        <Tooltip title={<Typography>Add items to the cart to checkout</Typography>} placement="bottom-start" >
                             <div>
                                 <Button disabled variant="contained" sx={{ margin: 2, padding: 2, marginLeft: 5, opacity: 0.5 }}>
                                     Checkout

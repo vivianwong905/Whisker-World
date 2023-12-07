@@ -4,7 +4,6 @@ import Login_register from './components/Login_register';
 import Cart from './components/Cart';
 import Products from './components/Products';
 import Admin from './components/Admin';
-import Checkout from './components/CheckoutCartButton';
 import NavBar from './components/Navbar';
 import SingleProduct from './components/SingleProduct';
 import { useSelector } from 'react-redux'
@@ -26,7 +25,6 @@ function App() {
               <Route path="/" element={<Products />} />
               <Route path="/:id" element={<SingleProduct />}/>
               <Route path="/admin" element={<Admin />} />
-              <Route path="/checkout" element={<Checkout />} />
               <Route path="/UpdateProductForm" element={<UpdateProductForm />} />
               <Route path="/Navbar" element={<NavBar />} />
             </Routes>
