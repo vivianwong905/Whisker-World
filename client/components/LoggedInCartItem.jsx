@@ -1,7 +1,8 @@
-import { Typography, Box, Button, Grid, Card, CardMedia, CardContent, CardActions } from "@mui/material";
+import { Typography, Box, Button, Grid, Card, CardMedia, CardContent, CardActions, Link, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router-dom"
 import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../redux/api";
-
+import CheckoutCartButton from "./CheckoutCartButton";
 
 const LoggedInCartItem = () => {
     const { user } = useSelector(state => state.auth);
@@ -29,7 +30,7 @@ const LoggedInCartItem = () => {
 
     return (
         <>
-            <Box sx={{marginLeft: 4,}}>
+            <Box sx={{ marginLeft: 4, }}>
                 <Grid container spacing={4} >
                     {user && loggedInCart?.cartItems?.length // this is to make sure that checking for null along the way - cart? and cartItems?
                         //any of these are undefined - then will display cart as empty
@@ -50,20 +51,34 @@ const LoggedInCartItem = () => {
                                             <Typography sx={{ textAlign: "center" }}><b>Quantity:</b>{cartItem.quantity}</Typography>
                                         </CardContent>
                                         <CardActions sx={{ justifyContent: "center" }}>
-                                            <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}}} onClick={() => deleteCartItemsInCart(cartItem.id)} > Remove Item </Button>
-                                            <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}}} onClick={() => handleIncrement(cartItem)} > + </Button>
-                                            <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}}} onClick={() => handleDecrement(cartItem)} disabled={cartItem.quantity === 1}> - </Button>
+                                            <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => deleteCartItemsInCart(cartItem.id)} > Remove Item </Button>
+                                            <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => handleIncrement(cartItem)} > + </Button>
+                                            <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => handleDecrement(cartItem)} disabled={cartItem.quantity === 1}> - </Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>)
                         })
                         : (
-                            user && 
-                                <Typography variant="h3" sx={{marginLeft: 3.5, padding: 1}} >
+                            user &&
+                            <Typography variant="h3" sx={{ marginLeft: 3.5, padding: 1 }} >
                                 Your cart is empty
                             </Typography>
                         )}
                 </Grid>
+                <Typography variant="h6" sx={{ padding: 2, marginLeft: 3.5 }}>
+                    Click here to <Link href="#" component={RouterLink} to="/">continue shopping</Link>
+                </Typography>
+                {/* Logged in cart checkout button or disabled button if cart empty */}
+                {user && loggedInCart.cartItems.length > 0 ? (<CheckoutCartButton cartId={loggedInCart?.id} />)
+                    : (user &&
+                        <Tooltip title={<Typography>Add items to cart to checkout</Typography>} placement="bottom-start" >
+                            <div>
+                                <Button disabled variant="contained" sx={{ margin: 2, padding: 2, marginLeft: 5, opacity: 0.5 }}>
+                                    Checkout
+                                </Button>
+                            </div>
+                        </Tooltip>
+                    )}
             </Box>
         </>
     );
