@@ -12,12 +12,14 @@ import { resetCartAndItems } from "../redux/cartSlice";
 
 const Login_register = () => {
     const navigate = useNavigate();
-    const dispatch= useDispatch()
+    const dispatch = useDispatch()
     const [register, { isLoading }] = useRegisterMutation();
     const [login] = useLoginMutation();
-    const {items: cartItems} = useSelector(state => state.cart)
-    const [type, setType] = useState("login");
+    const { items: cartItems } = useSelector(state => state.cart)
+    const token = useSelector(state => state.auth.token);
 
+    // form state
+    const [type, setType] = useState("login");
     const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -29,12 +31,12 @@ const Login_register = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         try {
             if (type === "register") {
                 await register({ name: fullName, username, password, cartItems });
                 // setSuccessMessage("Registration successful!");
-                     //TODO dispatch reset cart and items?
+                //TODO dispatch reset cart and items?
                 dispatch(resetCartAndItems())
                 setOpen(true)
                 setTimeout(() => navigate('/'), 2000);
@@ -74,7 +76,7 @@ const Login_register = () => {
                 <CloseIcon fontSize="small" />
             </IconButton>
         </>
-    ) 
+    )
 
     return (
         <Paper elevation={6} sx={{ width: "50%", padding: 4, margin: "14px auto" }}>
@@ -120,7 +122,7 @@ const Login_register = () => {
                 >
                     {type === "login" ? "Log In" : "Register"}
                 </Button>
-                {type == "login" &&
+                {token && type == "login" &&
                     <Snackbar
                         open={open}
                         autoHideDuration={6000}
@@ -133,7 +135,7 @@ const Login_register = () => {
                         </Alert>
                     </Snackbar>
                 }
-                {type == "register" &&
+                {token && type == "register" &&
                     <Snackbar
                         open={open}
                         autoHideDuration={6000}
@@ -143,6 +145,32 @@ const Login_register = () => {
                         <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
                             <AlertTitle>Success</AlertTitle>
                             Registration successful!
+                        </Alert>
+                    </Snackbar>
+                }
+                 {!token && type == "register" &&
+                    <Snackbar
+                        open={open}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                        action={action}
+                    >
+                        <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
+                            <AlertTitle>Error</AlertTitle>
+                           Something went wrong during registration please try again.
+                        </Alert>
+                    </Snackbar>
+                }
+                {!token && type == "login" &&
+                    <Snackbar
+                        open={open}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                        action={action}
+                    >
+                        <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
+                            <AlertTitle>Error</AlertTitle>
+                           Something went wrong during log in please try again.
                         </Alert>
                     </Snackbar>
                 }
