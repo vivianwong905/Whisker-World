@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import { Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
 import { useGetSingleCatProductQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from '../redux/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from "../redux/cartSlice";
-
+import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -26,6 +26,33 @@ const SingleProduct = () => {
   const [deleteCatProduct] = useDeleteCatProductMutation();
   const [createCartItemsInCart] = useCreateCartItemsInCartMutation(catProductId);
 
+  // snack bar message
+  const [open, setOpen] = useState(false);
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  // for the snack bar box
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  )
+
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
@@ -41,24 +68,35 @@ const SingleProduct = () => {
         <Grid item >
           <Card sx={{ minWidth: 500, maxWidth: 500 }}>
             <CardMedia
-                        component="img"
-                        alt={product.name}
-                        height="400"
-                        image={product.imageUrl}
-                        sx={{ objectFit: "contain"}}
-                    />
-                    <CardContent>
-                        <Typography variant="h5" sx={{textAlign: "center", textTransform: "capitalize"}}>{product.name}</Typography>
-                        <Typography sx={{textAlign: "center"}}><b>Description:</b> {product.detail}</Typography>
-                        <Typography sx={{textAlign: "center"}}><b>Price:</b> ${product.price}</Typography>
-                        <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>
-                    </CardContent>
+              component="img"
+              alt={product.name}
+              height="400"
+              image={product.imageUrl}
+              sx={{ objectFit: "contain" }}
+            />
+            <CardContent>
+              <Typography variant="h5" sx={{ textAlign: "center", textTransform: "capitalize" }}>{product.name}</Typography>
+              <Typography sx={{ textAlign: "center" }}><b>Description:</b> {product.detail}</Typography>
+              <Typography sx={{ textAlign: "center" }}><b>Price:</b> ${product.price}</Typography>
+              <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>
+            </CardContent>
             <CardActions sx={{ justifyContent: "center" }}>
-              <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100}} onClick={() => navigate("/")} > Back </Button>
-              {user?.admin && <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100}} onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
-              {user?.admin && <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100}} onClick={() => navigate("/admin",{state:product})}>Update Product</Button>}
-              {!user && <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100}} onClick={() => dispatch(addToCart({...product}))}>Add to Cart</Button>}
-              {token && <Button variant="contained" sx={{"&:hover":{bgcolor: "magenta", color:"white"}, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100}} onClick={()=> createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
+              <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => navigate("/")} > Back </Button>
+              {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
+              {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
+              {!user && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => { dispatch(addToCart({ ...product })); handleClick() }}>Add to Cart</Button>}
+              {token && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => { createCartItemsInCart({ quantity: 1, productId: product.id }); handleClick() }}>Add to Cart</Button>}
+              <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                action={action}
+              >
+                <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
+                  <AlertTitle>Success</AlertTitle>
+                  Product Added To cart!
+                </Alert>
+              </Snackbar>
             </CardActions>
           </Card>
         </Grid>

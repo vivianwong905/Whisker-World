@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useGetCatProductsQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from "../redux/api";
 import React, { useState } from "react";
-import { Button, Box, Card, CardActions, CardContent, CardMedia, Typography, Grid, TextField, Paper } from "@mui/material";
+import { Button, Box, Card, CardActions, CardContent, CardMedia, Typography, Grid, TextField, Paper, Snackbar, IconButton, Alert, AlertTitle} from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import NewProductForm from "./NewProductForm";
 import { useSelector, useDispatch } from "react-redux";
 import Filters from "./Filters";
@@ -22,7 +23,32 @@ const Products = () => {
 
   const [searchQuery, setSearchQuery] = useState("")
 
+  // snack bar message
+  const [open, setOpen] = useState(false);
+  const handleClick = () => {
+    setOpen(true);
+  };
 
+ const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+    // for the snack bar box
+    const action = (
+        <>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={handleClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </>
+    ) 
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -100,8 +126,19 @@ const Products = () => {
                       <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => navigate("/" + product.id)}>Product Info</Button>
                       {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
                       {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
-                      {!user && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => dispatch(addToCart({ ...product }))}>Add to Cart</Button>}
-                      {token && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => createCartItemsInCart({ quantity: 1, productId: product.id })}>Add to Cart</Button>}
+                      {!user && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => {dispatch(addToCart({ ...product }));handleClick()}}>Add to Cart</Button>}
+                      {token && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => {createCartItemsInCart({ quantity: 1, productId: product.id });handleClick()}}>Add to Cart</Button>}
+                      <Snackbar
+                        open={open}
+                        autoHideDuration={6000}
+                        onClose={handleClose}
+                        action={action}
+                      >
+                        <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
+                          <AlertTitle>Success</AlertTitle>
+                          Product Added To cart!
+                        </Alert>
+                      </Snackbar>
                     </CardActions>
                   </Card>
                 </Grid>
@@ -111,5 +148,6 @@ const Products = () => {
     </Box>
   )
 }
+
 
 export default Products;
