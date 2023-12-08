@@ -36,7 +36,7 @@ const Login_register = () => {
             if (type === "register") {
                 await register({ name: fullName, username, password, cartItems });
                 // setSuccessMessage("Registration successful!");
-                //TODO dispatch reset cart and items?
+                // dispatch reset cart and items
                 dispatch(resetCartAndItems())
                 setOpen(true)
             }
@@ -44,7 +44,7 @@ const Login_register = () => {
             if (type === "login") {
                 await login({ username, password, cartItems });
                 // setSuccessMessage("Login successful!");
-                //TODO dispatch reset cart and items?
+                // dispatch reset cart and items
                 dispatch(resetCartAndItems())
                 setOpen(true)
             }
@@ -94,7 +94,8 @@ const Login_register = () => {
                         label="Name"
                         onChange={e => setFullName(e.target.value)}
                         value={fullName}
-                        sx={{ margin: "8px 0" }} />}
+                        sx={{ margin: "8px 0" }}
+                        />}
                     <TextField
                         label="Username"
                         onChange={e => setUsername(e.target.value)}
@@ -123,7 +124,7 @@ const Login_register = () => {
                 >
                     {type === "login" ? "Log In" : "Register"}
                 </Button>
-                {token && type == "login" &&
+                {token && type === "login" &&
                     <Snackbar
                         open={open}
                         autoHideDuration={6000}
@@ -136,7 +137,7 @@ const Login_register = () => {
                         </Alert>
                     </Snackbar>
                 }
-                {token && type == "register" &&
+                {token && type === "register" &&
                     <Snackbar
                         open={open}
                         autoHideDuration={6000}
@@ -149,7 +150,7 @@ const Login_register = () => {
                         </Alert>
                     </Snackbar>
                 }
-                 {!token && type == "register" &&
+                 {!token && type === "register" &&
                     <Snackbar
                         open={open}
                         autoHideDuration={6000}
@@ -162,7 +163,7 @@ const Login_register = () => {
                         </Alert>
                     </Snackbar>
                 }
-                {!token && type == "login" &&
+                {!token && type === "login" &&
                     <Snackbar
                         open={open}
                         autoHideDuration={6000}

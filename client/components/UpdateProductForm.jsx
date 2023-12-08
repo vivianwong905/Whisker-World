@@ -109,7 +109,7 @@ const UpdateProductForm = () => {
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
                         sx={{ margin: "8px 0" }}
-                        inputProps={{ style: { textTransform: 'capitalize' } }}
+                        inputProps={{ maxLength: 41 ,style: { textTransform: 'capitalize' } }}
                         helperText={
                                         productName && productName.length > 40
                                             ? <Alert severity="error"> Your new product name is too long </Alert>

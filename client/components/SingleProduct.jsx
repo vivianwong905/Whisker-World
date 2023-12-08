@@ -63,7 +63,7 @@ const SingleProduct = () => {
 
   return (
     <Box sx={{ margin: 5 }}>
-      {error && !data && (<p>Failed to load cat product.</p>)}
+      {error && !data && (<Typography>Failed to load cat product.</Typography>)}
       <Grid container justifyContent="center">
         <Grid item >
           <Card sx={{ minWidth: 500, maxWidth: 500 }}>
