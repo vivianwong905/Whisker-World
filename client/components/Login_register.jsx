@@ -39,8 +39,8 @@ const Login_register = () => {
         setError("");
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async (event) => { //TODO SUNDAY OFFICE HOURS- figure out why the navigate no longer works on first button click...
+        event.preventDefault(); 
 
         try {
             if (type === "register") {
@@ -64,7 +64,8 @@ const Login_register = () => {
                 setOpen(true)
                 // { token && setTimeout(() => navigate('/'), 2000); }
             }
-            { token && setTimeout(() => navigate('/'), 2000); } // this works for register but not login.... 
+            { token && setTimeout(() => navigate('/'), 2000); } // TODO SUNDAY :this works for register but not login.... you have to click the button twice
+            // on the login page to navigate back to products page. This was working before refactoring for error messages 
         } catch (error) {
             console.error("Error:", error.message);
             // Handle errors as needed
