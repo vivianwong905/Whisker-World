@@ -3,10 +3,7 @@ import { Typography, Paper, Button, Grid, Link, Tooltip, Stack } from "@mui/mate
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart, resetCart } from "../redux/cartSlice";
 import { useEffect } from "react";
-
-
 import GuestCartItem from "./GuestCartItem";
-
 import LoggedInCartItem from "./LoggedInCartItem";
 
 const Cart = () => {
