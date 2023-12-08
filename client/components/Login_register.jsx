@@ -15,7 +15,7 @@ const Login_register = () => {
     const [register, { isLoading }] = useRegisterMutation();
     const [login] = useLoginMutation();
     const { items: cartItems } = useSelector(state => state.cart)
-    const token = useSelector(state => state.auth.token);
+    const {token, user} = useSelector(state => state.auth);
 
     // form state
     const [type, setType] = useState("login");
@@ -51,9 +51,7 @@ const Login_register = () => {
                 //dispatch reset cart and items
                 dispatch(resetCartAndItems())
                 setOpen(true)
-                // if(token){
-                //     setTimeout(() => navigate('/'), 2000);
-                // }
+                // { token && setTimeout(() => navigate('/'), 2000); }
             }
 
             if (type === "login") {
@@ -64,11 +62,9 @@ const Login_register = () => {
                 //dispatch reset cart and items
                 dispatch(resetCartAndItems())
                 setOpen(true)
-                // if(token){
-                //     setTimeout(() => navigate('/'), 2000);
-                // }
+                // { token && setTimeout(() => navigate('/'), 2000); }
             }
-            { token && setTimeout(() => navigate('/'), 2000); }
+            { token && setTimeout(() => navigate('/'), 2000); } // this works for register but not login.... 
         } catch (error) {
             console.error("Error:", error.message);
             // Handle errors as needed
