@@ -12,7 +12,7 @@ import { resetCartAndItems } from "../redux/cartSlice";
 const Login_register = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const [register, { isLoading} ] = useRegisterMutation();
+    const [register, { isLoading } ] = useRegisterMutation();
     const [login] = useLoginMutation();
     const { items: cartItems } = useSelector(state => state.cart)
     const token = useSelector(state => state.auth.token);
