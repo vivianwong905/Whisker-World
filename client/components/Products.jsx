@@ -58,7 +58,6 @@ const Products = () => {
   }
 
   return (
-
     <Box>
       <Grid container spacing={4} sx={{ marginLeft: 2 }}>
         <Grid item>
@@ -75,7 +74,6 @@ const Products = () => {
               sx={{ width: "100%" }}
             />
           </Paper>
-
         </Grid>
         <Grid item sx={{ marginTop: 2 }} >
           <Filters />
@@ -83,7 +81,6 @@ const Products = () => {
         <Grid item >
           {user?.admin && <NewProductForm />}
         </Grid>
-
       </Grid>
       {error && !products && (<Typography> Failed to load products from api</Typography>)}
       <Grid container spacing={4} sx={{ marginLeft: 2 }}>
@@ -111,6 +108,7 @@ const Products = () => {
             .map((product) => {
               return (
                 <Grid item key={product.name} >
+                  
                   <Card sx={{ maxWidth: 400, minWidth: 400, maxHeight: 450, minHeight: 450, padding: 2 }} >
                     <CardMedia
                       component="img"
