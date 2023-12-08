@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 
 import { Stack, Button, Paper, TextField, Typography, Link, Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
@@ -10,10 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetCartAndItems } from "../redux/cartSlice";
 
+
 const Login_register = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const [register, { isLoading }] = useRegisterMutation();
+    const [register, { isLoading } ] = useRegisterMutation();
     const [login] = useLoginMutation();
     const { items: cartItems } = useSelector(state => state.cart)
     const token = useSelector(state => state.auth.token);
@@ -24,27 +23,42 @@ const Login_register = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
-    // const [successMessage, setSuccessMessage] = useState(null);
+    const [error, setError] = useState("");
+    
 
     // snack bar message
     const [open, setOpen] = useState(false);
+
+    // reset form
+    function resetForm() {
+
+    setFullName("");
+    setUsername("");
+    setPassword("");
+    setRepeatPassword("");
+    setError("");
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
             if (type === "register") {
-                await register({ name: fullName, username, password, cartItems });
-                // setSuccessMessage("Registration successful!");
-                // dispatch reset cart and items
+                const {error}  = await register({ name: fullName, username, password, cartItems });
+                if (error) {
+                    setError(error.message)
+                }
+                //dispatch reset cart and items
                 dispatch(resetCartAndItems())
                 setOpen(true)
             }
 
             if (type === "login") {
-                await login({ username, password, cartItems });
-                // setSuccessMessage("Login successful!");
-                // dispatch reset cart and items
+                const {error} = await login({ username, password, cartItems });
+                if (error) {
+                    setError(error.message)
+                }
+                //dispatch reset cart and items
                 dispatch(resetCartAndItems())
                 setOpen(true)
             }
@@ -82,7 +96,6 @@ const Login_register = () => {
     return (
         <Paper elevation={6} sx={{ width: "50%", padding: 4, margin: "14px auto" }}>
             <form onSubmit={handleSubmit}>
-                {/* {successMessage && <Typography variant="h5" sx={{ textAlign: "center", padding: 1 }}>{successMessage}</Typography>} */}
                 <Stack direction="column">
                     <Typography
                         variant="h5"
@@ -95,18 +108,28 @@ const Login_register = () => {
                         onChange={e => setFullName(e.target.value)}
                         value={fullName}
                         sx={{ margin: "8px 0" }}
+                        helperText = {fullName && fullName.length > 25 ? 'Character limit is 25': null }
+                        error= {!!(fullName && fullName.length > 25)}
+                        inputProps={{ maxLength: 26 }} 
                         />}
                     <TextField
                         label="Username"
                         onChange={e => setUsername(e.target.value)}
                         value={username}
-                        sx={{ margin: "8px 0" }} />
+                        sx={{ margin: "8px 0" }} 
+                        helperText = {username && username.length > 25 ? 'Character limit is 25': null }
+                        error= {!!(username && username.length > 25)}
+                        inputProps={{ maxLength: 26 }} 
+                        />
                     <TextField
                         label="Password"
                         onChange={e => setPassword(e.target.value)}
                         value={password}
                         sx={{ margin: "8px 0" }}
-                        type="password" />
+                        type="password" 
+                        helperText = {password && password.length > 25 ? 'Character limit is 25': null }
+                        error= {!!(password && password.length > 25)}
+                        inputProps={{ maxLength: 26 }} />
 
                     {type === "register" && <TextField
                         label="Re-Enter Password"
@@ -116,6 +139,7 @@ const Login_register = () => {
                         error={!!(password && repeatPassword && password !== repeatPassword)}
                         helperText={password && repeatPassword && password !== repeatPassword ? "Password must match" : null} />}
                 </Stack>
+                    {error ?  <Alert severity="error"> {error} </Alert> : null }
                 <Button
                     variant="contained"
                     size="large"
@@ -159,7 +183,7 @@ const Login_register = () => {
                     >
                         <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
                             <AlertTitle>Error</AlertTitle>
-                           Something went wrong during registration please try again.
+                           <Typography>{error} </Typography>
                         </Alert>
                     </Snackbar>
                 }
@@ -172,22 +196,31 @@ const Login_register = () => {
                     >
                         <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
                             <AlertTitle>Error</AlertTitle>
-                           Something went wrong during log in please try again.
+                           <Typography>{error} </Typography>
                         </Alert>
                     </Snackbar>
                 }
                 {type === "login"
                     ? (
                         <Typography>Need to create an account?{" "}
-                            <Link href="#" onClick={() => setType("register")}>
+                            <Link href="#" onClick={() => {setType("register");resetForm()}}>
                                 Register</Link>
                         </Typography>
                     ) : (
                         <Typography>Already have an account?{" "}
-                            <Link href="#" onClick={() => setType("login")}>
+                            <Link href="#" onClick={() => {setType("login");resetForm()}}>
                                 Log In</Link>
                         </Typography>
                     )}
+                        <Button
+                    type="reset"
+                    onClick={resetForm}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "10%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                    variant="contained"
+                    size="small"
+                >
+                    Reset
+                </Button>
             </form>
         </Paper>
     );
