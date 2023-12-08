@@ -59,11 +59,11 @@ const Products = () => {
 
   return (
     <Box>
-      <Grid container spacing={4} sx={{ marginLeft: 2 }}>
+      <Grid container spacing={3} sx={{ marginLeft: 3 }}>
         <Grid item>
-          <Typography variant="h3" sx={{ marginLeft: 6, marginTop: 2, marginBottom: 2, maxWidth: 350 }} >Cat Products</Typography>
+          <Typography variant="h3" sx={{ marginTop: 2, marginBottom: 2, maxWidth: 300 }} >Cat Products</Typography>
         </Grid>
-        <Grid item>
+        <Grid item >
           <Paper sx={{ maxWidth: 250, marginLeft: 6, maxHeight: 100, marginTop: 2 }} >
             <TextField // search bar
               id="outlined-basic"
@@ -78,7 +78,7 @@ const Products = () => {
         <Grid item sx={{ marginTop: 2 }} >
           <Filters />
         </Grid>
-        <Grid item >
+        <Grid item sx={{ marginTop: 3 }}  >
           {user?.admin && <NewProductForm />}
         </Grid>
       </Grid>
@@ -108,7 +108,7 @@ const Products = () => {
             .map((product) => {
               return (
                 <Grid item key={product.name} >
-                  
+
                   <Card sx={{ maxWidth: 400, minWidth: 400, maxHeight: 450, minHeight: 450, padding: 2 }} >
                     <CardMedia
                       component="img"
@@ -118,7 +118,7 @@ const Products = () => {
                       sx={{ objectFit: "contain" }}
                     />
                     <CardContent>
-                      <Typography variant="h6" sx={{ textAlign: "center", textTransform: "capitalize" }}>{product.name}</Typography>
+                      <Typography sx={{ textAlign: "center", textTransform: "capitalize", fontSize: "18px" }}>{product.name}</Typography>
                       <Typography sx={{ textAlign: "center" }}><b>Price:</b>${product.price}</Typography>
                       <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>
                     </CardContent>

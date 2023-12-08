@@ -3,10 +3,7 @@ import { Typography, Paper, Button, Grid, Link, Tooltip, Stack } from "@mui/mate
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart, resetCart } from "../redux/cartSlice";
 import { useEffect } from "react";
-
-
 import GuestCartItem from "./GuestCartItem";
-
 import LoggedInCartItem from "./LoggedInCartItem";
 
 const Cart = () => {
@@ -14,7 +11,7 @@ const Cart = () => {
   const { items: guestCart, cartCheckedOut } = useSelector(state => state.cart)
 
   const dispatch = useDispatch();
-// this is for the guest checkout cart button
+  // this is for the guest checkout cart button
   useEffect(() => {// clean up function is when the component is unmounted 
     return () => {
       dispatch(resetCart())
@@ -47,11 +44,11 @@ const Cart = () => {
           )}
         </Grid>
         {/* success order message for guest cart */}
-        {cartCheckedOut &&  <Stack direction="row">
-                        <Typography sx={{ padding: 1, marginLeft: 3, marginTop: 2}} variant="h5">
-                            Thank you for shopping at Whisker World! Your order will ship soon!
-                        </Typography>
-                    </Stack>}
+        {cartCheckedOut && <Stack direction="row">
+          <Typography sx={{ padding: 1, marginLeft: 3, marginTop: 2 }} variant="h5">
+            Thank you for shopping at Whisker World! Your order will ship soon!
+          </Typography>
+        </Stack>}
         {!user && <Typography variant="h6" sx={{ padding: 2, marginLeft: 3.5 }}>
           Click here to <Link href="#" component={RouterLink} to="/">continue shopping</Link>
         </Typography>}

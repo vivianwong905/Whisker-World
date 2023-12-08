@@ -48,7 +48,7 @@ const UpdateProductForm = () => {
         e.preventDefault();
 
         //read data directly from state
-        console.log(id, { name: productName, detail, imageUrl, price, category });
+        // console.log(id, { name: productName, detail, imageUrl, price, category });
 
         if (!error) {
             updateCatProduct({ productId: id, product: { name: productName, detail, imageUrl, price, category } })
@@ -109,12 +109,12 @@ const UpdateProductForm = () => {
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
                         sx={{ margin: "8px 0" }}
-                        inputProps={{ maxLength: 41 ,style: { textTransform: 'capitalize' } }}
+                        inputProps={{ maxLength: 41, style: { textTransform: 'capitalize' } }}
                         helperText={
-                                        productName && productName.length > 40
-                                            ? <Alert severity="error"> Your new product name is too long </Alert>
-                                            : null
-                                    }
+                            productName && productName.length > 40
+                                ? <Alert severity="error"> Your new product name is too long </Alert>
+                                : null
+                        }
                     />
                     <TextField
                         label="Description"
@@ -173,7 +173,7 @@ const UpdateProductForm = () => {
                     action={action}
                 >
                     <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
-                    <AlertTitle>Success</AlertTitle>
+                        <AlertTitle>Success</AlertTitle>
                         Product Updated!
                     </Alert>
                 </Snackbar>

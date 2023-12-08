@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
 import { useGetSingleCatProductQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from '../redux/api';
