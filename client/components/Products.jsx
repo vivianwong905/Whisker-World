@@ -61,14 +61,14 @@ const Products = () => {
 
     <Box>
       <Paper sx={{ maxWidth: 250, marginLeft: 6, maxHeight: 100, marginTop: 2 }} >
-        <TextField
+        <TextField // search bar
           id="outlined-basic"
           variant="outlined"
           label="Search"
           placeholder="Search Products Here..."
           onChange={event => setSearchQuery(event.target.value)}
           sx={{ width: "100%" }}
-          helperText={
+          helperText={ // charecter limit
             searchQuery && searchQuery.length > 40
             ? <Alert severity="error"> Please limit your search to less than 40 characters </Alert>
             : null
@@ -84,18 +84,19 @@ const Products = () => {
         </Grid>
       </Grid>
       <Typography variant="h3" sx={{ marginLeft: 6, marginTop: 2, marginBottom: 2 }} >Cat Products</Typography>
-      {error && !products && (<p> Failed to load products from api</p>)}
+      {error && !products && (<Typography> Failed to load products from api</Typography>)}
       <Grid container spacing={4} sx={{ marginLeft: 2 }}>
         {products ? ( // sort the products in alphabetical order and then filter when the person is searching in the search bar
           products.slice().sort((a, b) => a.name.localeCompare(b.name))
             .filter(product => {
               if (searchQuery === '') {
                 return product
-              } else if (product.name.toLowerCase().includes(searchQuery.toLowerCase())) {
+                //this is the search bar what you can search for either the product name or category
+              } else if (product.name.toLowerCase().includes(searchQuery.toLowerCase()) || product.category.toLowerCase().includes(searchQuery.toLowerCase())) {
                 return product;
               }
             })
-            .filter(product => {
+            .filter(product => {// this is the filter checkbox or drop down menu
               if (category.length === 0) { // category is an array
                 return true //this means no filter, so show it 
               } else {
