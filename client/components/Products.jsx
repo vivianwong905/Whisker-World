@@ -108,7 +108,7 @@ const Products = () => {
             .map((product) => {
               return (
                 <Grid item key={product.name} >
-                  
+
                   <Card sx={{ maxWidth: 400, minWidth: 400, maxHeight: 450, minHeight: 450, padding: 2 }} >
                     <CardMedia
                       component="img"
@@ -118,7 +118,7 @@ const Products = () => {
                       sx={{ objectFit: "contain" }}
                     />
                     <CardContent>
-                      <Typography  sx={{ textAlign: "center", textTransform: "capitalize", fontSize: "18px" }}>{product.name}</Typography>
+                      <Typography sx={{ textAlign: "center", textTransform: "capitalize", fontSize: "18px" }}>{product.name}</Typography>
                       <Typography sx={{ textAlign: "center" }}><b>Price:</b>${product.price}</Typography>
                       <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>
                     </CardContent>

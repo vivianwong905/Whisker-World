@@ -52,7 +52,7 @@ const NewProductForm = () => {
         e.preventDefault();
 
         //read data directly from state
-        console.log({ name: productName, detail, imageUrl, price, category });
+        // console.log({ name: productName, detail, imageUrl, price, category });
 
         if (!error) {
             createCatProduct({ name: productName, detail, imageUrl, price, category })
@@ -99,96 +99,96 @@ const NewProductForm = () => {
     ];
 
     return (
-            <>
-                <Button variant="contained" onClick={handleDialogClickOpen}>
-                    Create New Product
-                </Button>
-                <Dialog open={openDialog} onClose={handleDialogClose}>
-                    <form className="form" method="post" onSubmit={handleSubmit}>
-                        <DialogTitle variant="h4">Add New Product</DialogTitle>
-                        {error && <p>{error}</p>}
-                        <DialogContent>
-                            <Stack direction="column" >
-                                <TextField
-                                    label="Name"
-                                    value={productName}
-                                    onChange={(e) => setProductName(e.target.value)}
-                                    sx={{ margin: "8px 0" }}
-                                    inputProps={{ maxLength: 41, style: { textTransform: 'capitalize' } }}
-                                    helperText={
-                                        productName && productName.length > 40
-                                            ? <Alert severity="error"> Your product name is too long </Alert>
-                                            : null
-                                    }
-                                />
-                                <TextField
-                                    label="Description"
-                                    value={detail}
-                                    onChange={(e) => setDetail(e.target.value)}
-                                    sx={{ margin: "8px 0" }}
-                                />
-                                <TextField
-                                    label="Price"
-                                    value={price}
-                                    onChange={(e) => setPrice(e.target.value)}
-                                    sx={{ margin: "8px 0" }}
-                                />
-                                <TextField
-                                    label="Category"
-                                    value={category}
-                                    onChange={(e) => setCategory(e.target.value)}
-                                    sx={{ margin: "8px 0" }}
-                                    select
-                                >
-                                    {categories.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                                <TextField
-                                    label="Image Url"
-                                    value={imageUrl}
-                                    onChange={(e) => setImageUrl(e.target.value)}
-                                    sx={{ margin: "8px 0" }}
-                                />
-                            </Stack>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button
-                                type="reset"
-                                onClick={resetForm}
-                                sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
-                                variant="contained"
-                                size="large"
+        <>
+            <Button variant="contained" onClick={handleDialogClickOpen}>
+                Create New Product
+            </Button>
+            <Dialog open={openDialog} onClose={handleDialogClose}>
+                <form className="form" method="post" onSubmit={handleSubmit}>
+                    <DialogTitle variant="h4">Add New Product</DialogTitle>
+                    {error && <p>{error}</p>}
+                    <DialogContent>
+                        <Stack direction="column" >
+                            <TextField
+                                label="Name"
+                                value={productName}
+                                onChange={(e) => setProductName(e.target.value)}
+                                sx={{ margin: "8px 0" }}
+                                inputProps={{ maxLength: 41, style: { textTransform: 'capitalize' } }}
+                                helperText={
+                                    productName && productName.length > 40
+                                        ? <Alert severity="error"> Your product name is too long </Alert>
+                                        : null
+                                }
+                            />
+                            <TextField
+                                label="Description"
+                                value={detail}
+                                onChange={(e) => setDetail(e.target.value)}
+                                sx={{ margin: "8px 0" }}
+                            />
+                            <TextField
+                                label="Price"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                sx={{ margin: "8px 0" }}
+                            />
+                            <TextField
+                                label="Category"
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                                sx={{ margin: "8px 0" }}
+                                select
                             >
-                                Reset
-                            </Button>
-                            <Button
-                                disabled={error || !productName || !price || !detail || !imageUrl || !category}
-                                type="submit"
-                                sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
-                                variant="contained"
-                                size="large"
-                                onClick={handleDialogClose}
-                            >
-                                Submit
-                            </Button>
-                            <Snackbar
-                                open={open}
-                                autoHideDuration={6000}
-                                onClose={handleClose}
-                                action={action}
-                            >
-                                <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
-                                    <AlertTitle>Success</AlertTitle>
-                                    Product Created!
-                                </Alert>
-                            </Snackbar>
-                        </DialogActions>
-                    </form>
-                </Dialog>
-            </>
+                                {categories.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <TextField
+                                label="Image Url"
+                                value={imageUrl}
+                                onChange={(e) => setImageUrl(e.target.value)}
+                                sx={{ margin: "8px 0" }}
+                            />
+                        </Stack>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            type="reset"
+                            onClick={resetForm}
+                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                            variant="contained"
+                            size="large"
+                        >
+                            Reset
+                        </Button>
+                        <Button
+                            disabled={error || !productName || !price || !detail || !imageUrl || !category}
+                            type="submit"
+                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                            variant="contained"
+                            size="large"
+                            onClick={handleDialogClose}
+                        >
+                            Submit
+                        </Button>
+                        <Snackbar
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                            action={action}
+                        >
+                            <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
+                                <AlertTitle>Success</AlertTitle>
+                                Product Created!
+                            </Alert>
+                        </Snackbar>
+                    </DialogActions>
+                </form>
+            </Dialog>
+        </>
     )
 }
 

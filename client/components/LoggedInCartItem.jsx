@@ -35,7 +35,7 @@ const LoggedInCartItem = () => {
     if (user && error) {
         return <Typography color="error">Error: {error.message}</Typography>;
     }
-   
+
     return (
         <>
             <Box sx={{ marginLeft: 4, }}>
@@ -74,11 +74,11 @@ const LoggedInCartItem = () => {
                         )}
                 </Grid>
                 {/* success order message */}
-                {checkoutCartData &&  <Stack direction="row">
-                        <Typography sx={{ padding: 1, marginTop: 2 }} variant="h5">
-                            Thank you for shopping at Whisker World! Your order will ship soon!
-                        </Typography>
-                    </Stack>}
+                {checkoutCartData && <Stack direction="row">
+                    <Typography sx={{ padding: 1, marginTop: 2 }} variant="h5">
+                        Thank you for shopping at Whisker World! Your order will ship soon!
+                    </Typography>
+                </Stack>}
                 <Typography variant="h6" sx={{ padding: 3, marginLeft: 3.5 }}>
                     Click here to <Link href="#" component={RouterLink} to="/">continue shopping</Link>
                 </Typography>

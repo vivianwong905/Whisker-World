@@ -19,7 +19,7 @@ const CheckoutCartButton = ({ cartId }) => {
     if (data) {
         return (
             <Stack direction="row">
-                <Typography sx={{ textAlign: "left", padding: 7,  }} variant="h5">
+                <Typography sx={{ textAlign: "left", padding: 7, }} variant="h5">
                     Thank you for shopping at Whisker World! Your order will ship soon!
                 </Typography>
             </Stack>
@@ -31,14 +31,14 @@ const CheckoutCartButton = ({ cartId }) => {
             <Button
                 onClick={onCheckout}
                 variant="contained"
-                sx={{ margin: 2, textAlign: "right", padding: 2, "&:hover":{bgcolor: "magenta", color:"white"}}}
+                sx={{ margin: 2, textAlign: "right", padding: 2, "&:hover": { bgcolor: "magenta", color: "white" } }}
             >
                 Check Out
             </Button>
         )
     }
 
-    
+
 }
 
 
