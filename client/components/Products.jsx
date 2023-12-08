@@ -75,8 +75,8 @@ const Products = () => {
           }
         />
       </Paper>
-      <Grid container spacing={4} sx={{ marginLeft: 2 }}>
-        <Grid item  >
+      <Grid container spacing={2} sx={{ marginLeft: 2 }}>
+        <Grid item >
           <Filters />
         </Grid>
         <Grid item >
@@ -109,6 +109,7 @@ const Products = () => {
             .map((product) => {
               return (
                 <Grid item key={product.name} >
+                  
                   <Card sx={{ maxWidth: 400, minWidth: 400, maxHeight: 450, minHeight: 450, padding: 2 }} >
                     <CardMedia
                       component="img"
