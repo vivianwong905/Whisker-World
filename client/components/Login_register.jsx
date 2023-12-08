@@ -148,7 +148,7 @@ const Login_register = () => {
                 >
                     {type === "login" ? "Log In" : "Register"}
                 </Button>
-                {token && type == "login" &&
+                {token && type === "login" &&
                     <Snackbar
                         open={open}
                         autoHideDuration={6000}
@@ -161,7 +161,7 @@ const Login_register = () => {
                         </Alert>
                     </Snackbar>
                 }
-                {token && type == "register" &&
+                {token && type === "register" &&
                     <Snackbar
                         open={open}
                         autoHideDuration={6000}
