@@ -128,7 +128,8 @@ const api = createApi({
                 method: "POST",
                 body: {username, password, name, cartItems}
             }),
-            invalidatesTags: ["Cart"]
+            invalidatesTags: ["Cart"],
+            transformErrorResponse: (response) => response.data
         }),
 
         // /auth/login mutation 
@@ -139,8 +140,10 @@ const api = createApi({
                 method: "POST",
                 body: {username, password, cartItems}
             }),
-            invalidatesTags: ["Cart"]
+            invalidatesTags: ["Cart"],
+            transformErrorResponse: (response) => response.data
         }),
+
 
         //curently logged in user query /auth/me
 

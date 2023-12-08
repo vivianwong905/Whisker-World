@@ -7,7 +7,7 @@ const authSlice = createSlice({
     initialState: {token: localStorage.getItem("token"), 
     user: JSON.parse(localStorage.getItem("user"))},
     reducers: {
-        logout: successfulLogout
+        logout: successfulLogout,
     },
 
     extraReducers: (builder) => {
