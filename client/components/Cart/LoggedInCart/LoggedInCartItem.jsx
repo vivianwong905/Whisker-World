@@ -1,8 +1,8 @@
 import { Typography, Box, Button, Grid, Card, CardMedia, CardContent, CardActions, Stack, Link, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom"
-import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../redux/api";
-import { useCheckoutCartMutation } from '../redux/api';
+import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../../../redux/api";
+import { useCheckoutCartMutation } from '../../../redux/api';
 
 const LoggedInCartItem = () => {
     const { user } = useSelector(state => state.auth);
@@ -45,7 +45,7 @@ const LoggedInCartItem = () => {
                         ? loggedInCart.cartItems.slice().sort((a, b) => a.product.name > b.product.name ? 1 : -1).map(cartItem => {
                             return (
                                 <Grid item key={cartItem.id}>
-                                    <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450 }} >
+                                    <Card sx={{ maxWidth: 350, minWidth: 350, maxHeight: 450, minHeight: 450, padding: 2 }} >
                                         <CardMedia
                                             component="img"
                                             alt={cartItem.product}
@@ -60,8 +60,8 @@ const LoggedInCartItem = () => {
                                         </CardContent>
                                         <CardActions sx={{ justifyContent: "center" }}>
                                             <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => deleteCartItemsInCart(cartItem.id)} > Remove Item </Button>
-                                            <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => handleIncrement(cartItem)} > + </Button>
                                             <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => handleDecrement(cartItem)} disabled={cartItem.quantity === 1}> - </Button>
+                                            <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => handleIncrement(cartItem)} > + </Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>)

@@ -9,7 +9,7 @@ import "@testing-library/jest-dom";
 import { screen, fireEvent } from '@testing-library/react';
 import {render} from '../../__tests__/utils';
 
-import SingleProduct from '../SingleProduct';
+import SingleProduct from '../Products/SingleProduct';
 
 import { singleProductHandlers } from '../../../mocks/serverMock';
 

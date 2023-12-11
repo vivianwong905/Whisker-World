@@ -3,7 +3,7 @@ import React from "react";
 //import useState from react
 import { useState } from "react";
 
-import { useUpdateCatProductMutation } from "../redux/api";
+import { useUpdateCatProductMutation } from "../../redux/api";
 import { useLocation, useNavigate } from "react-router-dom"
 
 import { Stack, Button, Paper, TextField, Typography, MenuItem, Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
@@ -151,7 +151,7 @@ const UpdateProductForm = () => {
                 <Button
                     type="reset"
                     onClick={resetForm}
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", ":hover": { bgcolor: "magenta", color: "white" } }}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", ":hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }}
                     variant="contained"
                     size="large"
                 >
@@ -160,7 +160,7 @@ const UpdateProductForm = () => {
                 <Button
                     disabled={error || state === null}
                     type="submit"
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", ":hover": { bgcolor: "magenta", color: "white" } }}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "50%", ":hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }}
                     variant="contained"
                     size="large"
                 >

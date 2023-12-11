@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
-import { useGetSingleCatProductQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from '../redux/api';
+import { useGetSingleCatProductQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from '../../redux/api';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from "../redux/cartSlice";
+import { addToCart } from "../../redux/cartSlice";
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -75,17 +75,17 @@ const SingleProduct = () => {
               sx={{ objectFit: "contain" }}
             />
             <CardContent>
-              <Typography variant="h5" sx={{ textAlign: "center", textTransform: "capitalize" }}>{product.name}</Typography>
+              <Typography variant="h5" sx={{ textAlign: "center", textTransform: "capitalize", margin: 1 }}>{product.name}</Typography>
               <Typography sx={{ textAlign: "center" }}><b>Description:</b> {product.detail}</Typography>
               <Typography sx={{ textAlign: "center" }}><b>Price:</b> ${product.price}</Typography>
               <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>
             </CardContent>
             <CardActions sx={{ justifyContent: "center" }}>
-              <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => navigate("/")} > Back </Button>
-              {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
-              {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
-              {!user && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => { dispatch(addToCart({ ...product })); handleClick() }}>Add to Cart</Button>}
-              {token && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => { createCartItemsInCart({ quantity: 1, productId: product.id }); handleClick() }}>Add to Cart</Button>}
+              <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold", maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => navigate("/")} > Back </Button>
+              {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold", maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
+              {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold", maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
+              {!user && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold", maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => { dispatch(addToCart({ ...product })); handleClick() }}>Add to Cart</Button>}
+              {token && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold", maxWidth: 100, minWidth: 100, maxHeight: 100, minHeight: 100 }} onClick={() => { createCartItemsInCart({ quantity: 1, productId: product.id }); handleClick() }}>Add to Cart</Button>}
               <Snackbar
                 open={open}
                 autoHideDuration={6000}

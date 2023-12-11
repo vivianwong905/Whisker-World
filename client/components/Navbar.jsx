@@ -54,7 +54,7 @@ const NavBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, padding: 1, fontSize: 40, justifyContent: "center", verticalAlign: "center" }}>
+          <Typography variant="h2"  sx={{ flexGrow: 1, padding: 1, justifyContent: "center", verticalAlign: "center", textAlign: "center" }}>
             <img id="cat-logo" src={catIcon} /> Whisker World
           </Typography>
           {token ?

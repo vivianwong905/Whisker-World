@@ -3,7 +3,7 @@ import React from "react";
 //import useState from react
 import { useState } from "react";
 
-import { useCreateCatProductMutation } from "../redux/api";
+import { useCreateCatProductMutation } from "../../redux/api";
 
 import { Stack, Button, Paper, TextField, Typography, MenuItem, Snackbar, IconButton, Alert, AlertTitle, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
@@ -100,7 +100,7 @@ const NewProductForm = () => {
 
     return (
         <>
-            <Button variant="contained" onClick={handleDialogClickOpen}>
+            <Button variant="contained" sx={{padding: 2, "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold"}}onClick={handleDialogClickOpen}>
                 Create New Product
             </Button>
             <Dialog open={openDialog} onClose={handleDialogClose}>
@@ -158,7 +158,7 @@ const NewProductForm = () => {
                         <Button
                             type="reset"
                             onClick={resetForm}
-                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }}
                             variant="contained"
                             size="large"
                         >
@@ -167,7 +167,7 @@ const NewProductForm = () => {
                         <Button
                             disabled={error || !productName || !price || !detail || !imageUrl || !category}
                             type="submit"
-                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }}
                             variant="contained"
                             size="large"
                             onClick={handleDialogClose}

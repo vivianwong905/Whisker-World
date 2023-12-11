@@ -8,7 +8,7 @@ import "@testing-library/jest-dom";
 
 import {render} from '../../__tests__/utils';
 
-import NewProductForm from '../NewProductForm';
+import NewProductForm from '../Admin/NewProductForm';
 
 
 describe("<NewProductForm />" , () => {

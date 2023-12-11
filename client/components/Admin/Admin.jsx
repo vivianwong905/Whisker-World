@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetAllUsersQuery } from "../redux/api";
+import { useGetAllUsersQuery } from "../../redux/api";
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';

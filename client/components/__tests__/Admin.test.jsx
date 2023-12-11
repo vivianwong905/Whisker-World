@@ -8,7 +8,7 @@ import "@testing-library/jest-dom";
 
 import {render} from '../../__tests__/utils';
 
-import Admin from '../Admin';
+import Admin from '../Admin/Admin';
 
 import { usersHandlers } from '../../../mocks/serverMock';
 

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Box, Checkbox, Slider, Typography, FormGroup, FormControlLabel, SwipeableDrawer, Button } from '@mui/material';
 import { useSelector, useDispatch } from "react-redux";
-import { setPriceFilter, setCategoryFilter } from "../redux/filterSlice";
+import { setPriceFilter, setCategoryFilter } from "../../redux/filterSlice";
 
 
 const Filters = () => {
@@ -34,7 +34,7 @@ const Filters = () => {
 
   return (
     <div>
-      <Button variant="contained" sx={{ marginTop: 1, "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => setIsDrawerOpen(true)}>Filter Products</Button>
+      <Button variant="contained" sx={{ padding: 2,marginTop: 0, "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }} onClick={() => setIsDrawerOpen(true)}>Filter Products</Button>
       <SwipeableDrawer
         anchor="right"
         open={isDrawerOpen}

@@ -1,10 +1,10 @@
 import { Link as RouterLink } from "react-router-dom"
 import { Typography, Paper, Button, Grid, Link, Tooltip, Stack } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { clearCart, resetCart } from "../redux/cartSlice";
+import { clearCart, resetCart } from "../../redux/cartSlice";
 import { useEffect } from "react";
-import GuestCartItem from "./GuestCartItem";
-import LoggedInCartItem from "./LoggedInCartItem";
+import GuestCartItem from "./GuestCart/GuestCartItem";
+import LoggedInCartItem from "./LoggedInCart/LoggedInCartItem";
 
 const Cart = () => {
   const { user } = useSelector(state => state.auth);
@@ -21,7 +21,7 @@ const Cart = () => {
   return (
     <>
       <Paper elevation={6}>
-        <Typography variant="h3" sx={{ marginLeft: 2, padding: 2 }} >Welcome to {user ? `${user.name}'s` : "the guest"} cart!</Typography>
+        <Typography variant="h3" sx={{ marginLeft: 2, padding: 2 }} >Welcome to your cart, {user ? `${user.name}` : " guest"}!</Typography>
         <Grid container spacing={4}>
           {user && <Grid item>
             <LoggedInCartItem />
