@@ -100,7 +100,7 @@ const NewProductForm = () => {
 
     return (
         <>
-            <Button variant="contained" sx={{padding: 2}}onClick={handleDialogClickOpen}>
+            <Button variant="contained" sx={{padding: 2, "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold"}}onClick={handleDialogClickOpen}>
                 Create New Product
             </Button>
             <Dialog open={openDialog} onClose={handleDialogClose}>
@@ -158,7 +158,7 @@ const NewProductForm = () => {
                         <Button
                             type="reset"
                             onClick={resetForm}
-                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }}
                             variant="contained"
                             size="large"
                         >
@@ -167,7 +167,7 @@ const NewProductForm = () => {
                         <Button
                             disabled={error || !productName || !price || !detail || !imageUrl || !category}
                             type="submit"
-                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                            sx={{ margin: "8px 0", justifyContent: "center", width: "50%", "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }}
                             variant="contained"
                             size="large"
                             onClick={handleDialogClose}

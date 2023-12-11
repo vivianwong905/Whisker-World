@@ -123,11 +123,11 @@ const Products = () => {
                       <Typography sx={{ textAlign: "center" }}><b>Category:</b> {product.category}</Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: "center" }}>
-                      <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => navigate("/" + product.id)}>Product Info</Button>
-                      {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
-                      {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
-                      {!user && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => { dispatch(addToCart({ ...product })); handleClick() }}>Add to Cart</Button>}
-                      {token && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => { createCartItemsInCart({ quantity: 1, productId: product.id }); handleClick() }}>Add to Cart</Button>}
+                      <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80, fontWeight: "bold" }} onClick={() => navigate("/" + product.id)}>Product Info</Button>
+                      {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80, fontWeight: "bold" }} onClick={() => deleteCatProduct(product.id)}>Delete Product</Button>}
+                      {user?.admin && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80, fontWeight: "bold" }} onClick={() => navigate("/admin", { state: product })}>Update Product</Button>}
+                      {!user && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80, fontWeight: "bold" }} onClick={() => { dispatch(addToCart({ ...product })); handleClick() }}>Add to Cart</Button>}
+                      {token && <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80, fontWeight: "bold" }} onClick={() => { createCartItemsInCart({ quantity: 1, productId: product.id }); handleClick() }}>Add to Cart</Button>}
                       <Snackbar
                         open={open}
                         autoHideDuration={6000}

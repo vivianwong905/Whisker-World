@@ -34,7 +34,7 @@ const Filters = () => {
 
   return (
     <div>
-      <Button variant="contained" sx={{ padding: 2,marginTop: 0, "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => setIsDrawerOpen(true)}>Filter Products</Button>
+      <Button variant="contained" sx={{ padding: 2,marginTop: 0, "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }} onClick={() => setIsDrawerOpen(true)}>Filter Products</Button>
       <SwipeableDrawer
         anchor="right"
         open={isDrawerOpen}

@@ -23,9 +23,9 @@ const GuestCartItem = ({ id, imageUrl, name, price, quantity }) => {
                     <Typography sx={{ textAlign: "center" }}><b>Quantity:</b>{quantity}</Typography>
                 </CardContent>
                 <CardActions sx={{ justifyContent: "center" }}>
-                    <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => dispatch(removeItem(id))} > Remove Item </Button>
-                    <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => dispatch(decrementQuantity(id))} disabled={quantity === 1}> - </Button>
-                    <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" } }} onClick={() => dispatch(incrementQuantity(id))} > + </Button>
+                    <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }} onClick={() => dispatch(removeItem(id))} > Remove Item </Button>
+                    <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }} onClick={() => dispatch(decrementQuantity(id))} disabled={quantity === 1}> - </Button>
+                    <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }} onClick={() => dispatch(incrementQuantity(id))} > + </Button>
                 </CardActions>
             </Card>
         </Paper>

@@ -106,7 +106,7 @@ const Login_register = () => {
                 <Button
                     type="reset"
                     onClick={resetForm}
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "15%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "15%", "&:hover": { bgcolor: "magenta", color: "black" } }}
                     variant="contained"
                     size="small"
                 >
@@ -164,7 +164,7 @@ const Login_register = () => {
                 {type === "login" && <Button
                     variant="contained"
                     size="large"
-                    sx={{ margin: "8px 0", width: "100%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                    sx={{ margin: "8px 0", width: "100%", "&:hover": { bgcolor: "magenta", color: "black" }, fontWeight: "bold" }}
                     type="submit"
                     disabled={!!error || isDisabled}
                 >
@@ -173,7 +173,7 @@ const Login_register = () => {
                 {type === "register" && <Button
                     variant="contained"
                     size="large"
-                    sx={{ margin: "8px 0", width: "100%", "&:hover": { bgcolor: "magenta", color: "white" }, bgcolor: "#02E2EB", color: "black" }}
+                    sx={{ margin: "8px 0", width: "100%", "&:hover": { bgcolor: "magenta", color: "black" },fontWeight: "bold", bgcolor: "#02E2EB", color: "black" }}
                     type="submit"
                     disabled={!!error || isDisabled}
                 >
