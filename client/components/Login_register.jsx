@@ -13,9 +13,9 @@ const Login_register = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [register, { isLoading: isRegisterLoading }] = useRegisterMutation();
-    const [login, {isLoading: isLoginLoading}] = useLoginMutation();
+    const [login, { isLoading: isLoginLoading }] = useLoginMutation();
     const { items: cartItems } = useSelector(state => state.cart)
-    const {token, user} = useSelector(state => state.auth);
+    const { token, user } = useSelector(state => state.auth);
 
     // form state
     const [type, setType] = useState("login");
@@ -24,7 +24,7 @@ const Login_register = () => {
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [error, setError] = useState("");
-    const [didSucceed, setDidSucceed] = useState (false)
+    const [didSucceed, setDidSucceed] = useState(false)
 
     // snack bar message
     const [open, setOpen] = useState(false);
@@ -41,7 +41,7 @@ const Login_register = () => {
     }
 
     const handleSubmit = async (event) => { //TODO SUNDAY OFFICE HOURS- figure out why the navigate no longer works on first button click...
-        event.preventDefault(); 
+        event.preventDefault();
 
         try {
             if (type === "register") {
@@ -52,10 +52,10 @@ const Login_register = () => {
                 //dispatch reset cart and items
                 dispatch(resetCartAndItems())
                 setOpen(true)
-             if (data?.token) { 
-                setDidSucceed(true)
-                setTimeout(() => navigate('/'), 2000);
-            } 
+                if (data?.token) {
+                    setDidSucceed(true)
+                    setTimeout(() => navigate('/'), 2000);
+                }
             }
 
             if (type === "login") {
@@ -66,12 +66,12 @@ const Login_register = () => {
                 //dispatch reset cart and items
                 dispatch(resetCartAndItems())
                 setOpen(true)
-                if (data?.token) { 
+                if (data?.token) {
                     setDidSucceed(true)
                     setTimeout(() => navigate('/'), 2000);
-                } }
-              // TODO SUNDAY :this works for register but not login.... you have to click the button twice
-            // on the login page to navigate back to products page. This was working before refactoring for error messages 
+                }
+            }
+
         } catch (error) {
             console.error("Error:", error.message);
             // Handle errors as needed
@@ -118,7 +118,7 @@ const Login_register = () => {
                         helperText={fullName && fullName.length > 25 ? 'Character limit is 25' : null}
                         error={!!(fullName && fullName.length > 25)}
                         inputProps={{ maxLength: 26 }}
-                        disabled= {isDisabled}
+                        disabled={isDisabled}
                     />}
                     <TextField
                         label="Username"
@@ -128,7 +128,7 @@ const Login_register = () => {
                         helperText={username && username.length > 25 ? 'Character limit is 25' : null}
                         error={!!(username && username.length > 25)}
                         inputProps={{ maxLength: 26 }}
-                        disabled= {isDisabled}
+                        disabled={isDisabled}
                     />
                     <TextField
                         label="Password"
@@ -138,8 +138,8 @@ const Login_register = () => {
                         type="password"
                         helperText={password && password.length > 25 ? 'Character limit is 25' : null}
                         error={!!(password && password.length > 25)}
-                        inputProps={{ maxLength: 26 }} 
-                        disabled= {isDisabled}/>
+                        inputProps={{ maxLength: 26 }}
+                        disabled={isDisabled} />
 
 
                     {type === "register" && <TextField
@@ -148,8 +148,8 @@ const Login_register = () => {
                         value={repeatPassword}
                         type="password"
                         error={!!(password && repeatPassword && password !== repeatPassword)}
-                        helperText={password && repeatPassword && password !== repeatPassword ? "Password must match" : null} 
-                        disabled= {isDisabled}/>}
+                        helperText={password && repeatPassword && password !== repeatPassword ? "Password must match" : null}
+                        disabled={isDisabled} />}
                 </Stack>
                 {error ? <Alert severity="error"> {error} </Alert> : null}
                 <Button
