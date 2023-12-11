@@ -8,7 +8,7 @@ import "@testing-library/jest-dom";
 
 import {render} from '../../__tests__/utils';
 
-import Cart from '../Cart';
+import Cart from '../Cart/Cart';
 
 import { cartHandlers } from '../../../mocks/serverMock';
 

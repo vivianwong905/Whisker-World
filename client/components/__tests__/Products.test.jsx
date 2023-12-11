@@ -8,7 +8,7 @@ import "@testing-library/jest-dom";
 
 import {render} from '../../__tests__/utils';
 
-import Products from '../Products';
+import Products from '../Products/Products';
 
 import { productsHandlers } from '../../../mocks/serverMock';
 

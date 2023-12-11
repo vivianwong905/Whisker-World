@@ -8,16 +8,16 @@ import "@testing-library/jest-dom";
 
 import {render, screen, fireEvent} from '../../__tests__/utils';
 
-import Login_register from '../Login_register';
+import AuthForm from '../Auth/AuthForm';
 
 
-describe("<Login_register />" , () => {4
+describe("<AuthForm />" , () => {4
     
-    it("renders the Login_register component", ()=>{
-        const login_register = render(
-                    <Login_register />
+    it("renders the AuthForm component", ()=>{
+        const authForm = render(
+                    <AuthForm />
         );
-        expect(login_register).not.toBe(null);
+        expect(authForm).not.toBe(null);
     });
 
     //  it("contains a page with the button and correct text", () => {

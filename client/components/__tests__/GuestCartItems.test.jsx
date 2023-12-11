@@ -8,7 +8,7 @@ import "@testing-library/jest-dom";
 
 import {render} from '../../__tests__/utils';
 
-import GuestCartItem from '../GuestCartItem';
+import GuestCartItem from '../Cart/GuestCart/GuestCartItem';
 
 
 describe("<GuestCartItem />" , () => {
