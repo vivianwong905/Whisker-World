@@ -21,7 +21,7 @@ const Cart = () => {
   return (
     <>
       <Paper elevation={6}>
-        <Typography variant="h3" sx={{ marginLeft: 2, padding: 2 }} >Welcome to {user ? `${user.name}'s` : "the guest"} cart!</Typography>
+        <Typography variant="h3" sx={{ marginLeft: 2, padding: 2 }} >Welcome to your cart, {user ? `${user.name}` : " guest"}!</Typography>
         <Grid container spacing={4}>
           {user && <Grid item>
             <LoggedInCartItem />

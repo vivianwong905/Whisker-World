@@ -232,7 +232,7 @@ const Login_register = () => {
                     variant="contained"
                     size="small"
                 >
-                    Reset
+                    Reset Form
                 </Button>
             </form>
         </Paper>

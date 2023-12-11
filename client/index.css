@@ -2,7 +2,7 @@
 /* Nav Bar */
 
 #cat-logo{
-    height: 2.2em;
+    height: 1.5em;
     align-content: center;
     justify-content: center;
 } 
@@ -13,7 +13,4 @@ body{
     background: linear-gradient(90deg, rgba(238, 42, 225, 0.706) 0%, rgba(29, 245, 253, 0.651) 74%);
 
     @media (max-width: 290px) {
-        
- 
-
  }}

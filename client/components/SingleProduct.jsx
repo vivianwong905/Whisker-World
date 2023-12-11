@@ -75,7 +75,7 @@ const SingleProduct = () => {
               sx={{ objectFit: "contain" }}
             />
             <CardContent>
-              <Typography variant="h5" sx={{ textAlign: "center", textTransform: "capitalize" }}>{product.name}</Typography>
+              <Typography variant="h5" sx={{ textAlign: "center", textTransform: "capitalize",margin:1 }}>{product.name}</Typography>
               <Typography sx={{ textAlign: "center" }}><b>Description:</b> {product.detail}</Typography>
               <Typography sx={{ textAlign: "center" }}><b>Price:</b> ${product.price}</Typography>
               <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>

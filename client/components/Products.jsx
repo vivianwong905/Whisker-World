@@ -64,7 +64,7 @@ const Products = () => {
           <Typography variant="h3" sx={{ marginTop: 2, marginBottom: 2, maxWidth: 300 }} >Cat Products</Typography>
         </Grid>
         <Grid item >
-          <Paper sx={{ maxWidth: 250, marginLeft: 6, maxHeight: 100, marginTop: 2 }} >
+          <Paper sx={{ maxWidth: 250, marginLeft: 6, maxHeight: 80, marginTop: 1.8 }} >
             <TextField // search bar
               id="outlined-basic"
               variant="outlined"
@@ -78,7 +78,7 @@ const Products = () => {
         <Grid item sx={{ marginTop: 2 }} >
           <Filters />
         </Grid>
-        <Grid item sx={{ marginTop: 3 }}  >
+        <Grid item sx={{ marginTop: 2 }}  >
           {user?.admin && <NewProductForm />}
         </Grid>
       </Grid>
@@ -118,9 +118,9 @@ const Products = () => {
                       sx={{ objectFit: "contain" }}
                     />
                     <CardContent>
-                      <Typography sx={{ textAlign: "center", textTransform: "capitalize", fontSize: "18px" }}>{product.name}</Typography>
-                      <Typography sx={{ textAlign: "center" }}><b>Price:</b>${product.price}</Typography>
-                      <Typography sx={{ textAlign: "center" }}><b>Category:</b>{product.category}</Typography>
+                      <Typography sx={{ textAlign: "center", textTransform: "capitalize", fontSize: "18px", margin: 1 }}>{product.name}</Typography>
+                      <Typography sx={{ textAlign: "center" }}><b>Price:</b> ${product.price}</Typography>
+                      <Typography sx={{ textAlign: "center" }}><b>Category:</b> {product.category}</Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: "center" }}>
                       <Button variant="contained" sx={{ "&:hover": { bgcolor: "magenta", color: "white" }, maxWidth: 80, minWidth: 80, maxHeight: 80, minHeight: 80 }} onClick={() => navigate("/" + product.id)}>Product Info</Button>
@@ -131,6 +131,7 @@ const Products = () => {
                       <Snackbar
                         open={open}
                         autoHideDuration={6000}
+
                         onClose={handleClose}
                         action={action}
                       >

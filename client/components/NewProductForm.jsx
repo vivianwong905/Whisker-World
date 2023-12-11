@@ -100,7 +100,7 @@ const NewProductForm = () => {
 
     return (
         <>
-            <Button variant="contained" onClick={handleDialogClickOpen}>
+            <Button variant="contained" sx={{padding: 2}}onClick={handleDialogClickOpen}>
                 Create New Product
             </Button>
             <Dialog open={openDialog} onClose={handleDialogClose}>
