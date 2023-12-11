@@ -3,7 +3,7 @@ import React from "react";
 //import useState from react
 import { useState } from "react";
 
-import { useCreateCatProductMutation } from "../redux/api";
+import { useCreateCatProductMutation } from "../../redux/api";
 
 import { Stack, Button, Paper, TextField, Typography, MenuItem, Snackbar, IconButton, Alert, AlertTitle, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';

@@ -1,8 +1,8 @@
 import { Typography, Box, Button, Grid, Card, CardMedia, CardContent, CardActions, Stack, Link, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom"
-import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../redux/api";
-import { useCheckoutCartMutation } from '../redux/api';
+import { useGetUsersCartQuery, useUpdateUsersCartMutation, useDeleteCartItemsInCartMutation } from "../../../redux/api";
+import { useCheckoutCartMutation } from '../../../redux/api';
 
 const LoggedInCartItem = () => {
     const { user } = useSelector(state => state.auth);

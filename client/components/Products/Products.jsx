@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useGetCatProductsQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from "../redux/api";
+import { useGetCatProductsQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from "../../redux/api";
 import React, { useState } from "react";
 import { Button, Box, Card, CardActions, CardContent, CardMedia, Typography, Grid, TextField, Paper, Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-import NewProductForm from "./NewProductForm";
+import NewProductForm from "../Admin/NewProductForm";
 import { useSelector, useDispatch } from "react-redux";
 import Filters from "./Filters";
-import { addToCart } from "../redux/cartSlice";
+import { addToCart } from "../../redux/cartSlice";
 
 
 const Products = () => {

@@ -1,7 +1,7 @@
 import { Typography, Paper, Button, Grid, Card, CardMedia, CardContent, CardActions } from "@mui/material";
 
 import React from "react"
-import { incrementQuantity, decrementQuantity, removeItem } from '../redux/cartSlice'
+import { incrementQuantity, decrementQuantity, removeItem } from '../../../redux/cartSlice'
 import { useDispatch } from "react-redux";
 
 const GuestCartItem = ({ id, imageUrl, name, price, quantity }) => {

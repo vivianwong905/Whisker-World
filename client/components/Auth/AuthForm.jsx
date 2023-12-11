@@ -3,13 +3,13 @@ import { useState } from "react";
 import { Stack, Button, Paper, TextField, Typography, Link, Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useLoginMutation, useRegisterMutation } from '../redux/api'
+import { useLoginMutation, useRegisterMutation } from '../../redux/api'
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { resetCartAndItems } from "../redux/cartSlice";
+import { resetCartAndItems } from "../../redux/cartSlice";
 
 
-const Login_register = () => {
+const AuthForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [register, { isLoading: isRegisterLoading }] = useRegisterMutation();
@@ -248,4 +248,4 @@ const Login_register = () => {
     );
 }
 
-export default Login_register;
+export default AuthForm;

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Box, Checkbox, Slider, Typography, FormGroup, FormControlLabel, SwipeableDrawer, Button } from '@mui/material';
 import { useSelector, useDispatch } from "react-redux";
-import { setPriceFilter, setCategoryFilter } from "../redux/filterSlice";
+import { setPriceFilter, setCategoryFilter } from "../../redux/filterSlice";
 
 
 const Filters = () => {

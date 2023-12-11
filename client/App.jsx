@@ -1,15 +1,16 @@
 
-import { Routes, Route, Link } from 'react-router-dom';
-import Login_register from './components/Login_register';
-import Cart from './components/Cart';
-import Products from './components/Products';
-import Admin from './components/Admin';
+import { Routes, Route } from 'react-router-dom';
+
+import Cart from './components/Cart/Cart';
+import Products from './components/Products/Products';
+import Admin from './components/Admin/Admin';
 import NavBar from './components/Navbar';
-import SingleProduct from './components/SingleProduct';
-import { useSelector } from 'react-redux'
+import SingleProduct from './components/Products/SingleProduct';
+// import { useSelector } from 'react-redux'
 
 import React from "react";
-import UpdateProductForm from './components/UpdateProductForm';
+import UpdateProductForm from './components/Admin/UpdateProductForm';
+import AuthForm from './components/Auth/AuthForm';
 
 function App() {
   // const token = useSelector(state => state.auth.token);
@@ -20,7 +21,7 @@ function App() {
         <div id="container">
           <div id="main-section">
             <Routes>
-              <Route path="/register" element={<Login_register />} />
+              <Route path="/register" element={<AuthForm />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/" element={<Products />} />
               <Route path="/:id" element={<SingleProduct />}/>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
-import { useGetSingleCatProductQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from '../redux/api';
+import { useGetSingleCatProductQuery, useDeleteCatProductMutation, useCreateCartItemsInCartMutation } from '../../redux/api';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from "../redux/cartSlice";
+import { addToCart } from "../../redux/cartSlice";
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';

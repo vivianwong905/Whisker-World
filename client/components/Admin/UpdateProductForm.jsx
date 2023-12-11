@@ -3,7 +3,7 @@ import React from "react";
 //import useState from react
 import { useState } from "react";
 
-import { useUpdateCatProductMutation } from "../redux/api";
+import { useUpdateCatProductMutation } from "../../redux/api";
 import { useLocation, useNavigate } from "react-router-dom"
 
 import { Stack, Button, Paper, TextField, Typography, MenuItem, Snackbar, IconButton, Alert, AlertTitle } from "@mui/material";
