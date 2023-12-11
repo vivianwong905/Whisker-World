@@ -12,8 +12,8 @@ import React from "react";
 import UpdateProductForm from './components/UpdateProductForm';
 
 function App() {
-  const token = useSelector(state => state.auth.token);
-  console.log("The Token is :", token)
+  // const token = useSelector(state => state.auth.token);
+  // console.log("The Token is :", token)
   return (
      <>
         <NavBar />
