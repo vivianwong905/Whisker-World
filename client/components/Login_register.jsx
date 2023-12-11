@@ -15,7 +15,7 @@ const Login_register = () => {
     const [register, { isLoading: isRegisterLoading }] = useRegisterMutation();
     const [login, { isLoading: isLoginLoading }] = useLoginMutation();
     const { items: cartItems } = useSelector(state => state.cart)
-    const { token, user } = useSelector(state => state.auth);
+    const { token } = useSelector(state => state.auth);
 
     // form state
     const [type, setType] = useState("login");
@@ -103,6 +103,15 @@ const Login_register = () => {
     return (
         <Paper elevation={6} sx={{ width: "50%", padding: 4, margin: "14px auto" }}>
             <form onSubmit={handleSubmit}>
+                <Button
+                    type="reset"
+                    onClick={resetForm}
+                    sx={{ margin: "8px 0", justifyContent: "center", width: "15%", "&:hover": { bgcolor: "magenta", color: "white" } }}
+                    variant="contained"
+                    size="small"
+                >
+                    Reset Form
+                </Button>
                 <Stack direction="column">
                     <Typography
                         variant="h5"
@@ -152,15 +161,24 @@ const Login_register = () => {
                         disabled={isDisabled} />}
                 </Stack>
                 {error ? <Alert severity="error"> {error} </Alert> : null}
-                <Button
+                {type === "login" && <Button
                     variant="contained"
                     size="large"
                     sx={{ margin: "8px 0", width: "100%", "&:hover": { bgcolor: "magenta", color: "white" } }}
                     type="submit"
                     disabled={!!error || isDisabled}
                 >
-                    {type === "login" ? "Log In" : "Register"}
-                </Button>
+                    Log In
+                </Button>}
+                {type === "register" && <Button
+                    variant="contained"
+                    size="large"
+                    sx={{ margin: "8px 0", width: "100%", "&:hover": { bgcolor: "magenta", color: "white" }, bgcolor: "#02E2EB", color: "black" }}
+                    type="submit"
+                    disabled={!!error || isDisabled}
+                >
+                    Register
+                </Button>}
                 {token && type === "login" &&
                     <Snackbar
                         open={open}
@@ -225,15 +243,6 @@ const Login_register = () => {
                                 Log In</Link>
                         </Typography>
                     )}
-                <Button
-                    type="reset"
-                    onClick={resetForm}
-                    sx={{ margin: "8px 0", justifyContent: "center", width: "10%", "&:hover": { bgcolor: "magenta", color: "white" } }}
-                    variant="contained"
-                    size="small"
-                >
-                    Reset Form
-                </Button>
             </form>
         </Paper>
     );
