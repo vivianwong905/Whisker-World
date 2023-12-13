@@ -17,12 +17,12 @@ describe('/auth', () => {
         jwt.verify.mockReset();
         bcrypt.hash.mockReset();
         bcrypt.compare.mockReset();
-    
+
     });
     describe('GET /auth', () => {
         it('returns list of all users', async () => { //needs to be an admin 
             const users = [
-                { id: 1, username: 'catscatscats', name: 'Cat Doe', password: 'password', admin: true  },
+                { id: 1, username: 'catscatscats', name: 'Cat Doe', password: 'password', admin: true },
                 { id: 2, username: 'dogsdogsdogs', name: 'Spike Doe', password: 'password' }
             ];
 
@@ -32,8 +32,8 @@ describe('/auth', () => {
 
             prismaMock.user.findMany.mockResolvedValue(users);
 
-            const response = await request(app).get('/auth').set('Authorization', 'Bearer '+ token);
-       
+            const response = await request(app).get('/auth').set('Authorization', 'Bearer ' + token);
+
             expect(response.body).toEqual(users);
             expect(response.body[0]).toEqual(users[0]);
             expect(response.body[1]).toEqual(users[1]);
@@ -47,72 +47,66 @@ describe('/auth', () => {
                 username: "candyPumpkin",
                 password: "password"
             }
-            
+
             const token = "123ghejghurea";
             jwt.verify.mockReturnValue(loggedInUser);
             prismaMock.user.findUnique.mockResolvedValue(loggedInUser);
-            
-            const response = await request(app).get('/auth/me').send(loggedInUser).set('Authorization', 'Bearer '+ token);
+
+            const response = await request(app).get('/auth/me').send(loggedInUser).set('Authorization', 'Bearer ' + token);
 
             expect(response.body).toEqual(loggedInUser);
         })
     });
 
     describe('POST /auth/register', () => {
-//         it('creates a new user and a token', async () => {
-//             const newUser = {
-//                 username: "SpiceGirls",
-//                 name: "Buffy",
-//                 password: "password",
-//             }
-//             const cartItems =  {
-//                                 quantity: 2,
-//                                 productId: 108,
-//                                 cartId: 2
-//                             }
+        it('creates a new user and a token', async () => {
+            const newUser = {
+                username: "SpiceGirls",
+                name: "Buffy",
+                password: "password",
+                cartItems: []
+            }
 
-//             const createdUser = {
-//                 id: "2",
-//                 ...newUser,
-//                 cart:{
-//                     connect:{
-//                         id: 2
-//                     }
-//                 }
-//             }
-//             const cart= {
-//                 id: 2,
-//                 user: createdUser,
-//                 cartItems: cartItems
-//             }
-//             const token = "123ghejghurea";
-//             const hashedPassword = "somehashedpassword";
 
-//             bcrypt.hash.mockResolvedValue(hashedPassword)
-//             prismaMock.cart.create.mockResolvedValue(cart)
-//             prismaMock.user.findUnique.mockResolvedValue(null)
+            const cart = {
+                id: 2,
+                user: createdUser,
+                cartItems: []
+            }
+            const createdUser = {
+                id: "2",
+                ...newUser,
+                cart
+            }
+            const token = "123ghejghurea";
+            const hashedPassword = "somehashedpassword";
 
-//             prismaMock.user.create.mockResolvedValue(createdUser);
-//             jwt.sign.mockReturnValue(token)
+            bcrypt.hash.mockResolvedValue(hashedPassword)
+            prismaMock.cart.create.mockResolvedValue(cart)
+            prismaMock.user.findUnique.mockResolvedValue(null)
 
-//             const response = await request(app).post('/auth/register').send(newUser);
-//    console.log(response.body)
-//             expect(response.status).toBe(201)
+            prismaMock.user.create.mockResolvedValue(createdUser);
+            jwt.sign.mockReturnValue(token)
 
-//             expect(response.body.user.username).toEqual(createdUser.username)
-//             expect(response.body.user.id).toEqual(createdUser.id)
+            const response = await request(app).post('/auth/register').send(newUser);
 
-//             // token was sent in the response
-//             expect(response.body.token).toEqual(token);
+            expect(response.status).toBe(201)
 
-//             // NO password was sent in the reponse
-//             expect(response.body.user.password).toBeUndefined();
+            expect(response.body.user.username).toEqual(createdUser.username)
+            expect(response.body.user.id).toEqual(createdUser.id)
+            expect(response.body.user.cart).toBeTruthy()
 
-//             expect(bcrypt.hash).toHaveBeenCalledTimes(1);
+            // token was sent in the response
+            expect(response.body.token).toEqual(token);
 
-//             expect(prismaMock.user.create).toHaveBeenCalledTimes(1);
+            // NO password was sent in the reponse
+            expect(response.body.user.password).toBeUndefined();
 
-//         })
+            expect(bcrypt.hash).toHaveBeenCalledTimes(1);
+
+            expect(prismaMock.user.create).toHaveBeenCalledTimes(1);
+
+        })
         it('does not create a user if user with that email already exists', async () => {
             const existingUser = {
                 username: 'testemail@testing.com'
@@ -145,7 +139,7 @@ describe('/auth', () => {
             }
 
             const response = await request(app).post('/auth/register').send(newUser);
-        
+
             expect(response.status).toEqual(500);
             expect(response.body.name).toEqual('MissingCredentialsError');
 
@@ -156,11 +150,11 @@ describe('/auth', () => {
 
         it('does not create a user if the password is missing', async () => {
             const newUser = {
-                username: "testemail@test.com",  
+                username: "testemail@test.com",
             }
 
             const response = await request(app).post('/auth/register').send(newUser);
-       
+
             expect(response.status).toEqual(500);
             expect(response.body.name).toEqual('MissingCredentialsError');
 
@@ -172,35 +166,54 @@ describe('/auth', () => {
 
     describe('POST /auth/login', () => {
 
-//         it('successfully logs in a token and returns a token for valid email and password', async () => {
-//             const loggedInUser = {
-//                 username: "candyPumpkin",
-//                 password: "password"
-//             }
-//             // mock prisma.user.findUnique returns a user
-//             prismaMock.user.findUnique.mockResolvedValue(loggedInUser);
-//             const hashedPassword = "somehashedpassword";
-//             const token = "testtoken";
-//             // mock that bcrypt.compare succeeded
-//             bcrypt.compare.mockResolvedValue(loggedInUser.password, hashedPassword)
-//             // mock that jwt.sign returns the token
-//             jwt.sign.mockReturnValue(token)
-//             // test that the user and token are returned
-//             const response = await request(app).post('/auth/login').send(loggedInUser);
-// console.log(response.body)
-//             expect(response.body.user.username).toEqual(loggedInUser.username)
+        it('successfully logs in a token and returns a token for valid email and password', async () => {
+            const loggedInUser = {
+                username: "candyPumpkin",
+                password: "password",
+                cartItems: []
+            }
+            const existingUser = {
+                ...loggedInUser,
+                cart: {
+                    cartItems: [
+                        {
+                            quantity: 1,
+                            product: {
+                                id: 1,
+                                name: "cats are cool",
+                                detail: "here are all the cool cats",
+                                price: 10,
+                                imageUrl: "www.image.com"
+                            }
+                        }
+                    ]
+                }
+            }
+            // mock prisma.user.findUnique returns a user
+            prismaMock.user.findUnique.mockResolvedValue(existingUser);
+            const hashedPassword = "somehashedpassword";
+            const token = "testtoken";
+            // mock that bcrypt.compare succeeded
+            bcrypt.compare.mockResolvedValue(loggedInUser.password, hashedPassword)
+            // mock that jwt.sign returns the token
+            jwt.sign.mockReturnValue(token)
+            // test that the user and token are returned
+            const response = await request(app).post('/auth/login').send(loggedInUser);
 
-//             // token was sent in the response
-//             expect(response.body.token).toEqual(token);
+            expect(response.body.user.username).toEqual(loggedInUser.username)
+            expect(response.body.user.cart).toBeTruthy()
+            expect(response.body.user.cart.cartItems.length).toBe(1)
+            // token was sent in the response
+            expect(response.body.token).toEqual(token);
 
-//             // NO password was sent in the reponse
-//             expect(response.body.password).toBeUndefined();
+            // NO password was sent in the reponse
+            expect(response.body.password).toBeUndefined();
 
-//             expect(bcrypt.compare).toHaveBeenCalledTimes(1);
+            expect(bcrypt.compare).toHaveBeenCalledTimes(1);
 
-//             expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
+            expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
 
-//         });
+        });
 
         it('does not log in user if the email is missing', async () => {
             const newUser = {
@@ -234,14 +247,14 @@ describe('/auth', () => {
 
         it('does not log in a user with the wrong password', async () => {
             // mock bcrypt.compare
-           
+
             const incorrectPassword = {
                 username: "testemail@test.com",
                 password: "incorrect"
             }
             // mock prisma.user.findUnique returns a user
             prismaMock.user.findUnique.mockResolvedValue(incorrectPassword);
-        
+
             // mock that bcrypt.compare failed
             bcrypt.compare.mockResolvedValue(false)
 

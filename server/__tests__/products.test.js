@@ -30,19 +30,6 @@ describe('/api/posts', () => {
             expect(prismaMock.product.findMany).toHaveBeenCalledTimes(1);
         })
 
-        // it('should handle an error', async () => {
-        //     const mockErrorMessage = "error getting the products";
-
-        //     prismaMock.product.findMany.mockRejectedValue(new Error(mockErrorMessage));
-
-        //     const response = await request(app)
-        //     .get('/api/products')
-          
-        //     console.log(response.body)
-        //     expect(response.body).toEqual(mockErrorMessage);
-        //     expect(prismaMock.product.findMany).toHaveBeenCalledTimes(1);
-
-        // })
     });
 
     describe('GET /api/products/:id', () => {
@@ -58,17 +45,6 @@ describe('/api/posts', () => {
             expect(prismaMock.product.findUnique).toHaveBeenCalledTimes(1);
         })
 
-        // it('should handle an error', async () => {
-        //     const mockErrorMessage = "Error occured during get single product";
-
-        //     prismaMock.product.findUnique.mockRejectedValue(new Error(mockErrorMessage));
-
-        //     const response = await request(app).get('/api/products/1')
-
-        //     expect(response.body).toEqual(mockErrorMessage);
-        //     expect(prismaMock.product.findUnique).toHaveBeenCalledTimes(1);
-
-        // })
     })
 
     describe('POST /api/products', () => {
@@ -98,20 +74,20 @@ describe('/api/posts', () => {
             expect(prismaMock.product.create).toHaveBeenCalledTimes(1);
         })
 
-        // it('should handle if user is not an admin', async () => {
-        //     const mockErrorMessage = "You must be an admin to preform this action"
+        it('should handle if user is not an admin', async () => {
+            const mockErrorMessage = "You must be an admin to preform this action"
 
-        //     const user = {id: 2, admin: false} 
-        //     jwt.verify.mockReturnValue(user)
-        //     prismaMock.user.findUnique.mockResolvedValue(false);
+            const user = {id: 2, admin: false} 
+            jwt.verify.mockReturnValue(user)
+            prismaMock.user.findUnique.mockResolvedValue(user);
 
-        //     prismaMock.product.create.mockRejectedValue(new Error(mockErrorMessage));
+            prismaMock.product.create.mockRejectedValue(new Error(mockErrorMessage));
 
-        //     const response = await request(app).post('/api/products').set('Authorization', 'Bearer testToken')
+            const response = await request(app).post('/api/products').set('Authorization', 'Bearer testToken')
 
-        //     expect(response.body.message).toEqual(mockErrorMessage);
-        //     expect(prismaMock.product.create).toHaveBeenCalledTimes(0);
-        // })
+            expect(response.body.message).toEqual(mockErrorMessage);
+            expect(prismaMock.product.create).toHaveBeenCalledTimes(0);
+        })
 
         it('should handle if user not logged in', async () => {
             const mockErrorMessage = "You must be logged in to preform this action"
@@ -168,20 +144,20 @@ describe('/api/posts', () => {
 
         })
 
-             // it('should handle if user is not an admin', async () => {
-        //     const mockErrorMessage = "You must be an admin to preform this action"
+             it('should handle if user is not an admin', async () => {
+            const mockErrorMessage = "You must be an admin to preform this action"
 
-        //     const user = {id: 2, admin: false} 
-        //     jwt.verify.mockReturnValue(user)
-        //     prismaMock.user.findUnique.mockResolvedValue(false);
+            const user = {id: 2, admin: false} 
+            jwt.verify.mockReturnValue(user)
+            prismaMock.user.findUnique.mockResolvedValue(user);
 
-        //     prismaMock.product.update.mockRejectedValue(new Error(mockErrorMessage));
+            prismaMock.product.update.mockRejectedValue(new Error(mockErrorMessage));
 
-        //     const response = await request(app).post('/api/products/1').set('Authorization', 'Bearer testToken')
+            const response = await request(app).put('/api/products/1').set('Authorization', 'Bearer testToken')
 
-        //     expect(response.body.message).toEqual(mockErrorMessage);
-        //     expect(prismaMock.product.update).toHaveBeenCalledTimes(0);
-        // })
+            expect(response.body.message).toEqual(mockErrorMessage);
+            expect(prismaMock.product.update).toHaveBeenCalledTimes(0);
+        })
        
 
         it('should handle user not be logged in', async () => {
@@ -227,20 +203,20 @@ describe('/api/posts', () => {
 
         })
 
-             // it('should handle if user is not an admin', async () => {
-        //     const mockErrorMessage = "You must be an admin to preform this action"
+             it('should handle if user is not an admin', async () => {
+            const mockErrorMessage = "You must be an admin to preform this action"
 
-        //     const user = {id: 2, admin: false} 
-        //     jwt.verify.mockReturnValue(user)
-        //     prismaMock.user.findUnique.mockResolvedValue(false);
+            const user = {id: 2, admin: false} 
+            jwt.verify.mockReturnValue(user)
+            prismaMock.user.findUnique.mockResolvedValue(user);
 
-        //     prismaMock.product.delete.mockRejectedValue(new Error(mockErrorMessage));
+            prismaMock.product.delete.mockRejectedValue(new Error(mockErrorMessage));
 
-        //     const response = await request(app).post('/api/products/1').set('Authorization', 'Bearer testToken')
+            const response = await request(app).delete('/api/products/1').set('Authorization', 'Bearer testToken')
 
-        //     expect(response.body.message).toEqual(mockErrorMessage);
-        //     expect(prismaMock.product.delete).toHaveBeenCalledTimes(0);
-        // })
+            expect(response.body.message).toEqual(mockErrorMessage);
+            expect(prismaMock.product.delete).toHaveBeenCalledTimes(0);
+        })
 
         it('should handle the user not be logged in', async () => {
             const mockErrorMessage = "You must be logged in to preform this action"
