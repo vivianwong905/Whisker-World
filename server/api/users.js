@@ -58,7 +58,7 @@ usersRouter.post("/me/cart/items", requireUser, async (req, res, next) => {
                 }
             }
         });
-        console.log(cartItem)
+     
         res.send(cartItem.cart);
     } catch (error) {
         console.error(error)

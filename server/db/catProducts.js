@@ -102,7 +102,7 @@ const catProducts =[
             "name":"Rabbit Treat",
             "detail":"Rabbit reats are extra tastey!",
             "price":5,
-            "category":"Food",            
+            "category":"Treat",            
             "imageUrl":"https://tikipets.com/wp-content/uploads/2018/09/Tiki-Cat-Crunchy-Treats.png"
         },
       {  
@@ -249,7 +249,7 @@ const catProducts =[
             "name":"Deluxe Rabbit Treat",
             "detail":"Rabbit reats are extra tastey!",
             "price":10,
-            "category":"Food",
+            "category":"Treat",
             "imageUrl":"https://tikipets.com/wp-content/uploads/2018/09/Tiki-Cat-Crunchy-Treats.png"
         },
         {
@@ -396,7 +396,7 @@ const catProducts =[
             "name":"Super Deluxe Rabbit Treat",
             "detail":"Rabbit reats are extra tastey!",
             "price":20,
-            "category":"Food",
+            "category":"Treat",
             "imageUrl":"https://tikipets.com/wp-content/uploads/2018/09/Tiki-Cat-Crunchy-Treats.png"
         },
       {  
