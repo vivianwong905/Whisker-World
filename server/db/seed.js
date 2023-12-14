@@ -55,7 +55,26 @@ async function seed() {
       }
       )
     );
-
+    const hashedAdminPassword= await bcrypt.hash("adminPassword",SALT_ROUNDS)
+    const WhiskerAdmin = await prisma.cart.create({
+      data:{
+        user: {
+          create: {
+            username: "WhiskerWorldAdmin",
+            password: hashedAdminPassword,
+            name: "Admin",
+            admin: true,
+          }
+        },
+        cartItems: {
+          create: [
+            { quantity: 5, product: { connect: { id: catProduct[0].id } } },
+            { quantity: 4, product: { connect: { id: catProduct[1].id } } },
+            { quantity: 3, product: { connect: { id: catProduct[2].id } } }
+          ]
+        }
+      }
+    })
     //create cart without users so we can use it for guest checkout
     await Promise.all(
       [...Array(5)].map((_, i) =>
