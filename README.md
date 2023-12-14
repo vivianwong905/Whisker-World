@@ -2,8 +2,8 @@
 
 ## Table of Contents
 * [Deployed Site](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#link-to-our-deployed-site)
-* [Description](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#what-is-whisker-world)
 * [Credits](https://github.com/meganm672/Whisker-World#credits)
+* [Description](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#what-is-whisker-world)
 * [Key Features](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#key-features)
 * [Technologies](https://github.com/meganm672/Whisker-World#some-technologies-used)
 * [Installation](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#react--express)
