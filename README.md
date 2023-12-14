@@ -1,7 +1,29 @@
 # Whisker World!
+## Table of Contents
+[Deployed Site](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#link-to-our-deployed-site)
+[Description](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#what-is-whisker-world)
+[Key Features](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#key-features)
+[Technologies](link)
+[Installation](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#react--express)
+[Seed](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#seed-the-database)
+[Build](link)
+[Start](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#starting-the-app)
+[Test](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#running-tests)
+[Admin Profile](link)
+[File Structure](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#basic-file-structure)
+[Client](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#client-files)
+[Additional Files](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#additional-files)
+[Server](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#server-files)
 
 ## Link to our deployed site:
 https://whisker-world.onrender.com/
+
+![Alt text](image/WhiskerWorldHome.png)
+
+## Credits
+Toni Fiani - https://github.com/Tfia731
+Vivian Wong- https://github.com/vivianwong905
+Megan Murphy-Marxen- https://github.com/meganm672
 
 ## What is Whisker World?
 
@@ -17,29 +39,54 @@ Whisker World is an e-commerce site that was designed as a one stop shop for cat
 5. The capability to login and register with user data saved on the backend.
 6. Admin can easily create/add/change/delete items as an admin.
 
-## React + Express
+### Some Technologies Used
+
+* React
+* React Router Dom
+* React Redux
+* Redux ToolKit
+* Redux Persist
+* Material UI
+* Express/ Node JS
+* Prisma
+* PostgresSQL
+* Jest
+
+## Installation
 
 Getting Started
 
-1. Make a new repository using this template
-2. Add your teammates as collaborators on the repository
-3. Clone your repository locally
-4. Run `npm install` to install all the dependencies
-5. Setup your `.env` file locally - you can use the `.env.example` as a guideline. In particular, you will need to setup `PORT` and `DATABASE_URL` environment variables. But you may as well at a `JWT_SECRET` while you're in there.
-6. Run `npm run dev` to run locally
+1. Clone your repository locally
+2. Run `npm install` to install all the dependencies
+3. Setup your `.env` file locally - you can use the `.env.example` as a guideline. In particular, you will need to setup `PORT` and `DATABASE_URL` environment variables. But you may as well at a `JWT_SECRET` while you're in there.
+4. Run `npm run dev` to run locally
 
+### Seed the Database
+
+This will run the `server/db/seed.js` file:
+```
+npm run seed
+```
+
+### Run the Build
+
+To build the front-end of the application, run the following command:
+
+```
+npm run build
+```
 
 ### Starting the App
 
 Start the server (great while only working on API endpoints)
 ```
-npm run server:dev
+npm run dev
 ```
 
 For starting the full-stack application - the server will restart whenever changes are made in the `server` directory, and the React app will rebuild whenever changes are made in the `client` directory.
 
 ```
-npm run dev
+npm run start
 ```
 
 ### Running Tests
@@ -59,23 +106,12 @@ Or if you want Jest to continually run all tests when files change:
 npm run test -- --watchAll
 ```
 
-### Seed the Database
 
-This will run the `server/db/seed.js` file:
-```
-npm run seed
-```
-
-### Deploying the App
-
-You will need to create a Database in your hosting provider of choice (Render or Heroku both work well, but only Render is free).
-
-Once you have a Database URL setup, you will need to setup your Environment Variables to include your Database URL, as well as any other app secrets needed (eg. JWT secret, Client ID and Secret for OAuth, etc)
-
-Whichever provider you use, you will need to set the following settings:
-
-**Build Command:** `npm install && npm run seed && npm run build`
-**Start Command:** `npm start`
+## Admin Profile Info
+To access the site in admin view enter the following username and password:
+* Name : Admin
+* Username : WhiskerWorldAdmin
+* Password : adminPassword
 
 ## Basic File Structure
 ```
@@ -87,10 +123,12 @@ Whichever provider you use, you will need to set the following settings:
 ├── node_modules (ignored by git)
 ├── prisma/
 ├── server/
+├── .env
 ├── .gitignore
 ├── babel.config.js
 ├── index.html
 ├── jest.config.js
+├── jest.pollyfills.js
 ├── package.json
 ├── README.md
 └── vite.config.js
@@ -191,11 +229,4 @@ Whichever provider you use, you will need to set the following settings:
 │   └── index.js (start the app)
 
 ```
-├── .gitignore
-├── babel.config.js
-├── index.html
-├── jest.config.js
-├── jest.pollyfills.js
-├── package-lock.json
-├── package.json
-├── vite.config.js
+
