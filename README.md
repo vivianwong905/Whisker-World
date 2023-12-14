@@ -1,12 +1,25 @@
-# Deployed Site!
+# Whisker World!
 
+## Link to our deployed site:
 https://whisker-world.onrender.com/
 
+## What is Whisker World?
 
+Whisker World is an e-commerce site that was designed as a one stop shop for cat owners. We chose to cater specifically to the needs of cats so it can be a more intimate shopping experience for the user. With a limited number of products we are focused on meeting your needs as you search for the PURRRRRRR-fect items. Sifting through products on other websites can be a daunting task and we look to solve that problem. Your time is precious and the longer you spend looking at your device the less time you have with your best FUR-iend!
 
-# React + Express Boilerplate
+### Key Features
 
-## Getting Started
+1. Persistent Cart.
+2. Backend Sorting and Filtering for better User Experience.
+3. Frontend Sorting by Price and Category for precision.
+4. Colorful design that is visually appealing while not being overwhelming or unclear.
+5. User feedback in the form of snack bar "Success!" messages and color changing on hover buttons.
+5. The capability to login and register with user data saved on the backend.
+6. Admin can easily create/add/change/delete items as an admin.
+
+## React + Express
+
+Getting Started
 
 1. Make a new repository using this template
 2. Add your teammates as collaborators on the repository
@@ -18,7 +31,7 @@ https://whisker-world.onrender.com/
 
 ### Starting the App
 
-Start just the server (great while only working on API endpoints)
+Start the server (great while only working on API endpoints)
 ```
 npm run server:dev
 ```
@@ -69,11 +82,13 @@ Whichever provider you use, you will need to set the following settings:
 .
 ├── client/
 ├── dist (ignored by git)
+├── image
 ├── mocks/
 ├── node_modules (ignored by git)
 ├── prisma/
 ├── server/
 ├── .gitignore
+├── babel.config.js
 ├── index.html
 ├── jest.config.js
 ├── package.json
@@ -88,48 +103,99 @@ Whichever provider you use, you will need to set the following settings:
 ├── client/
 │   ├── components/
 │   │   ├── __tests__/
-│   │   │   └── MyComponent.test.js
-│   │   ├── MyComponent.jsx
-│   │   ├── ... (etc, with as many nested folders as needed to keep organized)
-│   │   └── profile/
-│   │       ├── Profile.jsx
-│   │       ├── ProfileImage.jsx
-│   │       └── ProfileHeader.jsx
-│   ├── app/
-│   │   └── store.js
-│   ├── features/
+│   │   │   └── Admin.test.jsx
+│   │   │   └── Cart.test.jsx
+│   │   │   └── Filters.test.jsx
+│   │   │   └── GuestCartItems.test.jsx
+│   │   │   └── LoggedInCartItem.test.jsx
+│   │   │   └── AuthForm.test.jsx
+│   │   │   └── NavBar.test.jsx
+│   │   │   └── NewProductForm.test.jsx
+│   │   │   └── Products.test.jsx
+│   │   │   └── SingleProduct.test.jsx
+│   │   │   └── UpdateProductForm.test.jsx
+│   │   ├── Admin
+│   │   |   ├── Admin.jsx
+│   │   |   ├── NewProoductForm.jsx
+│   │   |   └── UpdateProductForm.jsx
+│   │   ├── Auth
+│   │   |   ├── AuthForm.jsx
+│   │   ├── Cart
+│   │   |   ├── GuestCart
+│   │   │   |       └── GuestCartItem.jsx
+│   │   |   ├── LoggedInCart
+│   │   │   |       └── LoggedInCartItem.jsx
+│   │   |   └── Cart.jsx
+│   │   ├── Products
+│   │   |   ├── Filters.jsx
+│   │   |   ├── Products.jsx
+│   │   |   └── SingleProduct.jsx
+│   │   └── NavBar.jsx
+│   ├── redux
+│   │    └── api.js
+│   │    └── authSlice.js
+│   │    └── cartSlice.js
+│   │    └── filterSlice.js
+│   │    └── store.js
+│   └── App.jsx
+│   └── index.css
+│   └── main.jsx
+│   └── theme.jsx
+
+
+```
+
+### Additional Files
+
+```
+
+├── image/
+│   ├── catIcon.png
+├── mocks
+│   ├── fileMock.js
+│   ├── prismaMock.js
+│   ├── serverMock.js
 │   │   ├── api/
 │   │   │   └── apiSlice.js
 │   │   ├── auth/
 │   │   │   └── authSlice.js
 │   │   └── counter/
 │   │       └── counterSlice.js
-│   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
+
 ```
 
 ### Server Files
 
 ```
-.
+├── prisma/
+│   ├── migrations
+│   └── schema.prisma
 ├── server/
 │   ├── __tests__/
-│   │   └── app.test.js
+│   │   └── auth.test.js
+│   │   └── products.test.js
+│   │   └── userCart.test.js
 │   ├── api/
-│   │   ├── __tests__/
-│   │   │   └── user.test.js
+│   │   ├── checkout.js
 │   │   ├── index.js
-│   │   ├── user.js
-│   │   └── // ... (etc, with nested folders for sub-routes as needed to keep organized)
+│   │   ├── products.js
+│   │   └── users.js
 │   ├── auth/
-│   │   ├── __tests__/
-│   │   │   └── auth.test.js
-│   │   └── index.js (used for authenticating with your app)
+│   │   ├── index.js
+│   │   └── middleware.js
 │   ├── db/
+│   │   ├── catProducts.js
 │   │   ├── client.js
-│   │   ├── seed.js
-│   │   └── // ... (optionally, add files / sub-folders with helper methods for accessing the DB with Prisma)
+│   │   └── seed.js
 │   ├── app.js (configure the app)
 │   └── index.js (start the app)
+
 ```
+├── .gitignore
+├── babel.config.js
+├── index.html
+├── jest.config.js
+├── jest.pollyfills.js
+├── package-lock.json
+├── package.json
+├── vite.config.js
