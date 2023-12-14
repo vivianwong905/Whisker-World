@@ -1,19 +1,21 @@
 # Whisker World!
+
 ## Table of Contents
-[Deployed Site](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#link-to-our-deployed-site)
-[Description](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#what-is-whisker-world)
-[Key Features](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#key-features)
-[Technologies](link)
-[Installation](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#react--express)
-[Seed](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#seed-the-database)
-[Build](link)
-[Start](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#starting-the-app)
-[Test](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#running-tests)
-[Admin Profile](link)
-[File Structure](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#basic-file-structure)
-[Client](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#client-files)
-[Additional Files](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#additional-files)
-[Server](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#server-files)
+* [Deployed Site](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#link-to-our-deployed-site)
+* [Description](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#what-is-whisker-world)
+* [Credits](https://github.com/meganm672/Whisker-World#credits)
+* [Key Features](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#key-features)
+* [Technologies](https://github.com/meganm672/Whisker-World#some-technologies-used)
+* [Installation](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#react--express)
+* [Seed](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#seed-the-database)
+* [Build](https://github.com/meganm672/Whisker-World#run-the-build)
+* [Start](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#starting-the-app)
+* [Test](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#running-tests)
+* [Admin Profile](https://github.com/meganm672/Whisker-World#admin-profile-info)
+* [File Structure](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#basic-file-structure)
+* [Client Files](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#client-files)
+* [Additional Files](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#additional-files)
+* [Server Files](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#server-files)
 
 ## Link to our deployed site:
 https://whisker-world.onrender.com/
@@ -21,9 +23,9 @@ https://whisker-world.onrender.com/
 ![Alt text](image/WhiskerWorldHome.png)
 
 ## Credits
-Toni Fiani - https://github.com/Tfia731
-Vivian Wong- https://github.com/vivianwong905
-Megan Murphy-Marxen- https://github.com/meganm672
+* Toni Fiani - https://github.com/Tfia731
+* Vivian Wong- https://github.com/vivianwong905
+* Megan Murphy-Marxen- https://github.com/meganm672
 
 ## What is Whisker World?
 
@@ -112,6 +114,8 @@ To access the site in admin view enter the following username and password:
 * Name : Admin
 * Username : WhiskerWorldAdmin
 * Password : adminPassword
+
+[Back To Top](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#whisker-world) 
 
 ## Basic File Structure
 ```
@@ -229,4 +233,4 @@ To access the site in admin view enter the following username and password:
 │   └── index.js (start the app)
 
 ```
-
+[Back To Top](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#whisker-world)
