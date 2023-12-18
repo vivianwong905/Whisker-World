@@ -7,6 +7,7 @@
 * [Key Features](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#key-features)
 * [Technologies](https://github.com/meganm672/Whisker-World#some-technologies-used)
 * [Installation](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#react--express)
+* [Database](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#initialize-the-database)
 * [Seed](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#seed-the-database)
 * [Build](https://github.com/meganm672/Whisker-World#run-the-build)
 * [Start](https://github.com/meganm672/Whisker-World?tab=readme-ov-file#starting-the-app)
@@ -62,6 +63,18 @@ Getting Started
 2. Run `npm install` to install all the dependencies
 3. Setup your `.env` file locally - you can use the `.env.example` as a guideline. In particular, you will need to setup `PORT` and `DATABASE_URL` environment variables. But you may as well at a `JWT_SECRET` while you're in there.
 4. Run `npm run dev` to run locally
+
+### Initialize the Database
+Run the following command lines to add prisma and initialize the database:
+```
+npm inti -y
+```
+```
+npm install prisma --save-dev
+```
+```
+npx prisma migrate dev --name init
+```
 
 ### Seed the Database
 
